@@ -155,7 +155,7 @@ export function Work() {
         {/* LEFT — Interactive MP3 Player Panel */}
         <div className="order-2 md:order-1 flex items-center justify-center min-h-[820px] w-full relative">
           
-          <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[480px] h-[820px] flex flex-col p-6 shadow-2xl relative">
+          <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[540px] h-[820px] flex flex-col p-6 shadow-2xl relative">
             
             {/* MP3 Player Screen */}
             <div className="w-full h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0">
