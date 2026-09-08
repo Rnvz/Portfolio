@@ -146,14 +146,14 @@ export function Work() {
               <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none z-20"></div>
               
               {/* Status Bar */}
-              <div className="flex justify-between items-center px-5 py-3 text-[9px] text-[var(--text-dim)] font-mono uppercase shrink-0 relative z-10 bg-[#0a0a0a]/90 backdrop-blur-sm border-b border-white/[0.05]">
+              <div className="flex justify-between items-center px-5 py-3 text-[10px] font-medium text-[var(--text-secondary)] font-mono uppercase shrink-0 relative z-10 bg-[#0a0a0a]/90 backdrop-blur-sm border-b border-white/[0.05]">
                 <span>Projects</span>
                 <div className="flex items-center gap-2">
-                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
                   </svg>
-                  <div className="w-5 h-2.5 rounded-[2px] border border-[var(--text-dim)] p-[1px] flex items-center">
-                    <div className="w-full h-full bg-[var(--text-dim)] rounded-[1px]"></div>
+                  <div className="w-6 h-3 rounded-[2px] border border-[var(--text-secondary)] p-[1px] flex items-center">
+                    <div className="w-full h-full bg-[var(--text-secondary)] rounded-[1px]"></div>
                   </div>
                 </div>
               </div>
@@ -179,19 +179,19 @@ export function Work() {
                           />
                         ))}
                       </div>
-                      <span className="font-mono text-[10px] text-[var(--text-dim)] uppercase tracking-widest mb-1.5">Now Playing</span>
-                      <span className="font-display text-base text-[var(--text-primary)] mb-12">Selected Work.</span>
+                      <span className="font-mono text-[11px] font-medium text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Now Playing</span>
+                      <span className="font-display text-lg text-[var(--text-primary)] mb-12">Selected Work.</span>
 
                       {/* Interaction Guide */}
                       <motion.div 
-                        animate={{ opacity: [0.3, 1, 0.3] }}
+                        animate={{ opacity: [0.4, 1, 0.4] }}
                         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                         className="flex flex-col items-center gap-3 absolute bottom-12"
                       >
-                        <div className="w-10 h-10 rounded-full border border-[var(--border)] flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full border-2 border-[var(--border-mid)] flex items-center justify-center">
                           <div className="w-2.5 h-2.5 rounded-full bg-[var(--accent-warm)]"></div>
                         </div>
-                        <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-dim)]">Press Center to Open</span>
+                        <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Press Center to Open</span>
                       </motion.div>
                     </motion.div>
                   )}
@@ -258,7 +258,7 @@ export function Work() {
                         <span className="text-xs text-[var(--text-secondary)] mb-6 leading-relaxed">{selectedProject.description}</span>
                         <div className="flex flex-wrap gap-2 mb-8">
                           {selectedProject.stack.map(tech => (
-                            <span key={tech} className="text-[10px] border border-[var(--border)] bg-black/20 rounded px-2 py-1 text-[var(--text-dim)]">{tech}</span>
+                            <span key={tech} className="text-[10px] border border-[var(--border)] bg-black/20 rounded px-2 py-1 text-[var(--text-secondary)]">{tech}</span>
                           ))}
                         </div>
                         <div className="flex gap-3 mt-auto">
@@ -267,7 +267,7 @@ export function Work() {
                           ) : selectedProject.github ? (
                              <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono uppercase border border-[var(--border)] text-[var(--text-secondary)] px-5 py-2.5 rounded-full hover:text-white transition-colors">GitHub</a>
                           ) : (
-                             <span className="text-[11px] font-mono uppercase border border-[var(--border)] text-[var(--text-dim)] px-5 py-2.5 rounded-full">Private</span>
+                             <span className="text-[11px] font-mono uppercase border border-[var(--border)] text-[var(--text-secondary)] px-5 py-2.5 rounded-full">Private</span>
                           )}
                         </div>
                       </div>
@@ -284,13 +284,13 @@ export function Work() {
               <div className="flex items-center gap-12">
                 <button 
                   onClick={handleMenu}
-                  className="px-6 py-2 rounded-full border border-[var(--border)] text-[10px] font-mono uppercase tracking-widest text-[var(--text-dim)] hover:text-white hover:border-[var(--border-mid)] hover:bg-[rgba(255,255,255,0.02)] active:scale-95 transition-all shadow-sm"
+                  className="px-6 py-2 rounded-full border border-[var(--border)] text-[11px] font-semibold font-mono uppercase tracking-widest text-[var(--text-secondary)] hover:text-white hover:border-[var(--border-mid)] hover:bg-[rgba(255,255,255,0.02)] active:scale-95 transition-all shadow-sm"
                 >
                   Menu
                 </button>
                 <button 
                   onClick={handleBack}
-                  className="px-6 py-2 rounded-full border border-[var(--border)] text-[10px] font-mono uppercase tracking-widest text-[var(--text-dim)] hover:text-white hover:border-(--border-mid) hover:bg-[rgba(255,255,255,0.02)] active:scale-95 transition-all shadow-sm"
+                  className="px-6 py-2 rounded-full border border-[var(--border)] text-[11px] font-semibold font-mono uppercase tracking-widest text-[var(--text-secondary)] hover:text-white hover:border-[var(--border-mid)] hover:bg-[rgba(255,255,255,0.02)] active:scale-95 transition-all shadow-sm"
                 >
                   Back
                 </button>
@@ -308,7 +308,7 @@ export function Work() {
                 {/* UP Arrow (Top Slice) */}
                 <button 
                   onClick={handleUp} 
-                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-start justify-center pt-5 text-[var(--text-dim)] hover:text-[var(--accent-warm)] transition-colors z-10"
+                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-start justify-center pt-5 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
                   style={{ clipPath: 'polygon(0 0, 100% 0, 50% 50%)' }}
                 >
                   <svg className="w-5 h-5 group-active:-translate-y-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"/></svg>
@@ -317,7 +317,7 @@ export function Work() {
                 {/* RIGHT Arrow (Right Slice) */}
                 <button 
                   onClick={handleRight} 
-                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-center justify-end pr-5 text-[var(--text-dim)] hover:text-[var(--accent-warm)] transition-colors z-10"
+                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-center justify-end pr-5 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
                   style={{ clipPath: 'polygon(100% 0, 100% 100%, 50% 50%)' }}
                 >
                   <svg className="w-5 h-5 group-active:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
@@ -326,7 +326,7 @@ export function Work() {
                 {/* DOWN Arrow (Bottom Slice) */}
                 <button 
                   onClick={handleDown} 
-                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-end justify-center pb-5 text-[var(--text-dim)] hover:text-[var(--accent-warm)] transition-colors z-10"
+                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-end justify-center pb-5 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
                   style={{ clipPath: 'polygon(100% 100%, 0 100%, 50% 50%)' }}
                 >
                   <svg className="w-5 h-5 group-active:translate-y-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
@@ -335,7 +335,7 @@ export function Work() {
                 {/* LEFT Arrow (Left Slice) */}
                 <button 
                   onClick={handleLeft} 
-                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-center justify-start pl-5 text-[var(--text-dim)] hover:text-[var(--accent-warm)] transition-colors z-10"
+                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-center justify-start pl-5 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
                   style={{ clipPath: 'polygon(0 100%, 0 0, 50% 50%)' }}
                 >
                   <svg className="w-5 h-5 group-active:-translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6-1.41 1.41z"/></svg>
@@ -371,17 +371,17 @@ export function Work() {
           <div className="flex items-center gap-8">
             <div className="flex flex-col items-center md:items-end">
               <span className="font-mono text-2xl text-[var(--accent-warm)]">{PROJECTS.length}</span>
-              <span className="font-mono text-[10px] text-[var(--text-dim)] uppercase tracking-wider mt-1">Projects</span>
+              <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-1">Projects</span>
             </div>
             <div className="w-px h-8 bg-[var(--border)]"></div>
             <div className="flex flex-col items-center md:items-end">
               <span className="font-mono text-2xl text-[var(--accent-warm)]">{new Set(PROJECTS.flatMap(p => p.stack)).size}+</span>
-              <span className="font-mono text-[10px] text-[var(--text-dim)] uppercase tracking-wider mt-1">Technologies</span>
+              <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-1">Technologies</span>
             </div>
             <div className="w-px h-8 bg-[var(--border)]"></div>
             <div className="flex flex-col items-center md:items-end">
               <span className="font-mono text-2xl text-[var(--accent-warm)]">3</span>
-              <span className="font-mono text-[10px] text-[var(--text-dim)] uppercase tracking-wider mt-1">Domains</span>
+              <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-1">Domains</span>
             </div>
           </div>
         </div>
