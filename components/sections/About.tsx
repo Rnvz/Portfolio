@@ -122,10 +122,10 @@ export function About() {
         </div>
         
         {/* Right Column */}
-        <div className="flex flex-col pt-8 lg:pt-0">
-          <div ref={skillsRef} className="flex flex-wrap justify-center lg:justify-start gap-y-10 gap-x-6 lg:gap-x-8">
+        <div className="flex flex-col pt-8 lg:pt-0 w-full">
+          <div ref={skillsRef} className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-y-10 gap-x-4 w-full justify-items-center">
             {SKILLS.map((skill) => (
-              <div key={skill.name} className="flex flex-col items-center gap-3 group w-[64px] md:w-[72px]">
+              <div key={skill.name} className="flex flex-col items-center gap-3 group w-full max-w-[72px]">
                 <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
                   <img 
                     src={skill.icon} 
