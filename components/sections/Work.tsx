@@ -155,10 +155,10 @@ export function Work() {
         {/* LEFT — Interactive MP3 Player Panel */}
         <div className="order-2 md:order-1 flex items-center justify-center min-h-[820px] w-full relative">
           
-          <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[540px] h-[880px] flex flex-col p-6 shadow-2xl relative">
+          <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[480px] h-[820px] flex flex-col p-6 shadow-2xl relative">
             
             {/* MP3 Player Screen */}
-            <div className="w-full h-[480px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0">
+            <div className="w-full h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0">
               {/* Screen reflection/glare */}
               <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none z-20"></div>
               
@@ -325,7 +325,7 @@ export function Work() {
               </div>
 
               {/* Pie-Slice Click Wheel (D-Pad) */}
-              <div className="w-64 h-64 md:w-72 md:h-72 rounded-full border border-[var(--border-mid)] bg-[#111] shadow-xl relative overflow-hidden">
+              <div className="w-48 h-48 md:w-52 md:h-52 rounded-full border border-[var(--border-mid)] bg-[#111] shadow-xl relative overflow-hidden shrink-0">
                 
                 {/* Diagonal Borders Background */}
                 <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
@@ -373,7 +373,7 @@ export function Work() {
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
                   <button 
                     onClick={handleCenter}
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full border border-[var(--border-mid)] bg-[var(--surface)] shadow-[inset_0_2px_15px_rgba(0,0,0,0.8)] flex items-center justify-center text-[var(--text-secondary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] active:scale-95 transition-all pointer-events-auto"
+                    className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-[var(--border-mid)] bg-[var(--surface)] shadow-[inset_0_2px_15px_rgba(0,0,0,0.8)] flex items-center justify-center text-[var(--text-secondary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] active:scale-95 transition-all pointer-events-auto"
                   >
                     <div className="w-3.5 h-3.5 rounded-full bg-current opacity-70" />
                   </button>
