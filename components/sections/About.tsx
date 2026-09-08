@@ -93,25 +93,27 @@ export function About() {
 
   return (
     <section ref={sectionRef} className="w-full min-h-screen flex flex-col justify-center px-[var(--section-px)] py-[var(--section-py)]">
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-8">
-        <div className="flex flex-col justify-between h-full">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center">
+        
+        {/* Left Column */}
+        <div className="flex flex-col gap-10 lg:gap-14">
           <div>
             <SectionLabel text="02 — About" accent="cool" />
-            <div className="text-h1 font-display text-[var(--text-primary)] mb-8">
+            <div className="text-h1 font-display text-[var(--text-primary)] mb-4 mt-2">
               <SplitText text="Who I am." />
             </div>
-            <p ref={bioRef} className="text-body font-light text-[var(--text-secondary)] max-w-lg leading-relaxed">
+            <p ref={bioRef} className="text-base md:text-lg font-normal text-[var(--text-secondary)] max-w-xl leading-relaxed">
               Information Technology student at Bina Nusantara University with a strong passion for web development, UI/UX design, and data-driven applications. Experienced in building full-stack production systems, from edge-deployed serverless backends to pixel-perfect, accessible frontends. Motivated to create digital solutions that are both technically robust and meaningful in real-world impact.
             </p>
           </div>
 
-          <div ref={statsRef} className="flex justify-between md:justify-start md:gap-16 pt-8 border-t border-[var(--border)] mt-12 md:mt-0">
+          <div ref={statsRef} className="flex justify-between md:justify-start md:gap-16 pt-8 border-t border-[var(--border)]">
             {STATS.map((stat, i) => (
               <div key={stat.label} className="flex flex-col">
-                <span className="stat-counter font-mono text-2xl md:text-3xl text-[var(--text-primary)] mb-2">
+                <span className="stat-counter font-mono text-3xl md:text-4xl font-medium text-[var(--text-primary)] mb-2">
                   {reducedMotion ? stat.value : '0' + stat.value.replace(/[0-9]/g, '')}
                 </span>
-                <span className="font-mono text-xs text-[var(--text-secondary)] uppercase tracking-wider">
+                <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider">
                   {stat.label.split(' ')[0]}<br/>{stat.label.split(' ').slice(1).join(' ')}
                 </span>
               </div>
@@ -119,18 +121,19 @@ export function About() {
           </div>
         </div>
         
-        <div className="flex flex-col justify-end h-full pt-8 md:pt-0">
-          <div ref={skillsRef} className="flex flex-wrap justify-center md:justify-start gap-y-10 gap-x-6">
+        {/* Right Column */}
+        <div className="flex flex-col pt-8 lg:pt-0">
+          <div ref={skillsRef} className="flex flex-wrap justify-center lg:justify-start gap-y-10 gap-x-6 lg:gap-x-8">
             {SKILLS.map((skill) => (
-              <div key={skill.name} className="flex flex-col items-center gap-3 group w-[64px]">
-                <div className="w-12 h-12 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+              <div key={skill.name} className="flex flex-col items-center gap-3 group w-[64px] md:w-[72px]">
+                <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
                   <img 
                     src={skill.icon} 
                     alt={skill.name} 
-                    className="w-10 h-10 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
+                    className="w-10 h-10 md:w-12 md:h-12 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
                   />
                 </div>
-                <span className="font-mono font-medium text-xs text-[var(--text-dim)] group-hover:text-[var(--accent-cool)] transition-colors text-center">
+                <span className="font-mono font-semibold text-[11px] text-[var(--text-secondary)] group-hover:text-[var(--accent-cool)] transition-colors text-center">
                   {skill.name}
                 </span>
               </div>
