@@ -1,4 +1,3 @@
-'use client'
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { gsap } from 'gsap'
@@ -26,15 +25,25 @@ const PROJECT_ICONS: Record<string, React.ReactNode> = {
     </svg>
   ),
   'supreme-court': (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21h-7.5a2.25 2.25 0 0 1-2.25-2.25V6.75a2.25 2.25 0 0 1 2.25-2.25h7.5a2.25 2.25 0 0 1 2.25 2.25v12.015a2.25 2.25 0 0 1-2.25 2.25Zm-2.25-5.25h.008v.008H13.5v-.008Zm0-3h.008v.008H13.5v-.008Zm0-3h.008v.008H13.5v-.008Zm0-3h.008v.008H13.5v-.008Z" />
     </svg>
   ),
   gym: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
     </svg>
   ),
+  nofake: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+  ),
+  peluangnusantara: (
+    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+    </svg>
+  )
 }
 
 export function Work() {
@@ -50,7 +59,7 @@ export function Work() {
     if (view === 'grid') {
       const el = document.getElementById(`project-${selectedIndex}`)
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+        el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
       }
     }
   }, [selectedIndex, view])
@@ -67,7 +76,7 @@ export function Work() {
   }
 
   const handleUp = () => {
-    if (view === 'grid') setSelectedIndex(i => Math.max(0, i - 2))
+    if (view === 'grid') setSelectedIndex(i => Math.max(0, i - 1))
     else if (view === 'detail') {
       const el = document.getElementById('detail-scroll')
       if (el) el.scrollTop -= 50
@@ -75,7 +84,7 @@ export function Work() {
   }
 
   const handleDown = () => {
-    if (view === 'grid') setSelectedIndex(i => Math.min(PROJECTS.length - 1, i + 2))
+    if (view === 'grid') setSelectedIndex(i => Math.min(PROJECTS.length - 1, i + 1))
     else if (view === 'detail') {
       const el = document.getElementById('detail-scroll')
       if (el) el.scrollTop += 50
@@ -202,32 +211,43 @@ export function Work() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0, transition: { duration: 0.2 } }}
-                      className="absolute inset-0 overflow-y-auto no-scrollbar p-5 grid grid-cols-2 gap-4 pb-10 content-start"
+                      className="absolute inset-0 overflow-x-auto no-scrollbar flex items-center pt-8"
+                      style={{ scrollSnapType: 'x mandatory' }}
                     >
-                      {PROJECTS.map((project, i) => (
-                        <div
-                          id={`project-${i}`}
-                          key={project.id}
-                          className={`p-5 rounded-xl border transition-colors flex flex-col items-center gap-4 ${
-                            selectedIndex === i 
-                              ? 'border-[var(--accent-warm)] bg-[rgba(255,255,255,0.08)]' 
-                              : 'border-[var(--border)] opacity-40'
-                          }`}
-                        >
-                          <div className={`w-14 h-14 flex items-center justify-center transition-colors ${
-                            selectedIndex === i ? 'text-[var(--accent-warm)]' : 'text-white'
-                          }`}>
-                            {PROJECT_ICONS[project.id] || (
-                              <span className="font-display text-2xl">{project.title.charAt(0)}</span>
-                            )}
+                      <div className="flex px-[60px] gap-8 pb-8">
+                        {PROJECTS.map((project, i) => (
+                          <div
+                            id={`project-${i}`}
+                            key={project.id}
+                            className="w-[140px] shrink-0 flex flex-col items-center justify-center"
+                            style={{ scrollSnapAlign: 'center' }}
+                          >
+                            <div className={`p-6 rounded-3xl border transition-all duration-300 w-full flex flex-col items-center gap-6 ${
+                              selectedIndex === i 
+                                ? 'border-[var(--accent-warm)] bg-[rgba(255,255,255,0.08)] scale-110 shadow-[0_0_20px_rgba(255,255,255,0.05)]' 
+                                : 'border-[var(--border)] opacity-30 scale-90'
+                            }`}>
+                              <div className={`w-12 h-12 flex items-center justify-center transition-colors ${
+                                selectedIndex === i ? 'text-[var(--accent-warm)]' : 'text-white'
+                              }`}>
+                                {PROJECT_ICONS[project.id]}
+                              </div>
+                            </div>
+                            <div className="mt-8 text-center h-12 w-[180px]">
+                              <span className={`block text-[13px] font-semibold font-display transition-colors duration-300 ${
+                                selectedIndex === i ? 'text-[var(--text-primary)]' : 'text-transparent'
+                              }`}>
+                                {project.title}
+                              </span>
+                              <span className={`block text-[9px] font-mono uppercase tracking-widest mt-1.5 transition-colors duration-300 ${
+                                selectedIndex === i ? 'text-[var(--text-secondary)]' : 'text-transparent'
+                              }`}>
+                                {project.subtitle}
+                              </span>
+                            </div>
                           </div>
-                          <span className={`text-[11px] text-center font-display leading-tight ${
-                            selectedIndex === i ? 'text-white' : 'text-[var(--text-secondary)]'
-                          }`}>
-                            {project.title}
-                          </span>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </motion.div>
                   )}
 
