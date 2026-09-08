@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--bg-base);
+  --color-foreground: var(--text-primary);
+}
+
+@layer base {
+  :root {
+    /* ── Backgrounds ─────────────────────────────── */
+    --bg-deep    : #080808;   /* loader, hero darkest layer   */
+    --bg-base    : #0a0a0a;   /* main page background          */
+    --surface    : #111111;   /* project cards, panels         */
+    --surface-2  : #191919;   /* elevated — nav bg, tooltips   */
+    --border     : #1f1f1f;   /* default dividers              */
+    --border-mid : #2a2a2a;   /* hover border on cards         */
+
+    /* ── Typography ─────────────────────────────── */
+    --text-primary   : #f0f0f0;  /* headings, body text        */
+    --text-secondary : #7a7a78;  /* captions, labels, meta     */
+    --text-dim       : #3d3d3b;  /* very subtle — decorative   */
+
+    /* ── Accent — Warm Cream (primary) ──────────── */
+    --accent-warm      : #C8B89A;              /* main CTA, name, cursor ring   */
+    --accent-warm-dim  : #8a7d6a;              /* hover / muted state           */
+    --accent-warm-glow : rgba(200,184,154,.08);/* glow overlay, orb             */
+
+    /* ── Accent — Faded Jade (secondary) ────────── */
+    --accent-cool      : #7EBFA0;              /* timeline, skill hover, links  */
+    --accent-cool-dim  : #547a68;              /* hover / muted state           */
+    --accent-cool-glow : rgba(126,191,160,.06);/* glow overlay, orb             */
+
+    /* ── Section temperature tints (Sylva-inspired) */
+    --scene-hero    : #1a2420;   /* very dark jade — hero bg tint    */
+    --scene-work    : #1e1c18;   /* very dark warm — work section    */
+    --scene-contact : #18201f;   /* cool dark — contact final scene  */
+
+    /* ── Utility ─────────────────────────────────── */
+    --noise-opacity : 0.035;     /* CSS noise texture overlay        */
+    --grain-size    : 200px;     /* noise background-size            */
+
+    /* Spacing */
+    --space-xs  : 0.5rem;    /*  8px */
+    --space-sm  : 1rem;      /* 16px */
+    --space-md  : 2rem;      /* 32px */
+    --space-lg  : 4rem;      /* 64px */
+    --space-xl  : 8rem;      /* 128px */
+    --space-2xl : 12rem;     /* 192px */
+
+    /* Section padding */
+    --section-px : clamp(1.5rem, 5vw, 6rem);
+    --section-py : clamp(4rem, 10vh, 8rem);
+
+    /* Durations */
+    --dur-fast   : 200ms;
+    --dur-base   : 400ms;
+    --dur-slow   : 700ms;
+    --dur-xslow  : 1200ms;
+
+    /* Easing */
+    --ease-out      : cubic-bezier(0.16, 1, 0.3, 1);   /* primary ease out  */
+    --ease-in-out   : cubic-bezier(0.87, 0, 0.13, 1);  /* smooth in-out     */
+    --ease-spring   : cubic-bezier(0.34, 1.56, 0.64, 1); /* subtle spring    */
+    --ease-linear   : linear;
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+  }
+
+  /* Default cursor hidden — replaced by custom cursor */
+  * { 
+    cursor: none; 
+    box-sizing: border-box;
+  }
+}
+
+/* Display — hero name */
+.text-hero   { font-size: clamp(3rem, 8vw, 7rem); font-weight: 600; letter-spacing: -0.03em; }
+
+/* Section headings */
+.text-h1     { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 500; letter-spacing: -0.02em; }
+.text-h2     { font-size: clamp(1.25rem, 2.5vw, 2rem); font-weight: 400; }
+
+/* Body */
+.text-body   { font-size: 1rem; line-height: 1.7; font-weight: 300; }
+.text-small  { font-size: 0.875rem; line-height: 1.6; }
+
+/* Mono — labels, section numbers, tech tags */
+.text-mono   { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Noise overlay */
+.noise-overlay::before {
+  content    : '';
+  position   : fixed;
+  inset      : 0;
+  z-index    : 0;
+  pointer-events : none;
+  opacity    : var(--noise-opacity, 0.035);
+  background-image : url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size  : var(--grain-size, 200px);
+}
+
+/* Orbs */
+.orb {
+  position   : absolute;
+  border-radius : 50%;
+  filter     : blur(80px);
+  animation  : orb-drift 12s ease-in-out infinite alternate;
+  pointer-events : none;
+}
+
+.orb-jade {
+  width      : 40vw;
+  height     : 40vw;
+  background : var(--accent-cool-glow);
+  top        : 20%;
+  left       : 55%;
+  animation-delay : 0s;
+}
+
+.orb-warm {
+  width      : 30vw;
+  height     : 30vw;
+  background : var(--accent-warm-glow);
+  top        : 50%;
+  left       : 10%;
+  animation-delay : -6s;
+}
+
+@keyframes orb-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(3%, 5%) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb { animation: none; }
+}
+
+/* Cursor */
+.cursor-dot {
+  width      : 8px;
+  height     : 8px;
+  background : var(--accent-warm);
+  border-radius : 50%;
+  position   : fixed;
+  z-index    : 9999;
+  pointer-events : none;
+  transition : transform 0.1s var(--ease-out);
+}
+
+.cursor-ring {
+  width      : 32px;
+  height     : 32px;
+  border     : 1px solid var(--accent-warm);
+  border-radius : 50%;
+  position   : fixed;
+  z-index    : 9998;
+  pointer-events : none;
+  transition : transform 0.12s var(--ease-out), width 0.2s, height 0.2s, border-color 0.2s;
+}
+
+.cursor-ring.hovering {
+  width        : 64px;
+  height       : 64px;
+  border-color : var(--accent-cool);
+  transform    : translate(-50%, -50%) scale(1);
+}
+
+@media (hover: none) { 
+  .cursor-dot, .cursor-ring { display: none } 
+  * { cursor: auto; }
+}
+
+/* NavDots */
+.nav-dots {
+  position   : fixed;
+  top        : 2rem;
+  right      : 2rem;
+  z-index    : 100;
+  display    : flex;
+  flex-direction : column;
+  gap        : 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .nav-dots { display: none; }
+}
+
+.nav-dot {
+  width      : 6px;
+  height     : 6px;
+  border-radius : 50%;
+  background : var(--border-mid);
+  transition : background 0.3s, transform 0.3s;
+}
+
+.nav-dot.active {
+  background : var(--accent-warm);
+  transform  : scale(1.4);
+}
+
+/* Link underline */
+.link-underline {
+  position         : relative;
+  text-decoration  : none;
+}
+
+.link-underline::after {
+  content          : '';
+  position         : absolute;
+  bottom           : -2px;
+  left             : 0;
+  width            : 0;
+  height           : 1px;
+  background       : var(--accent-warm);
+  transition       : width 0.3s var(--ease-out);
+}
+
+.link-underline:hover::after {
+  width : 100%;
+}
+
+/* Project card */
+.project-card {
+  transition : transform 0.3s var(--ease-out), border-color 0.3s;
+  border     : 1px solid var(--border);
+}
+
+.project-card:hover {
+  transform    : translateY(-4px);
+  border-color : var(--border-mid);
+}
