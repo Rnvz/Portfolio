@@ -93,10 +93,10 @@ export function About() {
 
   return (
     <section ref={sectionRef} className="w-full min-h-screen flex flex-col justify-center px-[var(--section-px)] py-[var(--section-py)]">
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-stretch">
         
         {/* Left Column */}
-        <div className="flex flex-col gap-10 lg:gap-14">
+        <div className="flex flex-col gap-10 lg:gap-14 h-full">
           <div>
             <SectionLabel text="02 — About" accent="cool" />
             <div className="text-h1 font-display text-[var(--text-primary)] mb-4 mt-2">
@@ -107,7 +107,7 @@ export function About() {
             </p>
           </div>
 
-          <div ref={statsRef} className="flex justify-between md:justify-start md:gap-16 pt-8 border-t border-[var(--border)]">
+          <div ref={statsRef} className="mt-auto flex justify-between md:justify-start md:gap-16 pt-8 border-t border-[var(--border)]">
             {STATS.map((stat, i) => (
               <div key={stat.label} className="flex flex-col">
                 <span className="stat-counter font-mono text-3xl md:text-4xl font-medium text-[var(--text-primary)] mb-2">
