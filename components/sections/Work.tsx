@@ -57,10 +57,18 @@ export function Work() {
   // Auto-scroll selected item in grid
   useEffect(() => {
     if (view === 'grid') {
-      const el = document.getElementById(`project-${selectedIndex}`)
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+      const scrollToSelected = () => {
+        const el = document.getElementById(`project-${selectedIndex}`)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+        }
       }
+      
+      scrollToSelected()
+      
+      // Wait for framer-motion AnimatePresence mode="wait" to mount the component
+      const timer = setTimeout(scrollToSelected, 250)
+      return () => clearTimeout(timer)
     }
   }, [selectedIndex, view])
 
