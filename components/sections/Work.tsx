@@ -50,7 +50,7 @@ export function Work() {
   const sectionRef = useRef<HTMLElement>(null)
   const reducedMotion = useReducedMotion()
   
-  type ViewState = 'idle' | 'grid' | 'detail'
+  type ViewState = 'idle' | 'grid' | 'detail' | 'index'
   const [view, setView] = useState<ViewState>('idle')
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
 
@@ -75,11 +75,16 @@ export function Work() {
   const selectedProject = PROJECTS[selectedIndex]
 
   const handleMenu = () => {
-    setView('idle')
+    if (view === 'index') {
+      setView('grid')
+    } else {
+      setView('index')
+    }
   }
 
   const handleBack = () => {
     if (view === 'detail') setView('grid')
+    else if (view === 'index') setView('idle')
     else if (view === 'grid') setView('idle')
   }
 
@@ -113,6 +118,60 @@ export function Work() {
     if (view === 'idle') setView('grid')
     else if (view === 'grid') setView('detail')
   }
+
+  // Keyboard Navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't interfere if user is typing in an input (though there are none here, good practice)
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return
+
+      // Only handle keyboard if this section is actually in view
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const isInView = rect.top < window.innerHeight && rect.bottom > 0
+      if (!isInView) return
+
+      switch (e.key) {
+        case 'ArrowUp':
+          e.preventDefault()
+          handleUp()
+          break
+        case 'ArrowDown':
+          e.preventDefault()
+          handleDown()
+          break
+        case 'ArrowLeft':
+          e.preventDefault()
+          handleLeft()
+          break
+        case 'ArrowRight':
+          e.preventDefault()
+          handleRight()
+          break
+        case 'Enter':
+          e.preventDefault()
+          handleCenter()
+          break
+        case 'Escape':
+          e.preventDefault()
+          handleBack()
+          break
+        default:
+          // Handle number keys 1-7 for direct project selection
+          const num = parseInt(e.key)
+          if (!isNaN(num) && num > 0 && num <= PROJECTS.length) {
+            e.preventDefault()
+            setSelectedIndex(num - 1)
+            if (view === 'idle') setView('grid')
+          }
+          break
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [view, selectedIndex])
 
   useEffect(() => {
     if (reducedMotion || typeof window === 'undefined') return
@@ -210,6 +269,43 @@ export function Work() {
                         </div>
                         <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Press Center to Open</span>
                       </motion.div>
+                    </motion.div>
+                  )}
+
+                  {view === 'index' && (
+                    <motion.div
+                      key="index"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                      className="absolute inset-0 flex flex-col p-6 bg-[#0a0a0a] overflow-y-auto no-scrollbar"
+                    >
+                      <h3 className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-6">Work / Index</h3>
+                      <div className="flex flex-col gap-2">
+                        {PROJECTS.map((project, i) => (
+                          <button
+                            key={project.id}
+                            onClick={() => {
+                              setSelectedIndex(i)
+                              setView('detail')
+                            }}
+                            className={`flex items-center gap-4 p-3 rounded-lg border transition-all text-left ${
+                              selectedIndex === i 
+                                ? 'border-[var(--accent-warm)] bg-[rgba(255,255,255,0.05)]' 
+                                : 'border-transparent hover:bg-[rgba(255,255,255,0.02)] hover:border-[var(--border)]'
+                            }`}
+                          >
+                            <span className={`font-mono text-[11px] w-4 ${selectedIndex === i ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)]'}`}>
+                              {String(i + 1).padStart(2, '0')}
+                            </span>
+                            <div className="flex flex-col overflow-hidden">
+                              <span className={`font-display text-[13px] truncate ${selectedIndex === i ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>
+                                {project.title}
+                              </span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
                     </motion.div>
                   )}
 
@@ -386,32 +482,114 @@ export function Work() {
         </div>
 
         {/* RIGHT — Title & Description */}
-        <div className="order-1 md:order-2 flex flex-col items-start md:items-end md:text-right">
-          <h2 className="font-display text-4xl md:text-5xl text-[var(--text-primary)] mb-4 leading-tight">
-            Selected Work.
-          </h2>
-          <p className="text-[var(--text-secondary)] font-light text-base md:text-lg max-w-md mb-8 leading-relaxed">
-            A curated collection of projects spanning full-stack development,
-            UI/UX design, and AI engineering.
-          </p>
+        <div className="order-1 md:order-2 flex flex-col items-start md:text-left w-full h-auto md:h-[820px]">
+          <AnimatePresence mode="wait">
+            {(view === 'idle' || view === 'grid') ? (
+              <motion.div
+                key="overview"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col w-full h-full justify-center items-start md:items-end md:text-right mt-12 md:mt-0"
+              >
+                <h2 className="font-display text-4xl md:text-5xl text-[var(--text-primary)] mb-4 leading-tight">
+                  Selected Work.
+                </h2>
+                <p className="text-[var(--text-secondary)] font-light text-base md:text-lg max-w-md mb-12 leading-relaxed">
+                  A curated collection of projects spanning full-stack development,
+                  UI/UX design, and AI engineering.
+                </p>
 
-          {/* Mini Stats */}
-          <div className="flex items-center gap-8">
-            <div className="flex flex-col items-center md:items-end">
-              <span className="font-mono text-2xl text-[var(--accent-warm)]">{PROJECTS.length}</span>
-              <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-1">Projects</span>
-            </div>
-            <div className="w-px h-8 bg-[var(--border)]"></div>
-            <div className="flex flex-col items-center md:items-end">
-              <span className="font-mono text-2xl text-[var(--accent-warm)]">{new Set(PROJECTS.flatMap(p => p.stack)).size}+</span>
-              <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-1">Technologies</span>
-            </div>
-            <div className="w-px h-8 bg-[var(--border)]"></div>
-            <div className="flex flex-col items-center md:items-end">
-              <span className="font-mono text-2xl text-[var(--accent-warm)]">3</span>
-              <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-1">Domains</span>
-            </div>
-          </div>
+                {/* Mini Stats */}
+                <div className="flex items-center gap-8">
+                  <div className="flex flex-col items-center md:items-end">
+                    <span className="font-mono text-2xl text-[var(--accent-warm)]">{PROJECTS.length}</span>
+                    <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-1">Projects</span>
+                  </div>
+                  <div className="w-px h-8 bg-[var(--border)]"></div>
+                  <div className="flex flex-col items-center md:items-end">
+                    <span className="font-mono text-2xl text-[var(--accent-warm)]">{new Set(PROJECTS.flatMap(p => p.stack)).size}+</span>
+                    <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-1">Technologies</span>
+                  </div>
+                  <div className="w-px h-8 bg-[var(--border)]"></div>
+                  <div className="flex flex-col items-center md:items-end">
+                    <span className="font-mono text-2xl text-[var(--accent-warm)]">3</span>
+                    <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-1">Domains</span>
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="detail"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col w-full h-full py-12 md:py-24"
+              >
+                <div className="mb-2">
+                  <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] tracking-widest uppercase">
+                    Work / {String(selectedIndex + 1).padStart(2, '0')}
+                  </span>
+                </div>
+                
+                <h2 className="font-display text-3xl md:text-4xl text-[var(--text-primary)] mb-6 tracking-wide uppercase">
+                  {selectedProject.title}
+                </h2>
+                
+                <p className="text-[var(--text-secondary)] font-light text-base md:text-lg max-w-md mb-12 leading-relaxed">
+                  {selectedProject.description}
+                </p>
+
+                <div className="grid grid-cols-2 gap-y-8 gap-x-12 mb-12 max-w-lg">
+                  <div>
+                    <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Role</h3>
+                    <p className="text-[13px] text-[var(--text-primary)]">{selectedProject.role}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Period</h3>
+                    <p className="text-[13px] text-[var(--text-primary)]">{selectedProject.year}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Status</h3>
+                    <p className="text-[13px] text-[var(--text-primary)]">
+                      <span className="text-[var(--accent-warm)] mr-1.5">●</span> 
+                      {selectedProject.live ? 'PRODUCTION' : 'COMPLETED'}
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Visibility</h3>
+                    <p className="text-[13px] text-[var(--text-primary)]">{selectedProject.github ? 'PUBLIC' : 'PRIVATE'}</p>
+                  </div>
+                </div>
+
+                <div className="mb-10">
+                  <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">Stack</h3>
+                  <div className="flex flex-wrap gap-2 max-w-md">
+                    {selectedProject.stack.map(tech => (
+                      <span key={tech} className="text-[12px] text-[var(--text-primary)] border border-[var(--border)] px-3 py-1.5 rounded-full bg-[rgba(255,255,255,0.02)]">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-auto flex gap-4">
+                  {selectedProject.live && (
+                    <a href={selectedProject.live} target="_blank" rel="noopener noreferrer" className="px-6 py-3 border border-[var(--border)] text-[11px] font-mono uppercase tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] transition-colors rounded-full flex items-center gap-2">
+                      Visit Site <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                    </a>
+                  )}
+                  {selectedProject.github && (
+                    <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="px-6 py-3 border border-[var(--border)] text-[11px] font-mono uppercase tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] transition-colors rounded-full flex items-center gap-2">
+                      Source Code <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" /></svg>
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
       </div>
