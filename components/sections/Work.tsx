@@ -303,7 +303,7 @@ export const Work = () => {
         </div>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
-        <div className="w-full flex flex-col order-1 xl:order-2 justify-center h-auto xl:h-[820px]">
+        <div className="w-full flex flex-col order-1 xl:order-2 justify-center">
           <AnimatePresence mode="wait">
             {(view === 'idle' || view === 'nav') ? (
               <motion.div
@@ -347,7 +347,7 @@ export const Work = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="flex flex-col w-full h-full overflow-y-auto no-scrollbar pb-8 xl:pb-0"
+                className="flex flex-col w-full h-full pb-8 xl:pb-0"
               >
                 
                 {/* TOP SECTION: Text & Image */}
