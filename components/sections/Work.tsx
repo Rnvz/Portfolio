@@ -269,32 +269,63 @@ export const Work = () => {
               </div>
 
               {/* Click Wheel Area */}
-              <div className="relative w-64 h-64">
-                {/* Wheel SVG Background */}
-                <svg className="absolute inset-0 w-full h-full text-[var(--border-mid)] opacity-50 drop-shadow-xl" viewBox="0 0 100 100">
-                  <path d="M35 5 h30 a5 5 0 0 1 5 5 v25 h25 a5 5 0 0 1 5 5 v30 a5 5 0 0 1 -5 5 h-25 v25 a5 5 0 0 1 -5 5 h-30 a5 5 0 0 1 -5 -5 v-25 h-25 a5 5 0 0 1 -5 -5 v-30 a5 5 0 0 1 5 -5 h25 v-25 a5 5 0 0 1 5 -5 z" fill="currentColor" />
-                </svg>
+              <div className="w-56 h-56 md:w-64 md:h-64 rounded-full border border-[var(--border-mid)] bg-[#111] shadow-xl relative overflow-hidden shrink-0">
+                
+                {/* Diagonal Borders Background */}
+                <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center opacity-50">
+                  <div className="w-[150%] h-px bg-[var(--border-mid)] rotate-45 absolute" />
+                  <div className="w-[150%] h-px bg-[var(--border-mid)] -rotate-45 absolute" />
+                </div>
+                
+                {/* UP Arrow (Top Slice) */}
+                <button 
+                  onClick={handleUp} 
+                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-start justify-center pt-6 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
+                  style={{ clipPath: 'polygon(0 0, 100% 0, 50% 50%)' }}
+                  aria-label="Previous project"
+                >
+                  <svg className="w-6 h-6 group-active:-translate-y-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"/></svg>
+                </button>
+                
+                {/* RIGHT Arrow (Right Slice) */}
+                <button 
+                  onClick={handleRight} 
+                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-center justify-end pr-6 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
+                  style={{ clipPath: 'polygon(100% 0, 100% 100%, 50% 50%)' }}
+                  aria-label="Next category"
+                >
+                  <svg className="w-6 h-6 group-active:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                </button>
 
-                {/* UP */}
-                <button onClick={handleUp} className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 flex items-start justify-center pt-4 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors active:translate-y-1 z-10" aria-label="Previous project">
-                  <svg width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 6.5L6 1.5L11 6.5" stroke="currentColor" strokeWidth="2"/></svg>
+                {/* DOWN Arrow (Bottom Slice) */}
+                <button 
+                  onClick={handleDown} 
+                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-end justify-center pb-6 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
+                  style={{ clipPath: 'polygon(100% 100%, 0 100%, 50% 50%)' }}
+                  aria-label="Next project"
+                >
+                  <svg className="w-6 h-6 group-active:translate-y-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                 </button>
-                {/* DOWN */}
-                <button onClick={handleDown} className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-16 flex items-end justify-center pb-4 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors active:-translate-y-1 z-10" aria-label="Next project">
-                  <svg width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2"/></svg>
+
+                {/* LEFT Arrow (Left Slice) */}
+                <button 
+                  onClick={handleLeft} 
+                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-center justify-start pl-6 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
+                  style={{ clipPath: 'polygon(0 100%, 0 0, 50% 50%)' }}
+                  aria-label="Previous category"
+                >
+                  <svg className="w-6 h-6 group-active:-translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6-1.41 1.41z"/></svg>
                 </button>
-                {/* LEFT */}
-                <button onClick={handleLeft} className="absolute left-0 top-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-start pl-4 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors active:translate-x-1 z-10" aria-label="Previous category">
-                  <svg width="10" height="14" viewBox="0 0 8 12" fill="none"><path d="M6.5 11L1.5 6L6.5 1" stroke="currentColor" strokeWidth="2"/></svg>
-                </button>
-                {/* RIGHT */}
-                <button onClick={handleRight} className="absolute right-0 top-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-end pr-4 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors active:-translate-x-1 z-10" aria-label="Next category">
-                  <svg width="10" height="14" viewBox="0 0 8 12" fill="none"><path d="M1.5 1L6.5 6L1.5 11" stroke="currentColor" strokeWidth="2"/></svg>
-                </button>
-                {/* CENTER */}
-                <button onClick={handleCenter} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full border border-[var(--border-mid)] bg-[var(--surface)] shadow-[inset_0_2px_15px_rgba(0,0,0,0.8)] flex items-center justify-center text-[var(--text-secondary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] active:scale-95 transition-all z-20">
-                  <div className="w-3.5 h-3.5 rounded-full bg-current opacity-70" />
-                </button>
+
+                {/* CENTER (ACC) Button */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+                  <button 
+                    onClick={handleCenter}
+                    className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-[var(--border-mid)] bg-[var(--surface)] shadow-[inset_0_2px_15px_rgba(0,0,0,0.8)] flex items-center justify-center text-[var(--text-secondary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] active:scale-95 transition-all pointer-events-auto"
+                  >
+                    <div className="w-3.5 h-3.5 rounded-full bg-current opacity-70" />
+                  </button>
+                </div>
               </div>
 
             </div>
