@@ -279,12 +279,12 @@ export function Hero() {
           {/* Role — Secondary Information */}
           <div
             ref={roleRef}
-            className="font-mono text-[13px] md:text-[16px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.15em] md:tracking-[0.18em] opacity-0 will-change-transform flex flex-wrap justify-center items-center gap-y-1"
+            className="font-mono text-[13px] md:text-[15px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.18em] md:tracking-[0.25em] opacity-0 will-change-transform flex flex-wrap justify-center items-center gap-y-1"
           >
             <span className="opacity-90">Full Stack Developer</span>
-            <span className="mx-2 md:mx-4 text-[var(--border-mid)] select-none">/</span>
+            <span className="mx-3 md:mx-6 text-[var(--text-secondary)] opacity-60 select-none">/</span>
             <span className="opacity-90">UI/UX Designer</span>
-            <span className="mx-2 md:mx-4 text-[var(--border-mid)] select-none">/</span>
+            <span className="mx-3 md:mx-6 text-[var(--text-secondary)] opacity-60 select-none">/</span>
             <span className="opacity-90">AI Engineer</span>
           </div>
 
@@ -294,11 +294,11 @@ export function Hero() {
           {/* Context / Education — Tertiary Information */}
           <div
             ref={contextRef}
-            className="font-mono text-[12px] md:text-[14px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.15em] opacity-0 will-change-transform flex flex-row flex-wrap items-center justify-center gap-2"
+            className="font-mono text-[11px] md:text-[12px] font-medium text-[var(--text-primary)] uppercase tracking-[0.08em] opacity-0 will-change-transform flex flex-row flex-wrap items-center justify-center gap-3"
           >
-            <span className="opacity-80">BINUS Undergraduate</span>
-            <span className="text-[var(--border-mid)] select-none">|</span>
-            <span className="opacity-80">Majoring in Master of Information Technology</span>
+            <span className="opacity-70">BINUS Undergraduate</span>
+            <span className="text-[var(--text-secondary)] opacity-60 select-none">|</span>
+            <span className="opacity-70">Majoring in Master of Information Technology</span>
           </div>
         </div>
 
