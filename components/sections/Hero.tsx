@@ -11,6 +11,7 @@ export function Hero() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const labelRef = useRef<HTMLDivElement>(null)
+  const titleWrapperRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const roleRef = useRef<HTMLDivElement>(null)
   const contextRef = useRef<HTMLDivElement>(null)
@@ -191,7 +192,7 @@ export function Hero() {
     // ════════════════════════════════════════════
 
     // Title: exit
-    scrollTl.to(titleRef.current, {
+    scrollTl.to(titleWrapperRef.current, {
       y: -35,
       opacity: 0,
       scale: 0.88,
@@ -263,12 +264,14 @@ export function Hero() {
         <div className="relative z-10 flex flex-col items-center text-center px-[var(--section-px)] w-full max-w-full">
 
           {/* Name / Identity — Primary Visual Anchor */}
-          <h1
-            ref={titleRef}
-            className="text-hero font-display text-[var(--accent-warm)] leading-none tracking-tighter opacity-0 will-change-transform"
-          >
-            {scrambleText}
-          </h1>
+          <div ref={titleWrapperRef} className="will-change-transform">
+            <h1
+              ref={titleRef}
+              className="text-hero font-display text-[var(--accent-warm)] leading-none tracking-tighter opacity-0 will-change-transform"
+            >
+              {scrambleText}
+            </h1>
+          </div>
 
           {/* Spacer between name and role */}
           <div className="h-6 md:h-10" />
@@ -291,11 +294,11 @@ export function Hero() {
           {/* Context / Education — Tertiary Information */}
           <div
             ref={contextRef}
-            className="font-mono text-[12px] md:text-[14px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.15em] opacity-0 will-change-transform flex flex-col items-center gap-1.5"
+            className="font-mono text-[12px] md:text-[14px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.15em] opacity-0 will-change-transform flex flex-row flex-wrap items-center justify-center gap-2"
           >
-            <span className="opacity-80">BINUS UNIVERSITY</span>
-            <span className="text-[var(--border-mid)]">·</span>
-            <span className="opacity-80">MASTER OF INFORMATION TECHNOLOGY</span>
+            <span className="opacity-80">BINUS Undergraduate</span>
+            <span className="text-[var(--border-mid)] select-none">|</span>
+            <span className="opacity-80">Majoring in Master of Information Technology</span>
           </div>
         </div>
 
