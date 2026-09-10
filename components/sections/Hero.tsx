@@ -106,19 +106,9 @@ export function Hero() {
 
     // ════════════════════════════════════════════
     // PHASE 2: ROLE REVEAL (2.0 – 4.5)
-    // Title nudges up and scales down slightly.
-    // Role sweeps in from below.
+    // Role sweeps in from below. Name stays perfectly still.
     // Anchor evolves subtly.
     // ════════════════════════════════════════════
-
-    // Title: very restrained adjustment
-    scrollTl.to(titleRef.current, {
-      scale: 0.96,
-      y: -10,
-      opacity: 0.95,
-      duration: 2.5,
-      ease: 'power2.inOut',
-    }, 2)
 
     // Role: appear from below
     scrollTl.fromTo(roleRef.current,
@@ -144,19 +134,10 @@ export function Hero() {
 
     // ════════════════════════════════════════════
     // PHASE 3: CONTEXT REVEAL (4.5 – 7.0)
-    // Title scales slightly more, role shifts up a touch.
+    // Role shifts up a touch.
     // Education/context enters.
     // Anchor ring warms.
     // ════════════════════════════════════════════
-
-    // Title: further subtle reduction
-    scrollTl.to(titleRef.current, {
-      scale: 0.93,
-      y: -18,
-      opacity: 0.9,
-      duration: 2.5,
-      ease: 'power2.inOut',
-    }, 4.5)
 
     // Role: slight upward drift
     scrollTl.to(roleRef.current, {
@@ -194,14 +175,6 @@ export function Hero() {
     // Only the most subtle drift to keep it alive.
     // The user appreciates the full identity.
     // ════════════════════════════════════════════
-
-    // Title: barely perceptible drift
-    scrollTl.to(titleRef.current, {
-      y: -20,
-      scale: 0.92,
-      duration: 1.8,
-      ease: 'none',
-    }, 7)
 
     // Anchor inner: settle
     scrollTl.to(anchorInnerRef.current, {
@@ -303,13 +276,13 @@ export function Hero() {
           {/* Role — Secondary Information */}
           <div
             ref={roleRef}
-            className="font-mono text-[12px] md:text-[15px] font-medium text-[var(--text-secondary)] uppercase tracking-[0.15em] md:tracking-[0.18em] opacity-0 will-change-transform flex flex-wrap justify-center items-center gap-y-1"
+            className="font-mono text-[13px] md:text-[16px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.15em] md:tracking-[0.18em] opacity-0 will-change-transform flex flex-wrap justify-center items-center gap-y-1"
           >
-            <span>Full Stack Developer</span>
+            <span className="opacity-90">Full Stack Developer</span>
             <span className="mx-2 md:mx-4 text-[var(--border-mid)] select-none">/</span>
-            <span>UI/UX Designer</span>
+            <span className="opacity-90">UI/UX Designer</span>
             <span className="mx-2 md:mx-4 text-[var(--border-mid)] select-none">/</span>
-            <span>AI Engineer</span>
+            <span className="opacity-90">AI Engineer</span>
           </div>
 
           {/* Spacer between role and context */}
@@ -318,11 +291,11 @@ export function Hero() {
           {/* Context / Education — Tertiary Information */}
           <div
             ref={contextRef}
-            className="font-mono text-[11px] md:text-[12px] font-medium text-[var(--text-secondary)] uppercase tracking-[0.15em] opacity-0 will-change-transform flex flex-col items-center gap-1.5"
+            className="font-mono text-[12px] md:text-[14px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.15em] opacity-0 will-change-transform flex flex-col items-center gap-1.5"
           >
-            <span>BINUS UNIVERSITY</span>
+            <span className="opacity-80">BINUS UNIVERSITY</span>
             <span className="text-[var(--border-mid)]">·</span>
-            <span>MASTER OF INFORMATION TECHNOLOGY</span>
+            <span className="opacity-80">MASTER OF INFORMATION TECHNOLOGY</span>
           </div>
         </div>
 

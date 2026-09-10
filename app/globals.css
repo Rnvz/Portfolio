@@ -191,16 +191,17 @@
 }
 
 .nav-dot {
-  width      : 6px;
-  height     : 6px;
+  width      : 8px;
+  height     : 8px;
   border-radius : 50%;
-  background : var(--border-mid);
+  background : rgba(255, 255, 255, 0.3);
   transition : background 0.3s, transform 0.3s;
+  border     : 1px solid transparent;
 }
 
 .nav-dot.active {
   background : var(--accent-warm);
-  transform  : scale(1.4);
+  transform  : scale(1.3);
 }
 
 /* Link underline */
