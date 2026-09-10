@@ -250,7 +250,7 @@ export const Work = () => {
             </div>
 
             {/* Controls Area */}
-            <div className="flex-1 w-full flex flex-col items-center justify-center pt-6 pb-8 gap-10">
+            <div className="flex-1 w-full flex flex-col items-center justify-center pt-4 pb-16 gap-8">
               
               {/* MENU & BACK Buttons */}
               <div className="w-full flex justify-center gap-12 md:gap-20">
