@@ -150,7 +150,7 @@ export const Work = () => {
                       <motion.div 
                         animate={shouldReduceMotion ? {} : { opacity: [0.4, 1, 0.4] }}
                         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                        className="flex flex-col items-center gap-3 absolute bottom-8"
+                        className="flex flex-col items-center gap-3 absolute bottom-[15%]"
                       >
                         <div className="w-10 h-10 rounded-full border-2 border-[var(--border-mid)] flex items-center justify-center">
                           <div className="w-2.5 h-2.5 rounded-full bg-[var(--accent-warm)]"></div>
