@@ -176,11 +176,13 @@
 /* NavDots */
 .nav-dots {
   position   : fixed;
-  top        : 2rem;
-  right      : 2rem;
+  top        : 50%;
+  right      : var(--section-px);
+  transform  : translateY(-50%);
   z-index    : 100;
   display    : flex;
   flex-direction : column;
+  align-items: center;
   gap        : 0.5rem;
 }
 
