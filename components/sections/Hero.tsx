@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { NoiseBackground } from '@/components/ui/NoiseBackground'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { SectionLabel } from '@/components/ui/SectionLabel'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -11,10 +12,11 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const titleWrapperRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
-  const roleRef1 = useRef<HTMLDivElement>(null)
-  const roleRef2 = useRef<HTMLDivElement>(null)
-  const roleRef3 = useRef<HTMLDivElement>(null)
-  const educationRef = useRef<HTMLDivElement>(null)
+  const roleRef = useRef<HTMLDivElement>(null)
+  const contextRef = useRef<HTMLDivElement>(null)
+  const labelRef = useRef<HTMLDivElement>(null)
+  const anchorRef = useRef<HTMLDivElement>(null)
+  const anchorInnerRef = useRef<HTMLDivElement>(null)
   const reducedMotion = useReducedMotion()
 
   const [scrambleText, setScrambleText] = useState("YOHANES WENANTA")
@@ -56,8 +58,8 @@ export function Hero() {
           clearInterval(interval);
         }
         
-        iteration += 1 / 3; // Slower resolve (1 letter every 3 ticks)
-      }, 65); // Slower shuffle (65ms per tick instead of 45ms)
+        iteration += 1 / 3; // Slower resolve
+      }, 65); 
     }, 1800);
 
     // Intro Animation (on load)
@@ -66,55 +68,66 @@ export function Hero() {
       { opacity: 0, y: 30, scale: 0.95, filter: 'blur(10px)' },
       { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.2, ease: 'power4.out' }
     )
+    introTl.fromTo(labelRef.current,
+      { opacity: 0, x: -20 },
+      { opacity: 1, x: 0, duration: 1, ease: 'power3.out' },
+      "-=0.8"
+    )
+    introTl.fromTo(anchorRef.current,
+      { opacity: 0, scale: 0 },
+      { opacity: 1, scale: 1, duration: 1, ease: 'back.out(1.5)' },
+      "-=0.6"
+    )
 
-    // Scroll Sequence
+    // Scroll Sequence (Layered Progression)
     const scrollTl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=4500', // Adjusted total scroll distance
+        end: '+=200%', // Approx 200vh
         pin: true,
         scrub: 1,
         anticipatePin: 1,
       },
     })
 
-    const width1 = roleRef1.current?.scrollWidth || 0
-    gsap.set(roleRef1.current, { width: 0, opacity: 0, overflow: 'hidden', whiteSpace: 'nowrap' })
+    // Phase 1: Identity is already visible. (Timeline starts at 0)
     
-    const width2 = roleRef2.current?.scrollWidth || 0
-    gsap.set(roleRef2.current, { width: 0, opacity: 0, overflow: 'hidden', whiteSpace: 'nowrap' })
+    // Phase 2: Role Reveal
+    scrollTl.fromTo(roleRef.current, 
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1 }, 
+      0.5
+    )
 
-    const width3 = roleRef3.current?.scrollWidth || 0
-    gsap.set(roleRef3.current, { width: 0, opacity: 0, overflow: 'hidden', whiteSpace: 'nowrap' })
-    
-    // Beat 1: Full Stack Developer appears
-    scrollTl.to(roleRef1.current, { width: width1, opacity: 1, duration: 1 }, 0)
-    
-    // Beat 2: UI/UX Designer appears
-    scrollTl.to(roleRef2.current, { width: width2, opacity: 1, duration: 1 }, 1)
-    
-    // Beat 3: AI Engineer appears
-    scrollTl.to(roleRef3.current, { width: width3, opacity: 1, duration: 1 }, 2)
+    // Evolve Anchor
+    scrollTl.to(anchorInnerRef.current, 
+      { scale: 1.5, opacity: 1, backgroundColor: 'var(--accent-warm)', duration: 1 }, 
+      0.5
+    )
 
-    // Beat 4: Education text appears
-    if (educationRef.current) {
-      scrollTl.fromTo(educationRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, 3)
-    }
+    // Phase 3: Context Reveal
+    scrollTl.fromTo(contextRef.current, 
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1 }, 
+      1.5
+    )
 
-    // Beat 5: Exit Animation for EVERYTHING
-    // Use titleWrapperRef for exit to avoid conflict with introTl
-    scrollTl.fromTo([titleWrapperRef.current, roleRef1.current, roleRef2.current, roleRef3.current, educationRef.current], 
-      { y: 0, opacity: 1 },
-      {
-        y: -100,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power2.inOut",
-        immediateRender: false
-      }, 
-      5
+    // Evolve Anchor further
+    scrollTl.to(anchorRef.current, 
+      { borderColor: 'var(--accent-warm)', duration: 1 }, 
+      1.5
+    )
+
+    // Phase 4: Transition Out
+    scrollTl.to([titleWrapperRef.current, roleRef.current, contextRef.current], 
+      { opacity: 0, y: -40, duration: 1.5, stagger: 0.1, ease: 'power2.inOut' }, 
+      3.0
+    )
+    
+    scrollTl.to([labelRef.current, anchorRef.current], 
+      { opacity: 0, duration: 1, ease: 'power2.inOut' }, 
+      3.2
     )
 
     return () => {
@@ -126,34 +139,53 @@ export function Hero() {
   }, [reducedMotion])
 
   return (
-    <section ref={sectionRef} className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section id="hero" ref={sectionRef} className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
       <NoiseBackground />
-      <div className="relative z-10 flex flex-col items-center text-center">
-        <div ref={titleWrapperRef}>
+      
+      {/* Section Label */}
+      <div ref={labelRef} className="absolute top-[var(--section-py)] left-[var(--section-px)] opacity-0">
+        <SectionLabel text="00 — INTRO" />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 flex flex-col items-center text-center px-4 w-full">
+        {/* Name / Identity */}
+        <div ref={titleWrapperRef} className="relative z-20">
           <h1 
             ref={titleRef} 
-            className="text-hero font-display text-[var(--accent-warm)] leading-none mb-4 tracking-tighter opacity-0"
+            className="text-hero font-display text-[var(--accent-warm)] leading-none mb-6 md:mb-8 tracking-tighter opacity-0"
           >
             {scrambleText}
           </h1>
         </div>
-        <div className="flex flex-wrap justify-center items-center font-display font-light text-[var(--text-secondary)] text-xl md:text-2xl mb-4 gap-y-2">
-          <div ref={roleRef1} className="opacity-0">
-            Full Stack Developer
-          </div>
-          <div ref={roleRef2} className="flex items-center">
-            <span className="text-[var(--text-dim)] mx-2">&</span>
-            UI/UX Designer
-          </div>
-          <div ref={roleRef3} className="flex items-center">
-            <span className="text-[var(--text-dim)] mx-2">&</span>
-            AI Engineer
-          </div>
+        
+        {/* Role */}
+        <div 
+          ref={roleRef} 
+          className="font-mono text-[10px] md:text-[13px] text-[var(--text-secondary)] uppercase tracking-[0.15em] md:tracking-[0.2em] mb-8 md:mb-10 opacity-0 max-w-[90vw] leading-relaxed flex flex-wrap justify-center items-center"
+        >
+          <span>Full Stack Developer</span>
+          <span className="mx-2 md:mx-4 text-[var(--border-mid)]">/</span>
+          <span>UI/UX Designer</span>
+          <span className="mx-2 md:mx-4 text-[var(--border-mid)]">/</span>
+          <span>AI Engineer</span>
         </div>
         
-        <div ref={educationRef} className="font-mono font-medium text-sm md:text-base text-[var(--text-secondary)] max-w-lg text-center px-4 leading-relaxed opacity-0">
-          BINUS University <span className="mx-1 text-[var(--text-dim)]">|</span> Master of Information Technology
+        {/* Context / Education */}
+        <div 
+          ref={contextRef} 
+          className="font-mono text-[9px] md:text-[11px] text-[var(--text-dim)] uppercase tracking-widest opacity-0 max-w-[80vw] leading-loose flex flex-col md:flex-row items-center justify-center"
+        >
+          <span>BINUS UNIVERSITY</span>
+          <span className="hidden md:inline mx-3 text-[var(--border-mid)]">·</span>
+          <span className="md:hidden h-1" />
+          <span>MASTER OF INFORMATION TECHNOLOGY</span>
         </div>
+      </div>
+
+      {/* Central Circular Anchor */}
+      <div ref={anchorRef} className="absolute bottom-[15vh] md:bottom-[20vh] w-8 h-8 rounded-full border border-[var(--border-mid)] flex items-center justify-center opacity-0">
+        <div ref={anchorInnerRef} className="w-1.5 h-1.5 rounded-full bg-[var(--text-dim)] opacity-40 transition-colors duration-500" />
       </div>
     </section>
   )
