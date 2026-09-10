@@ -68,7 +68,15 @@ export function Hero() {
     )
 
     // ─── Scroll Timeline (Compositional Transformation) ───
-    // Total timeline duration = 5 units across ~220vh
+    //
+    // 10 units total across ~220vh for fine-grained control:
+    //
+    //   0   – 2.0  → IDENTITY HOLD      (0–20%)   title dominant, nothing else
+    //   2.0 – 4.5  → ROLE REVEAL        (20–45%)  role enters, title subtly adjusts
+    //   4.5 – 7.0  → CONTEXT REVEAL     (45–70%)  education enters, composition densifies
+    //   7.0 – 8.8  → COMPOSITION HOLD   (70–88%)  everything visible, near-static
+    //   8.8 – 10.0 → EXIT / TRANSITION  (88–100%) graceful departure
+    //
     const scrollTl = gsap.timeline({
       scrollTrigger: {
         trigger: wrapper,
@@ -81,139 +89,173 @@ export function Hero() {
     })
 
     // ════════════════════════════════════════════
-    // PHASE 1 → 2: IDENTITY → ROLE (0 – 1.5)
-    // Name rises and scales down subtly
-    // Role sweeps in from below
-    // Anchor evolves
+    // PHASE 1: IDENTITY HOLD (0 – 2.0)
+    // Nothing moves. The name breathes.
+    // Only the anchor has a tiny pulse.
     // ════════════════════════════════════════════
 
-    // Name: scale down, move up, reduce opacity slightly
-    scrollTl.to(titleRef.current, {
-      scale: 0.88,
-      y: -30,
-      opacity: 0.85,
-      letterSpacing: '-0.02em',
-      duration: 1.5,
-      ease: 'power2.inOut',
-    }, 0)
-
-    // Role: appear from below with spatial movement
-    scrollTl.fromTo(roleRef.current,
-      { opacity: 0, y: 35, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out' },
-      0.3
-    )
-
-    // Anchor: inner dot grows, becomes more visible
+    // Anchor inner dot: very subtle warm-up
     scrollTl.to(anchorInnerRef.current, {
-      scale: 2,
-      opacity: 0.8,
-      duration: 1.5,
-      ease: 'power2.inOut',
+      opacity: 0.6,
+      scale: 1.3,
+      duration: 2,
+      ease: 'power1.inOut',
     }, 0)
+
+    // ════════════════════════════════════════════
+    // PHASE 2: ROLE REVEAL (2.0 – 4.5)
+    // Title nudges up and scales down slightly.
+    // Role sweeps in from below.
+    // Anchor evolves subtly.
+    // ════════════════════════════════════════════
+
+    // Title: very restrained adjustment
+    scrollTl.to(titleRef.current, {
+      scale: 0.96,
+      y: -10,
+      opacity: 0.95,
+      duration: 2.5,
+      ease: 'power2.inOut',
+    }, 2)
+
+    // Role: appear from below
+    scrollTl.fromTo(roleRef.current,
+      { opacity: 0, y: 24, scale: 0.97 },
+      { opacity: 1, y: 0, scale: 1, duration: 2, ease: 'power3.out' },
+      2.2
+    )
 
     // Anchor: ring shifts down slightly
     scrollTl.to(anchorRef.current, {
-      y: 10,
-      duration: 1.5,
+      y: 5,
+      duration: 2.5,
       ease: 'power2.inOut',
-    }, 0)
+    }, 2)
+
+    // Anchor inner: grows a bit more
+    scrollTl.to(anchorInnerRef.current, {
+      scale: 1.8,
+      opacity: 0.75,
+      duration: 2.5,
+      ease: 'power2.inOut',
+    }, 2)
 
     // ════════════════════════════════════════════
-    // PHASE 2 → 3: ROLE → CONTEXT (1.5 – 3.0)
-    // Name scales further, becomes quieter
-    // Role shifts up slightly
-    // Context/Education appears
-    // Composition densifies
+    // PHASE 3: CONTEXT REVEAL (4.5 – 7.0)
+    // Title scales slightly more, role shifts up a touch.
+    // Education/context enters.
+    // Anchor ring warms.
     // ════════════════════════════════════════════
 
-    // Name: further reduction
+    // Title: further subtle reduction
     scrollTl.to(titleRef.current, {
-      scale: 0.78,
-      y: -50,
-      opacity: 0.55,
-      duration: 1.5,
+      scale: 0.93,
+      y: -18,
+      opacity: 0.9,
+      duration: 2.5,
       ease: 'power2.inOut',
-    }, 1.5)
+    }, 4.5)
 
-    // Role: shift up, reduce slightly
+    // Role: slight upward drift
     scrollTl.to(roleRef.current, {
-      y: -15,
-      opacity: 0.7,
-      duration: 1.5,
+      y: -6,
+      opacity: 0.9,
+      duration: 2.5,
       ease: 'power2.inOut',
-    }, 1.5)
+    }, 4.5)
 
     // Context: reveal with spatial entry
     scrollTl.fromTo(contextRef.current,
-      { opacity: 0, y: 30, scale: 0.96 },
-      { opacity: 0.85, y: 0, scale: 1, duration: 1.2, ease: 'power3.out' },
-      1.8
+      { opacity: 0, y: 16, scale: 0.98 },
+      { opacity: 0.85, y: 0, scale: 1, duration: 2, ease: 'power3.out' },
+      4.8
     )
 
-    // Anchor: ring border becomes warm, subtle glow
+    // Anchor ring: warm border, subtle glow
     scrollTl.to(anchorRingRef.current, {
-      borderColor: 'rgba(212, 185, 150, 0.5)',
-      boxShadow: '0 0 12px rgba(212, 185, 150, 0.15)',
-      duration: 1.5,
+      borderColor: 'rgba(212, 185, 150, 0.4)',
+      boxShadow: '0 0 10px rgba(212, 185, 150, 0.1)',
+      duration: 2.5,
       ease: 'power2.inOut',
-    }, 1.5)
+    }, 4.5)
 
-    // Anchor: shift down more
+    // Anchor: small shift
     scrollTl.to(anchorRef.current, {
-      y: 25,
-      duration: 1.5,
+      y: 12,
+      duration: 2.5,
       ease: 'power2.inOut',
-    }, 1.5)
+    }, 4.5)
 
     // ════════════════════════════════════════════
-    // PHASE 3 → 4: CONTEXT → EXIT (3.0 – 5.0)
-    // Everything collapses upward and fades
-    // Anchor becomes the last visible element
-    // Composition dissolves into transition
+    // PHASE 4: COMPOSITION HOLD (7.0 – 8.8)
+    // Everything is visible. Near-static.
+    // Only the most subtle drift to keep it alive.
+    // The user appreciates the full identity.
     // ════════════════════════════════════════════
 
-    // Name: exit
+    // Title: barely perceptible drift
     scrollTl.to(titleRef.current, {
-      y: -100,
-      opacity: 0,
-      scale: 0.7,
-      duration: 1.5,
-      ease: 'power2.in',
-    }, 3.2)
+      y: -20,
+      scale: 0.92,
+      duration: 1.8,
+      ease: 'none',
+    }, 7)
 
-    // Role: exit (slightly delayed)
-    scrollTl.to(roleRef.current, {
-      y: -60,
-      opacity: 0,
-      duration: 1.3,
-      ease: 'power2.in',
-    }, 3.4)
+    // Anchor inner: settle
+    scrollTl.to(anchorInnerRef.current, {
+      scale: 2,
+      opacity: 0.85,
+      duration: 1.8,
+      ease: 'power1.inOut',
+    }, 7)
 
-    // Context: exit (slightly more delayed)
-    scrollTl.to(contextRef.current, {
-      y: -40,
+    // ════════════════════════════════════════════
+    // PHASE 5: EXIT / TRANSITION (8.8 – 10.0)
+    // Graceful departure. Title fades last.
+    // Only 12% of the total scroll range.
+    // ════════════════════════════════════════════
+
+    // Title: exit
+    scrollTl.to(titleRef.current, {
+      y: -35,
       opacity: 0,
+      scale: 0.88,
       duration: 1.2,
       ease: 'power2.in',
-    }, 3.6)
+    }, 8.8)
+
+    // Role: exit
+    scrollTl.to(roleRef.current, {
+      y: -20,
+      opacity: 0,
+      duration: 1.0,
+      ease: 'power2.in',
+    }, 8.9)
+
+    // Context: exit
+    scrollTl.to(contextRef.current, {
+      y: -15,
+      opacity: 0,
+      duration: 1.0,
+      ease: 'power2.in',
+    }, 9.0)
 
     // Label: exit
     scrollTl.to(labelRef.current, {
       opacity: 0,
-      x: -15,
-      duration: 1,
+      x: -10,
+      duration: 0.8,
       ease: 'power2.in',
-    }, 3.5)
+    }, 9.0)
 
-    // Anchor: last to go, drifts down then fades
+    // Anchor: last to go
     scrollTl.to(anchorRef.current, {
-      y: 60,
+      y: 20,
       opacity: 0,
-      scale: 0.5,
-      duration: 1.5,
+      scale: 0.7,
+      duration: 1.2,
       ease: 'power2.in',
-    }, 3.8)
+    }, 9.2)
 
     return () => {
       clearTimeout(startDelay)
