@@ -253,7 +253,7 @@ export const Work = () => {
             <div className="flex-1 w-full flex flex-col items-center justify-center pt-2 pb-10 gap-8">
               
               {/* MENU & BACK Buttons */}
-              <div className="w-full flex justify-between px-8">
+              <div className="w-full flex justify-center gap-12 md:gap-20">
                 <button 
                   onClick={handleMenu}
                   className="px-6 py-2 rounded-full border border-[var(--border-mid)] bg-black/20 text-[10px] font-mono tracking-widest text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-warm)] transition-all shadow-inner active:scale-95"
