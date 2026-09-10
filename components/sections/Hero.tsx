@@ -51,20 +51,22 @@ export function Hero() {
     }, 1800)
 
     // ─── Intro Animation (on load) ───
-    const introTl = gsap.timeline({ delay: 1.8 })
+    // Starts at 0.8s so title fades in (with blur) BEFORE
+    // the scramble begins resolving at 1.8s. No overlap.
+    const introTl = gsap.timeline({ delay: 0.8 })
     introTl.fromTo(titleRef.current,
-      { opacity: 0, y: 40, scale: 0.92, filter: 'blur(12px)' },
-      { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.4, ease: 'power4.out' }
+      { opacity: 0, y: 30, scale: 0.95, filter: 'blur(8px)' },
+      { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out' }
     )
     introTl.fromTo(labelRef.current,
       { opacity: 0, x: -20 },
       { opacity: 0.7, x: 0, duration: 1, ease: 'power3.out' },
-      "-=0.9"
+      "-=0.6"
     )
     introTl.fromTo(anchorRef.current,
       { opacity: 0, scale: 0 },
       { opacity: 1, scale: 1, duration: 1.2, ease: 'back.out(1.7)' },
-      "-=0.7"
+      "-=0.5"
     )
 
     // ─── Scroll Timeline (Compositional Transformation) ───
@@ -301,7 +303,7 @@ export function Hero() {
           {/* Role — Secondary Information */}
           <div
             ref={roleRef}
-            className="font-mono text-[10px] md:text-[12px] text-[var(--text-secondary)] uppercase tracking-[0.18em] opacity-0 will-change-transform flex flex-wrap justify-center items-center gap-y-1"
+            className="font-mono text-[12px] md:text-[15px] font-medium text-[var(--text-secondary)] uppercase tracking-[0.15em] md:tracking-[0.18em] opacity-0 will-change-transform flex flex-wrap justify-center items-center gap-y-1"
           >
             <span>Full Stack Developer</span>
             <span className="mx-2 md:mx-4 text-[var(--border-mid)] select-none">/</span>
@@ -316,7 +318,7 @@ export function Hero() {
           {/* Context / Education — Tertiary Information */}
           <div
             ref={contextRef}
-            className="font-mono text-[9px] md:text-[10px] text-[var(--text-dim)] uppercase tracking-[0.2em] opacity-0 will-change-transform flex flex-col items-center gap-1"
+            className="font-mono text-[11px] md:text-[12px] font-medium text-[var(--text-secondary)] uppercase tracking-[0.15em] opacity-0 will-change-transform flex flex-col items-center gap-1.5"
           >
             <span>BINUS UNIVERSITY</span>
             <span className="text-[var(--border-mid)]">·</span>
