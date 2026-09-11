@@ -334,7 +334,7 @@ export const Work = () => {
         </div>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
-        <div className="w-full flex flex-col order-1 xl:order-2 justify-center">
+        <div className="w-full flex flex-col order-1 xl:order-2 justify-center max-h-[90vh] overflow-y-auto no-scrollbar">
           <AnimatePresence mode="wait">
             {(view === 'idle' || view === 'nav') ? (
               <motion.div
@@ -396,7 +396,7 @@ export const Work = () => {
                       {selectedProject.title}
                     </h2>
                     
-                    <p className="text-[var(--text-secondary)] font-light text-base max-w-lg mb-8 leading-relaxed">
+                    <p className="text-[var(--text-secondary)] font-light text-base max-w-2xl mb-8 leading-relaxed">
                       {selectedProject.description}
                     </p>
 
