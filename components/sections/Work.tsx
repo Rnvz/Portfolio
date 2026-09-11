@@ -334,7 +334,7 @@ export const Work = () => {
         </div>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
-        <div className="w-full flex flex-col order-1 xl:order-2 justify-center max-h-[90vh] overflow-y-auto no-scrollbar">
+        <div className="w-full flex flex-col order-1 xl:order-2 justify-center">
           <AnimatePresence mode="wait">
             {(view === 'idle' || view === 'nav') ? (
               <motion.div
@@ -435,8 +435,8 @@ export const Work = () => {
                     </div>
                   </div>
 
-                  {/* Floating Preview Image */}
-                  <div className="w-full lg:w-[320px] shrink-0 mt-8 lg:mt-0">
+                  {/* Floating Preview Image + Goal */}
+                  <div className="w-full lg:w-[320px] shrink-0 mt-8 lg:mt-0 flex flex-col">
                     <div className="relative w-full aspect-[4/3] bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden mb-3">
                       <div className="absolute top-3 right-3 z-10 font-mono text-[9px] text-white/70 bg-black/50 px-2 py-1 rounded backdrop-blur-sm">
                         {String(globalIndex + 1).padStart(2, '0')} / {String(PROJECTS.length).padStart(2, '0')}
@@ -448,16 +448,24 @@ export const Work = () => {
                         className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500"
                       />
                     </div>
-                    <div className="flex items-center gap-4 w-full">
+                    <div className="flex items-center gap-4 w-full mb-6">
                       <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest whitespace-nowrap">Project Preview</span>
                       <div className="h-px bg-[var(--border)] flex-1"></div>
+                    </div>
+
+                    {/* The Goal — fills the gap below image */}
+                    <div className="mt-auto">
+                      <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-3">The Goal</h3>
+                      <p className="font-mono text-[11px] text-[var(--text-secondary)] leading-relaxed">
+                        {selectedProject.goal}
+                      </p>
                     </div>
                   </div>
 
                 </div>
 
-                {/* BOTTOM SECTION: 3 Columns */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 border-t border-[var(--border)] pt-8 mt-auto">
+                {/* BOTTOM SECTION: 2 Columns */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 border-t border-[var(--border)] pt-8 mt-auto">
                   
                   {/* Col 1: Built & CTA */}
                   <div className="flex flex-col h-full">
@@ -493,14 +501,6 @@ export const Work = () => {
                         </span>
                       ))}
                     </div>
-                  </div>
-
-                  {/* Col 3: Goal */}
-                  <div>
-                    <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">The Goal</h3>
-                    <p className="font-mono text-[11px] text-[var(--text-secondary)] leading-relaxed">
-                      {selectedProject.goal}
-                    </p>
                   </div>
 
                 </div>
