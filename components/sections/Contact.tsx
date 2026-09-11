@@ -59,15 +59,15 @@ export function Contact() {
         <SplitText text="Let's build something." delay={0.2} />
       </div>
       
-      <div ref={subTextRef} className="mb-24 max-w-3xl mx-auto overflow-hidden">
+      <div ref={subTextRef} className="mb-16 max-w-3xl mx-auto overflow-hidden">
         <p className="font-mono text-[var(--text-secondary)] text-sm md:text-base uppercase tracking-widest text-center">
           Available for: Fulltime, Part time, Hybrid, Remote, Freelance
         </p>
       </div>
 
-      <ul ref={linksRef} className="flex flex-col w-full max-w-5xl px-4 md:px-12 mb-32">
+      <ul ref={linksRef} className="flex flex-col w-full max-w-5xl px-4 md:px-12 mb-16">
         <li className="group border-b border-[var(--border-light)] hover:border-[var(--accent-warm)] transition-colors duration-500">
-          <a href="mailto:yohaneswenanta2410@gmail.com" className="flex flex-col lg:flex-row lg:items-center justify-between py-8 w-full">
+          <a href="mailto:yohaneswenanta2410@gmail.com" className="flex flex-col lg:flex-row lg:items-center justify-between py-6 w-full">
             <span className="font-mono text-sm md:text-base text-[var(--text-dim)] mb-4 lg:mb-0 group-hover:text-[var(--accent-warm)] transition-colors duration-500">
               01 — Email
             </span>
@@ -81,7 +81,7 @@ export function Contact() {
           </a>
         </li>
         <li className="group border-b border-[var(--border-light)] hover:border-[var(--accent-warm)] transition-colors duration-500">
-          <a href="https://github.com/Rnvz" target="_blank" rel="noopener noreferrer" className="flex flex-col lg:flex-row lg:items-center justify-between py-8 w-full">
+          <a href="https://github.com/Rnvz" target="_blank" rel="noopener noreferrer" className="flex flex-col lg:flex-row lg:items-center justify-between py-6 w-full">
             <span className="font-mono text-sm md:text-base text-[var(--text-dim)] mb-4 lg:mb-0 group-hover:text-[var(--accent-warm)] transition-colors duration-500">
               02 — GitHub
             </span>
@@ -95,7 +95,7 @@ export function Contact() {
           </a>
         </li>
         <li className="group border-b border-[var(--border-light)] hover:border-[var(--accent-warm)] transition-colors duration-500">
-          <a href="https://tinyurl.com/wp3y3eak" target="_blank" rel="noopener noreferrer" className="flex flex-col lg:flex-row lg:items-center justify-between py-8 w-full">
+          <a href="https://tinyurl.com/wp3y3eak" target="_blank" rel="noopener noreferrer" className="flex flex-col lg:flex-row lg:items-center justify-between py-6 w-full">
             <span className="font-mono text-sm md:text-base text-[var(--text-dim)] mb-4 lg:mb-0 group-hover:text-[var(--accent-warm)] transition-colors duration-500">
               03 — Portfolio
             </span>
@@ -109,7 +109,7 @@ export function Contact() {
           </a>
         </li>
         <li className="group border-b border-[var(--border-light)] hover:border-[var(--accent-warm)] transition-colors duration-500">
-          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="flex flex-col lg:flex-row lg:items-center justify-between py-8 w-full">
+          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="flex flex-col lg:flex-row lg:items-center justify-between py-6 w-full">
             <span className="font-mono text-sm md:text-base text-[var(--text-dim)] mb-4 lg:mb-0 group-hover:text-[var(--accent-warm)] transition-colors duration-500">
               04 — LinkedIn
             </span>
