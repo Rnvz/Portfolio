@@ -8,6 +8,37 @@ import { PROJECTS } from '@/lib/constants'
 
 const CATEGORIES = ['ALL', 'FULL STACK', 'UI/UX', 'AI ENGINEERING', 'EXPERIMENTS']
 
+const TECH_ICONS: Record<string, string> = {
+  'Next.js':        'https://cdn.simpleicons.org/nextdotjs/white',
+  'React':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
+  'React TS':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
+  'TypeScript':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg',
+  'Tailwind':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
+  'TailwindCSS':    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
+  'Cloudflare D1':  'https://cdn.simpleicons.org/cloudflare',
+  'Resend':         'https://cdn.simpleicons.org/resend/white',
+  'Figma':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg',
+  'Firebase':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg',
+  'Midtrans API':   'https://cdn.simpleicons.org/midtrans',
+  'Laravel':        'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
+  'Laravel 12':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
+  'MySQL':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg',
+  'Blade Templates':'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
+  'HTTP':           'https://cdn.simpleicons.org/curl/white',
+  'Python':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg',
+  'Pandas':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg',
+  'Matplotlib':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg',
+  'Scikit-learn':   'https://cdn.simpleicons.org/scikitlearn',
+  'NumPy':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg',
+  'Anaconda':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg',
+  'BioPython':      '/icons/biopython.svg',
+  'GSAP':           'https://cdn.simpleicons.org/greensock',
+  'Framer Motion':  'https://cdn.simpleicons.org/framer/white',
+  'Lenis':          'https://cdn.simpleicons.org/lenis/white',
+  'Vercel':         'https://cdn.simpleicons.org/vercel/white',
+  'e-JURA':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
+}
+
 export const Work = () => {
   const [view, setView] = useState<'idle' | 'nav' | 'detail'>('idle')
   const [activeCategory, setActiveCategory] = useState('ALL')
@@ -381,11 +412,11 @@ export const Work = () => {
                 className="flex flex-col w-full h-full pb-8 xl:pb-0"
               >
                 
-                {/* TOP SECTION: Text & Image */}
-                <div className="flex flex-col lg:flex-row gap-12 mb-12 pt-8 xl:pt-0">
+                {/* ROW 1: Title + Image aligned */}
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 pt-8 xl:pt-0">
                   
-                  {/* Text Info */}
-                  <div className="flex-1">
+                  {/* Left: Title, Description, Metadata */}
+                  <div className="flex-1 min-w-0">
                     <div className="mb-4">
                       <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] tracking-widest uppercase">
                         Work / {String(globalIndex + 1).padStart(2, '0')}
@@ -400,7 +431,7 @@ export const Work = () => {
                       {selectedProject.description}
                     </p>
 
-                    <div className="grid grid-cols-2 gap-y-6 gap-x-8 mb-8">
+                    <div className="grid grid-cols-2 gap-y-5 gap-x-8 mb-8">
                       <div>
                         <h3 className="font-mono text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Role</h3>
                         <p className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.role}</p>
@@ -435,9 +466,9 @@ export const Work = () => {
                     </div>
                   </div>
 
-                  {/* Floating Preview Image + Goal */}
-                  <div className="w-full lg:w-[320px] shrink-0 mt-8 lg:mt-0 flex flex-col">
-                    <div className="relative w-full aspect-[4/3] bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden mb-3">
+                  {/* Right: Image + Goal, aligned to title top */}
+                  <div className="w-full lg:w-[300px] shrink-0 flex flex-col lg:pt-[52px]">
+                    <div className="relative w-full aspect-[4/3] bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden mb-2">
                       <div className="absolute top-3 right-3 z-10 font-mono text-[9px] text-white/70 bg-black/50 px-2 py-1 rounded backdrop-blur-sm">
                         {String(globalIndex + 1).padStart(2, '0')} / {String(PROJECTS.length).padStart(2, '0')}
                       </div>
@@ -453,7 +484,7 @@ export const Work = () => {
                       <div className="h-px bg-[var(--border)] flex-1"></div>
                     </div>
 
-                    {/* The Goal — fills the gap below image */}
+                    {/* The Goal */}
                     <div className="mt-auto">
                       <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-3">The Goal</h3>
                       <p className="font-mono text-[11px] text-[var(--text-secondary)] leading-relaxed">
@@ -464,11 +495,11 @@ export const Work = () => {
 
                 </div>
 
-                {/* BOTTOM SECTION: 2 Columns */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 border-t border-[var(--border)] pt-8 mt-auto">
+                {/* ROW 2: What Was Built + Stack with Icons */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 border-t border-[var(--border)] pt-8 mt-8">
                   
                   {/* Col 1: Built & CTA */}
-                  <div className="flex flex-col h-full">
+                  <div className="flex flex-col">
                     <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">What Was Built</h3>
                     <div className="flex flex-col gap-2 mb-8">
                       {selectedProject.whatWasBuilt?.map((item, idx) => (
@@ -491,14 +522,29 @@ export const Work = () => {
                     </div>
                   </div>
 
-                  {/* Col 2: Stack */}
+                  {/* Col 2: Stack with Icons */}
                   <div>
                     <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">Stack</h3>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
                       {selectedProject.stack.map(tech => (
-                        <span key={tech} className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-primary)] border border-[var(--border)] px-3 py-1.5 rounded-full bg-[rgba(255,255,255,0.02)]">
-                          {tech}
-                        </span>
+                        <div key={tech} className="flex flex-col items-center gap-2 group">
+                          <div className="w-10 h-10 flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity">
+                            {TECH_ICONS[tech] ? (
+                              <img 
+                                src={TECH_ICONS[tech]} 
+                                alt={tech} 
+                                className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
+                              />
+                            ) : (
+                              <div className="w-8 h-8 rounded-full border border-[var(--border)] flex items-center justify-center">
+                                <span className="font-mono text-[8px] text-[var(--text-secondary)] uppercase">{tech.slice(0, 2)}</span>
+                              </div>
+                            )}
+                          </div>
+                          <span className="font-mono text-[9px] text-[var(--text-secondary)] group-hover:text-[var(--accent-warm)] transition-colors text-center uppercase tracking-wider">
+                            {tech}
+                          </span>
+                        </div>
                       ))}
                     </div>
                   </div>
