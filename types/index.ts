@@ -1,21 +1,23 @@
 export interface Project {
-  id          : string
-  title       : string
-  subtitle    : string
-  category    : string
-  role        : string
-  year        : string
-  description : string
-  status      : 'PRODUCTION' | 'COMPLETED'
-  visibility  : 'PUBLIC' | 'PRIVATE'
-  system      : string[]
-  whatWasBuilt: string[]
-  stack       : string[]
-  goal        : string
-  image       : string
-  featured    : boolean
-  live        : string | null
-  github      : string | null
+  id: string
+  title: string
+  category: string
+  role: string
+  description: string
+  period?: string
+  status?: string
+  visibility?: string
+  systems?: string[]
+  built?: {
+    title: string
+    description?: string
+  }[]
+  technologies?: string[]
+  goal?: string
+  outcome?: string[]
+  image?: string
+  url?: string
+  github?: string
 }
 
 export interface TimelineEntry {

@@ -1,141 +1,205 @@
 import { Project, Skill, TimelineEntry, Stat } from '@/types'
 
+
 export const PROJECTS: Project[] = [
   {
-    id         : 'pni',
-    title      : 'PANCAINDO',
-    subtitle   : 'B2B Wine & Spirits Platform',
-    category   : 'FULL STACK',
-    role       : 'Intern - Full Stack Developer',
-    year       : '2024 — 2025',
+    id: 'pancaindo',
+    title: 'PANCAINDO',
+    category: 'FULL STACK',
+    role: 'Intern — Full Stack Developer',
+    period: 'Feb — Sep 2026',
     description: 'Production ecosystem for Indonesia\'s leading wine and spirits distributor. Public portal and internal CMS with RBAC and analytics.',
-    status     : 'PRODUCTION',
-    visibility : 'PRIVATE',
-    system     : ['Public Portal', 'Internal CMS', 'RBAC', 'Analytics'],
-    whatWasBuilt: ['Public commerce portal', 'Internal CMS', 'Role-based access control', 'Analytics dashboard', 'Production deployment'],
-    stack      : ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Cloudflare D1', 'Resend'],
-    goal       : 'Build a modern and scalable platform to streamline operations, improve distribution efficiency, and support business growth in the beverage industry.',
-    image      : '/projects/pni-portal.webp',
-    featured   : true,
-    live       : 'https://pancaindo.com',
-    github     : null,
+    status: 'Production',
+    visibility: 'Private',
+    systems: [
+      'Public Portal',
+      'Internal CMS',
+      'RBAC',
+      'Newsletter',
+      'Analytics',
+      'Edge Infrastructure'
+    ],
+    built: [
+      { title: 'Public B2B Product Portal', description: '200+ SKU catalog, multi-criteria filtering, tasting notes, brand profiles, nationwide venue directory, event calendar' },
+      { title: 'Internal CMS', description: 'CRUD for products, brands, events, venues, distributors, publications and newsletters' },
+      { title: 'Role-Based Access Control', description: 'Super Admin, Admin, Staff. Granular permissions, HTTP-only sessions, CSRF protection, SQLite-backed brute-force prevention' },
+      { title: 'Newsletter System', description: 'Tiptap HTML email builder, Resend batch sending, delivery tracking, Svix webhook verification' },
+      { title: 'First-Party Analytics', description: 'Pageviews, unique visitors, device type, browser, OS, Geo-IP' },
+      { title: 'Infrastructure', description: 'Cloudflare Pages, D1, R2, KV, OpenNext, automated cache purge' }
+    ],
+    technologies: [
+      'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Cloudflare D1', 'Cloudflare R2', 'Cloudflare KV', 'OpenNext', 'Resend', 'Svix', 'Zod', 'Figma'
+    ],
+    goal: 'Build a modern and scalable platform to streamline operations, improve distribution efficiency, and support business growth in the beverage industry.',
+    image: '/projects/pni-portal.webp',
+    url: 'https://pancaindo.com',
   },
   {
-    id         : 'serenity',
-    title      : 'SERENITY',
-    subtitle   : 'Mental Health Consultation Platform',
-    category   : 'UI/UX',
-    role       : 'UI/UX & Frontend Developer',
-    year       : '2023',
-    description: 'Empathy-driven mental health platform with accessible UI, Firebase authentication, and Midtrans payment integration.',
-    status     : 'COMPLETED',
-    visibility : 'PUBLIC',
-    system     : ['Patient App', 'Consultation Flow', 'Payment Gateway'],
-    whatWasBuilt: ['Accessible UI components', 'Booking system interface', 'Payment integration UI'],
-    stack      : ['Figma', 'React TS', 'TailwindCSS', 'Firebase', 'Midtrans API'],
-    goal       : 'Design and build an accessible, calming digital space for users seeking mental health professional help.',
-    image      : '/projects/serenity.webp',
-    featured   : false,
-    live       : null,
-    github     : 'https://github.com/Rnvz',
+    id: 'gym-management-system',
+    title: 'GYM MANAGEMENT SYSTEM',
+    category: 'FULL STACK',
+    role: 'Freelance — Full Stack Developer',
+    period: 'Sep 2025 — Feb 2026',
+    description: 'End-to-end gym management with Figma-designed UI, responsive React frontend, and Node.js backend with Prisma ORM.',
+    status: 'Completed',
+    visibility: 'Private',
+    systems: [
+      'UI/UX Design',
+      'React Frontend',
+      'Node.js Backend',
+      'REST API',
+      'Database Schema'
+    ],
+    built: [
+      { title: 'UI/UX Design', description: 'End-to-end design with high-fidelity prototypes' },
+      { title: 'Frontend Interface', description: 'Responsive React interface' },
+      { title: 'Backend API', description: 'Node.js backend with REST API and Prisma ORM schema' }
+    ],
+    technologies: [
+      'React TS', 'TailwindCSS', 'Node.js', 'Prisma ORM', 'SQLite', 'Figma'
+    ],
+    goal: 'Digitize gym operations and member management for a local fitness center.',
+    image: '/projects/gym-system.webp'
   },
   {
-    id         : 'beema',
-    title      : 'BEEMA',
-    subtitle   : 'Consultation Management Portal',
-    category   : 'FULL STACK',
-    role       : 'UI/UX Developer',
-    year       : '2024',
-    description: 'Multi-role portal for Admin, Lecturer, and Student with intuitive flows designed in Figma and built in Laravel.',
-    status     : 'COMPLETED',
-    visibility : 'PUBLIC',
-    system     : ['Admin Dashboard', 'Student Portal', 'Lecturer Portal'],
-    whatWasBuilt: ['Multi-role architecture', 'Scheduling system', 'UI/UX overhaul'],
-    stack      : ['Figma', 'Laravel 12', 'MySQL', 'Blade Templates', 'Vite'],
-    goal       : 'Create a streamlined consultation scheduling system for academic environments.',
-    image      : '/projects/beema.webp',
-    featured   : false,
-    live       : null,
-    github     : 'https://github.com/Rnvz',
+    id: 'beema',
+    title: 'BEEMA',
+    category: 'FULL STACK',
+    role: 'UI/UX Developer',
+    description: 'Multi-role portal for Admin, Lecturer, and Student workflows designed in Figma and built in Laravel 12.',
+    status: 'Completed',
+    visibility: 'Public',
+    goal: "Design and implement a responsive academic thesis management system.",
+    outcome: [
+      "Created high-fidelity prototypes for Admin, Lecturer, and Student roles.",
+      "Implemented responsive frontend using Laravel Blade."
+    ],
+    systems: [
+      'User Flows',
+      'Interaction Patterns',
+      'Responsive Implementation'
+    ],
+    built: [
+      { title: 'Multi-Role UX', description: 'Admin, Lecturer, and Student workflows with high-fidelity prototypes' },
+      { title: 'Frontend Implementation', description: 'Responsive Laravel Blade implementation' }
+    ],
+    technologies: [
+      'Laravel 12', 'MySQL', 'Blade Templates', 'Vite', 'Figma'
+    ],
+    image: '/projects/beema.webp',
+    github: 'https://github.com/Rnvz'
   },
   {
-    id         : 'supreme-court',
-    title      : 'SUPREME COURT AI',
-    subtitle   : 'Judgement Classification System',
-    category   : 'AI ENGINEERING',
-    role       : 'AI Engineer',
-    year       : '2023',
+    id: 'supreme-court-judgement-classification',
+    title: 'SUPREME COURT JUDGEMENT CLASSIFICATION',
+    category: 'AI ENGINEERING',
+    role: 'AI Engineer',
     description: 'NLP pipeline using Gaussian Naive Bayes to classify court outcomes, deployed as an interactive Streamlit prediction app.',
-    status     : 'COMPLETED',
-    visibility : 'PUBLIC',
-    system     : ['NLP Pipeline', 'Classification Model', 'Interactive UI'],
-    whatWasBuilt: ['Data preprocessing', 'Model training & tuning', 'Streamlit web interface'],
-    stack      : ['Python', 'Scikit-learn', 'Pandas', 'Optuna', 'Streamlit'],
-    goal       : 'Automate the classification of legal judgement documents using natural language processing.',
-    image      : '/projects/supreme-court.webp',
-    featured   : false,
-    live       : null,
-    github     : 'https://github.com/Rnvz',
+    status: 'Completed',
+    visibility: 'Public',
+    goal: "Apply machine learning to predict court judgement outcomes based on case facts.",
+    outcome: [
+      "Trained a Gaussian Naive Bayes model with high accuracy.",
+      "Deployed a live interactive Streamlit application."
+    ],
+    systems: [
+      'NLP Pipeline',
+      'Classification Model',
+      'Interactive UI'
+    ],
+    built: [
+      { title: 'Classification Pipeline', description: 'NLP classification pipeline with Gaussian Naive Bayes and Optuna hyperparameter tuning' },
+      { title: 'Interactive Deployment', description: 'Streamlit deployment with real-time prediction from user-provided case facts' }
+    ],
+    technologies: [
+      'Python', 'Scikit-learn', 'Pandas', 'Optuna', 'Streamlit'
+    ],
+    image: '/projects/supreme-court.webp',
+    github: 'https://github.com/Rnvz'
   },
   {
-    id         : 'gym',
-    title      : 'GYM SYSTEM',
-    subtitle   : 'Freelance Full Stack',
-    category   : 'FULL STACK',
-    role       : 'Full Stack Developer',
-    year       : '2024',
-    description: 'End-to-end gym management with Figma-designed UI, React frontend, and Node.js + Prisma backend.',
-    status     : 'PRODUCTION',
-    visibility : 'PRIVATE',
-    system     : ['Member Management', 'Billing System', 'Admin Dashboard'],
-    whatWasBuilt: ['Full-stack architecture', 'Database schema', 'Responsive UI'],
-    stack      : ['React TS', 'TailwindCSS', 'Node.js', 'Prisma', 'SQLite', 'Figma'],
-    goal       : 'Digitize gym operations and member management for a local fitness center.',
-    image      : '/projects/gym-system.webp',
-    featured   : false,
-    live       : null,
-    github     : 'https://github.com/Rnvz',
+    id: 'serenity',
+    title: 'SERENITY',
+    category: 'UI/UX',
+    role: 'UI/UX & Frontend Developer',
+    description: 'Empathy-driven mental health platform with accessible UI, Firebase authentication, and Midtrans payment integration.',
+    status: 'Completed',
+    visibility: 'Public',
+    goal: "Create a mental health platform focused on empathy, accessibility, and secure transactions.",
+    outcome: [
+      "Designed an accessible and calming UI.",
+      "Integrated secure Firebase Auth and Midtrans payment."
+    ],
+    systems: [
+      'Accessible Design',
+      'Component Frontend',
+      'Auth & Payments'
+    ],
+    built: [
+      { title: 'Empathy-Driven UX', description: 'Accessibility-focused design with a calming visual direction' },
+      { title: 'Frontend Development', description: 'Responsive component-based frontend integrated with Firebase authentication and Midtrans payment' }
+    ],
+    technologies: [
+      'Figma', 'React TS', 'TailwindCSS', 'Firebase Auth / Firestore', 'Midtrans API'
+    ],
+    image: '/projects/serenity.webp',
+    github: 'https://github.com/Rnvz'
   },
   {
-    id         : 'nofake',
-    title      : 'NOFAKE',
-    subtitle   : 'Hoax Verification & Education',
-    category   : 'UI/UX',
-    role       : 'UI/UX & Frontend Developer',
-    year       : '2023',
+    id: 'nofake',
+    title: 'NOFAKE',
+    category: 'UI/UX',
+    role: 'UI/UX & Frontend Developer',
     description: 'Credibility-focused UI/UX prioritizing clear information hierarchy, with a scalable React and TailwindCSS frontend to combat digital misinformation.',
-    status     : 'COMPLETED',
-    visibility : 'PUBLIC',
-    system     : ['Verification Portal', 'Educational Hub'],
-    whatWasBuilt: ['Trust-centric UI design', 'Frontend implementation', 'Content management UI'],
-    stack      : ['React', 'TailwindCSS', 'Firebase', 'Figma'],
-    goal       : 'Design a trustworthy platform to help users identify and learn about digital misinformation.',
-    image      : '/projects/pni-portal.webp',
-    featured   : false,
-    live       : null,
-    github     : 'https://github.com/Rnvz',
+    status: 'Completed',
+    visibility: 'Public',
+    goal: "Design a digital platform to combat misinformation with a focus on credibility and information hierarchy.",
+    outcome: [
+      "Developed a scalable React frontend.",
+      "Established a trustworthy visual language."
+    ],
+    systems: [
+      'Information Hierarchy',
+      'Misinformation Product Design'
+    ],
+    built: [
+      { title: 'Credibility-Focused UX', description: 'Information hierarchy and readability for misinformation-oriented product design' },
+      { title: 'Frontend Implementation', description: 'Scalable React frontend with TailwindCSS and Firebase Hosting' }
+    ],
+    technologies: [
+      'React', 'TailwindCSS', 'Firebase Hosting', 'Firebase Auth', 'Figma'
+    ],
+    image: '/projects/pni-portal.webp',
+    github: 'https://github.com/Rnvz'
   },
   {
-    id         : 'peluangnusantara',
-    title      : 'PELUANG NUSANTARA',
-    subtitle   : 'Crowdfunding Platform',
-    category   : 'EXPERIMENTS',
-    role       : 'UI/UX & Frontend Developer',
-    year       : '2023',
+    id: 'peluangnusantara',
+    title: 'PELUANGNUSANTARA',
+    category: 'UI/UX',
+    role: 'UI/UX & Frontend Developer',
     description: 'Accessible and trust-building UI/UX for a crowdfunding platform developed with semantic HTML, CSS, and JavaScript focusing on cross-browser consistency.',
-    status     : 'COMPLETED',
-    visibility : 'PUBLIC',
-    system     : ['Campaign Pages', 'Donation Flow'],
-    whatWasBuilt: ['Semantic HTML structure', 'Custom CSS styling', 'Vanilla JS interactions'],
-    stack      : ['Figma', 'HTML/CSS/JS', 'Git'],
-    goal       : 'Experiment with core web technologies to build a responsive crowdfunding interface.',
-    image      : '/projects/serenity.webp',
-    featured   : false,
-    live       : null,
-    github     : 'https://github.com/Rnvz',
-  },
+    status: 'Completed',
+    visibility: 'Public',
+    goal: "Build a trustworthy crowdfunding platform using semantic HTML and CSS.",
+    outcome: [
+      "Achieved cross-browser consistency.",
+      "Designed clear calls to action to drive engagement."
+    ],
+    systems: [
+      'Trust-Building Design',
+      'Semantic Frontend'
+    ],
+    built: [
+      { title: 'Accessible UX', description: 'Trust-building design with transparency and CTA clarity' },
+      { title: 'Frontend Implementation', description: 'Semantic HTML and responsive frontend with cross-browser consistency' }
+    ],
+    technologies: [
+      'Figma', 'HTML/CSS/JS', 'Git'
+    ],
+    image: '/projects/serenity.webp',
+    github: 'https://github.com/Rnvz'
+  }
 ]
-
 export const SKILLS: Skill[] = [
   { name: 'HTML5',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg' },
   { name: 'CSS3',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg' },
@@ -149,6 +213,7 @@ export const SKILLS: Skill[] = [
   { name: 'Tailwind',   icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
   { name: 'Node.js',    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
   { name: 'MySQL',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg' },
+
   { name: 'SQLite',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg' },
   { name: 'Anaconda',   icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg' },
   { name: 'Matplotlib', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg' },
