@@ -9,52 +9,76 @@ import { PROJECTS } from '@/lib/constants'
 const CATEGORIES = ['ALL', 'FULL STACK', 'UI/UX', 'AI ENGINEERING', 'EXPERIMENTS']
 
 const TECH_ICONS: Record<string, string> = {
-  'Next.js':        'https://cdn.simpleicons.org/nextdotjs/white',
-  'React':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
-  'React TS':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
-  'TypeScript':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg',
-  'Tailwind':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
-  'TailwindCSS':    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
-  'Cloudflare D1':  'https://cdn.simpleicons.org/cloudflare/white',
-  'Resend':         'https://cdn.simpleicons.org/resend/white',
-  'Figma':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg',
-  'Firebase':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg',
-  'Midtrans API':   '/icons/midtrans.png',
-  'Laravel':        'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
-  'Laravel 12':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
-  'MySQL':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg',
-  'Blade Templates':'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
-  'Vite':           'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vite/vite-original.svg',
-  'HTTP':           'https://cdn.simpleicons.org/curl/white',
-  'Python':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg',
-  'Pandas':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg',
-  'Matplotlib':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg',
-  'Scikit-learn':   'https://cdn.simpleicons.org/scikitlearn/white',
-  'NumPy':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg',
-  'Streamlit':      'https://cdn.simpleicons.org/streamlit/white',
-  'Optuna':         'https://cdn.simpleicons.org/optuna/white',
-  'Node.js':        'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg',
-  'Prisma':         'https://cdn.simpleicons.org/prisma/white',
-  'SQLite':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg',
-  'HTML5':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg',
-  'CSS3':           'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg',
-  'JavaScript':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg',
-  'Anaconda':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg',
-  'BioPython':      '/icons/biopython.svg',
-  'GSAP':           'https://cdn.simpleicons.org/greensock/white',
-  'Framer Motion':  'https://cdn.simpleicons.org/framer/white',
-  'Lenis':          '/icons/lenis.png',
-  'Vercel':         'https://cdn.simpleicons.org/vercel/white',
-  'e-JURA':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
-  'Git':            'https://cdn.simpleicons.org/git/white',
-  'HTML/CSS/JS':    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg',
+  "Next.js":        "https://cdn.simpleicons.org/nextdotjs/white",
+  "React":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+  "React TS":       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+  "TypeScript":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
+  "Tailwind":       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+  "TailwindCSS":    "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+  "Cloudflare D1":  "https://cdn.simpleicons.org/cloudflare/F38020",
+  "Resend":         "https://cdn.simpleicons.org/resend/white",
+  "Svix":           "https://www.svix.com/icon.svg",
+  "Zod":            "https://cdn.simpleicons.org/zod/3068b7",
+  "OpenNext":       "https://cdn.simpleicons.org/serverless/FD5750",
+  "Figma":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg",
+  "Firebase":       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg",
+  "Midtrans API":   "/icons/midtrans.png",
+  "Laravel":        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
+  "Laravel 12":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
+  "MySQL":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg",
+  "Blade Templates":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
+  "Vite":           "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vite/vite-original.svg",
+  "HTTP":           "https://cdn.simpleicons.org/curl/white",
+  "Python":         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+  "Pandas":         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg",
+  "Matplotlib":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg",
+  "Scikit-learn":   "https://cdn.simpleicons.org/scikitlearn/white",
+  "NumPy":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg",
+  "Streamlit":      "https://cdn.simpleicons.org/streamlit/white",
+  "Optuna":         "https://cdn.simpleicons.org/optuna/white",
+  "Node.js":        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
+  "Prisma":         "https://cdn.simpleicons.org/prisma/white",
+  "SQLite":         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg",
+  "HTML5":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
+  "CSS3":           "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
+  "JavaScript":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+  "Anaconda":       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg",
+  "BioPython":      "/icons/biopython.svg",
+  "GSAP":           "https://cdn.simpleicons.org/greensock/white",
+  "Framer Motion":  "https://cdn.simpleicons.org/framer/white",
+  "Lenis":          "/icons/lenis.png",
+  "Vercel":         "https://cdn.simpleicons.org/vercel/white",
+  "e-JURA":         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
+  "Git":            "https://cdn.simpleicons.org/git/white",
+  "HTML/CSS/JS":    "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+}
+
+const getTechIcon = (tech: string) => {
+  if (TECH_ICONS[tech]) return TECH_ICONS[tech];
+  const t = tech.toLowerCase();
+  if (t.includes("next.js")) return TECH_ICONS["Next.js"];
+  if (t.includes("react")) return TECH_ICONS["React"];
+  if (t.includes("tailwind")) return TECH_ICONS["Tailwind"];
+  if (t.includes("cloudflare")) return TECH_ICONS["Cloudflare D1"];
+  if (t.includes("html")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg";
+  if (t.includes("css")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg";
+  if (t.includes("js")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg";
+  if (t.includes("node.js")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg";
+  if (t.includes("prisma")) return "https://cdn.simpleicons.org/prisma/white";
+  if (t.includes("sqlite")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg";
+  return null;
 }
 
 export const Work = () => {
   const [view, setView] = useState<'idle' | 'nav' | 'detail'>('idle')
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
   const shouldReduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    setDetailTab('OVERVIEW')
+  }, [selectedIndex])
 
   const filteredProjects = useMemo(() => {
     if (activeCategory === 'ALL') return PROJECTS
@@ -101,7 +125,7 @@ export const Work = () => {
       // In detail view, maybe open link? Or do nothing?
       // User can click the "Inspect Project" button to visit the link.
       // Or we can open it here:
-      if (selectedProject.live) window.open(selectedProject.live, '_blank')
+      if (selectedProject.url) window.open(selectedProject.url, '_blank')
       else if (selectedProject.github) window.open(selectedProject.github, '_blank')
     }
   }, [view, selectedProject])
@@ -258,23 +282,27 @@ export const Work = () => {
                               transition={{ duration: 0.2 }}
                               className="flex flex-col h-full"
                             >
-                              <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[var(--surface)] border border-[var(--border)] mb-4">
-                                <Image
-                                  src={selectedProject.image}
-                                  alt={selectedProject.title}
-                                  fill
-                                  className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500"
-                                />
+                              <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[var(--surface)] border border-[var(--border)] mb-4 flex items-center justify-center">
+                                {selectedProject.image ? (
+                                  <Image
+                                    src={selectedProject.image}
+                                    alt={selectedProject.title}
+                                    fill
+                                    className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500"
+                                  />
+                                ) : (
+                                  <span className="font-mono text-xs text-[var(--text-dim)] uppercase tracking-widest">No Image</span>
+                                )}
                               </div>
                               <div className="mt-auto">
                                 <h4 className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-widest mb-1 truncate">
                                   {selectedProject.title}
                                 </h4>
                                 <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider mb-3 truncate">
-                                  {selectedProject.category} · {selectedProject.year}
+                                  {selectedProject.category} · {selectedProject.period}
                                 </p>
                                 <div className="flex items-center gap-1.5">
-                                  <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.status === 'PRODUCTION' ? 'bg-[var(--accent-warm)]' : 'bg-green-500'}`} />
+                                  <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.status?.toUpperCase() === 'PRODUCTION' ? 'bg-[var(--accent-warm)]' : 'bg-green-500'}`} />
                                   <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">
                                     {selectedProject.status}
                                   </span>
@@ -377,7 +405,7 @@ export const Work = () => {
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
         <div className="w-full flex flex-col order-1 xl:order-2 justify-center">
           <AnimatePresence mode="wait">
-            {(view === 'idle' || view === 'nav') ? (
+            {view === 'idle' ? (
               <motion.div
                 key="overview"
                 initial={{ opacity: 0, y: 10 }}
@@ -398,167 +426,179 @@ export const Work = () => {
                 <div className="flex items-center gap-8">
                   <div className="flex flex-col items-start xl:items-end">
                     <span className="font-mono text-3xl text-[var(--accent-warm)]">{PROJECTS.length}</span>
-                    <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-2">Projects</span>
+                    <span className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-2">Projects</span>
                   </div>
                   <div className="w-px h-10 bg-[var(--border)]"></div>
                   <div className="flex flex-col items-start xl:items-end">
-                    <span className="font-mono text-3xl text-[var(--accent-warm)]">{new Set(PROJECTS.flatMap(p => p.stack)).size}+</span>
-                    <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-2">Technologies</span>
+                    <span className="font-mono text-3xl text-[var(--accent-warm)]">{new Set(PROJECTS.flatMap(p => p.technologies || [])).size}+</span>
+                    <span className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-2">Technologies</span>
                   </div>
                   <div className="w-px h-10 bg-[var(--border)]"></div>
                   <div className="flex flex-col items-start xl:items-end">
                     <span className="font-mono text-3xl text-[var(--accent-warm)]">3</span>
-                    <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-2">Domains</span>
+                    <span className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mt-2">Domains</span>
                   </div>
                 </div>
               </motion.div>
             ) : (
               <motion.div
-                key="detail"
+                key={selectedProject.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="flex flex-col w-full h-full pb-8 xl:pb-0"
+                className="flex flex-col w-full h-full pb-8 xl:pb-0 justify-center"
               >
+                <div className="flex justify-between items-start mb-6">
+                  <h2 className="font-display text-4xl lg:text-5xl xl:text-[3rem] text-[var(--text-primary)] tracking-wide uppercase leading-none">
+                    {selectedProject.title}
+                  </h2>
+                  <button 
+                    onClick={() => {}} // Will be wired to deep inspect in Stage 4
+                    className="hidden md:inline-flex shrink-0 items-center gap-2 px-4 py-2 border border-[var(--border-mid)] text-[11px] font-mono uppercase tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] transition-colors rounded-full"
+                  >
+                    Inspect
+                  </button>
+                </div>
                 
-                {/* ROW 1: Title + Image aligned */}
-                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 pt-8 xl:pt-0">
-                  
-                  {/* Left: Title, Description, Metadata */}
-                  <div className="flex-1 min-w-0">
-                    <div className="mb-4">
-                      <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] tracking-widest uppercase">
-                        Work / {String(globalIndex + 1).padStart(2, '0')}
-                      </span>
-                    </div>
-                    
-                    <h2 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] text-[var(--text-primary)] mb-6 tracking-wide uppercase leading-none">
-                      {selectedProject.title}
-                    </h2>
-                    
-                    <p className="text-[var(--text-secondary)] font-light text-base max-w-2xl mb-8 leading-relaxed">
-                      {selectedProject.description}
-                    </p>
-
-                    <div className="grid grid-cols-2 gap-y-5 gap-x-8 mb-8">
-                      <div>
-                        <h3 className="font-mono text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Role</h3>
-                        <p className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.role}</p>
-                      </div>
-                      <div>
-                        <h3 className="font-mono text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Status</h3>
-                        <p className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-1.5">
-                          <span className={`text-[9px] ${selectedProject.status === 'PRODUCTION' ? 'text-[var(--accent-warm)]' : 'text-green-500'}`}>●</span> 
-                          {selectedProject.status}
-                        </p>
-                      </div>
-                      <div>
-                        <h3 className="font-mono text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Period</h3>
-                        <p className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.year}</p>
-                      </div>
-                      <div>
-                        <h3 className="font-mono text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Visibility</h3>
-                        <p className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.visibility}</p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h3 className="font-mono text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-3">System</h3>
-                      <ul className="space-y-1.5">
-                        {selectedProject.system?.map(sys => (
-                          <li key={sys} className="flex items-center gap-2">
-                            <span className="text-[var(--accent-warm)] text-[10px]">■</span>
-                            <span className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider">{sys}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Right: Image + Goal, aligned to title top */}
-                  <div className="w-full lg:w-[300px] shrink-0 flex flex-col lg:pt-[52px]">
-                    <div className="relative w-full aspect-[4/3] bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden mb-2">
-                      <div className="absolute top-3 right-3 z-10 font-mono text-[9px] text-white/70 bg-black/50 px-2 py-1 rounded backdrop-blur-sm">
-                        {String(globalIndex + 1).padStart(2, '0')} / {String(PROJECTS.length).padStart(2, '0')}
-                      </div>
-                      <Image
-                        src={selectedProject.image}
-                        alt={selectedProject.title}
-                        fill
-                        className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500"
-                      />
-                    </div>
-                    <div className="flex items-center gap-4 w-full mb-6">
-                      <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest whitespace-nowrap">Project Preview</span>
-                      <div className="h-px bg-[var(--border)] flex-1"></div>
-                    </div>
-
-                    {/* The Goal */}
-                    <div className="mt-auto">
-                      <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-3">The Goal</h3>
-                      <p className="font-mono text-[11px] text-[var(--text-secondary)] leading-relaxed">
-                        {selectedProject.goal}
-                      </p>
-                    </div>
-                  </div>
-
+                {/* Tabs */}
+                <div className="flex gap-6 border-b border-[var(--border)] mb-8">
+                  {['OVERVIEW', 'DEEP DIVE', 'TECH STACK'].map(tab => (
+                    <button
+                      key={tab}
+                      onClick={() => setDetailTab(tab as any)}
+                      className={`pb-3 font-mono text-xs uppercase tracking-widest transition-all ${
+                        detailTab === tab ? 'text-[var(--accent-warm)] border-b-2 border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] hover:text-white'
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
                 </div>
 
-                {/* ROW 2: What Was Built + Stack with Icons */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 border-t border-[var(--border)] pt-8 mt-8">
-                  
-                  {/* Col 1: Built & CTA */}
-                  <div className="flex flex-col">
-                    <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">What Was Built</h3>
-                    <div className="flex flex-col gap-2 mb-8">
-                      {selectedProject.whatWasBuilt?.map((item, idx) => (
-                        <div key={idx} className="flex items-start gap-3">
-                          <span className="font-mono text-[9px] text-[var(--text-secondary)] mt-0.5">{String(idx + 1).padStart(2, '0')}</span>
-                          <span className="font-mono text-[11px] text-[var(--text-primary)] leading-relaxed">{item}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-auto pt-4 pb-2">
-                      <a 
-                        href={selectedProject.live || selectedProject.github || '#'} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border-mid)] text-[10px] font-mono uppercase tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] transition-colors rounded-full"
-                      >
-                        Inspect Project
-                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </a>
-                    </div>
-                  </div>
+                <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
+                  <AnimatePresence mode="wait">
+                  {detailTab === 'OVERVIEW' && (
+                    <motion.div key="overview" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="flex flex-col gap-8">
+                      <div>
+                        <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-3">Overview</h3>
+                        <p className="text-[var(--text-secondary)] font-light text-[15px] max-w-2xl leading-relaxed">
+                          {selectedProject.description}
+                        </p>
+                      </div>
 
-                  {/* Col 2: Stack with Icons */}
-                  <div>
-                    <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">Stack</h3>
-                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
-                      {selectedProject.stack.map(tech => (
-                        <div key={tech} className="flex flex-col items-center gap-2 group">
-                          <div className="w-10 h-10 flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity">
-                            {TECH_ICONS[tech] ? (
-                              <img 
-                                src={TECH_ICONS[tech]} 
-                                alt={tech} 
-                                className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
-                              />
-                            ) : (
-                              <div className="w-8 h-8 rounded-full border border-[var(--border)] flex items-center justify-center">
-                                <span className="font-mono text-[8px] text-[var(--text-secondary)] uppercase">{tech.slice(0, 2)}</span>
+                      {selectedProject.goal && (
+                        <div>
+                          <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-3">The Goal</h3>
+                          <p className="text-[var(--text-secondary)] font-light text-[14px] max-w-2xl leading-relaxed border-l-2 border-[var(--accent-warm)] pl-4">
+                            {selectedProject.goal}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Metadata Grid */}
+                      <div className="grid grid-cols-2 gap-y-6 gap-x-6">
+                        <div>
+                          <h3 className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Role</h3>
+                          <p className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.role}</p>
+                        </div>
+                        <div>
+                          <h3 className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Status</h3>
+                          <p className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-1.5">
+                            <span className={`text-[12px] ${selectedProject.status?.toUpperCase() === 'PRODUCTION' ? 'text-[var(--accent-warm)]' : 'text-green-500'}`}>●</span> 
+                            {selectedProject.status}
+                          </p>
+                        </div>
+                        <div>
+                          <h3 className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Period</h3>
+                          <p className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.period}</p>
+                        </div>
+                        <div>
+                          <h3 className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Visibility</h3>
+                          <p className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.visibility}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {detailTab === 'DEEP DIVE' && (
+                    <motion.div key="deep" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {/* Left Col: What was built */}
+                      <div className="flex flex-col gap-6">
+                        <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest">What Was Built</h3>
+                        <div className="flex flex-col gap-4">
+                          {selectedProject.built?.map((item, idx) => (
+                            <div key={idx} className="flex flex-col">
+                              <div className="flex items-start gap-3">
+                                <span className="font-mono text-[11px] text-[var(--text-secondary)] mt-0.5">{String(idx + 1).padStart(2, '0')}</span>
+                                <span className="font-mono text-[13px] font-semibold text-[var(--text-primary)] uppercase tracking-wider">{item.title}</span>
                               </div>
-                            )}
-                          </div>
-                          <span className="font-mono text-[9px] text-[var(--text-secondary)] group-hover:text-[var(--accent-warm)] transition-colors text-center uppercase tracking-wider">
-                            {tech}
-                          </span>
+                              {item.description && (
+                                <p className="font-mono text-[12px] text-[var(--text-secondary)] leading-relaxed pl-7 mt-1.5">{item.description}</p>
+                              )}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </div>
+                      </div>
 
+                      {/* Right Col: Systems & Outcome */}
+                      <div className="flex flex-col gap-8">
+                        <div>
+                          <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">System Architecture</h3>
+                          <ul className="space-y-2">
+                            {selectedProject.systems?.map(sys => (
+                              <li key={sys} className="flex items-center gap-3">
+                                <span className="text-[var(--accent-warm)] text-xs">■</span>
+                                <span className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider">{sys}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        {selectedProject.outcome && (
+                          <div>
+                            <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">Outcome</h3>
+                            <ul className="space-y-2 pl-3 border-l border-[var(--border-mid)]">
+                              {selectedProject.outcome.map(out => (
+                                <li key={out} className="font-mono text-xs text-[var(--text-secondary)] leading-relaxed">
+                                  — {out}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {detailTab === 'TECH STACK' && (
+                    <motion.div key="tech" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="flex flex-col gap-8">
+                      <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Technologies & Tools</h3>
+                      <div className="grid grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-y-8 gap-x-2">
+                        {selectedProject.technologies?.map(tech => {
+                          const iconUrl = getTechIcon(tech);
+                          return (
+                            <div key={tech} className="flex flex-col items-center gap-3 group w-full">
+                              <div className="w-10 h-10 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                                {iconUrl ? (
+                                  <img 
+                                    src={iconUrl} 
+                                    alt={tech} 
+                                    className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
+                                  />
+                                ) : (
+                                  <div className="w-8 h-8 border border-[var(--border)] rounded-md flex items-center justify-center text-[10px] font-mono text-[var(--text-secondary)]">?</div>
+                                )}
+                              </div>
+                              <span className="font-mono font-semibold text-[10px] text-[var(--text-secondary)] group-hover:text-[var(--accent-warm)] transition-colors text-center uppercase tracking-widest">
+                                {tech}
+                              </span>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                  </AnimatePresence>
                 </div>
 
               </motion.div>
