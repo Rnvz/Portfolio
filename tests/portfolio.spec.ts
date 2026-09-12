@@ -5,8 +5,7 @@ test.describe('Portfolio Core Functionality', () => {
     await page.goto('/');
     
     // Check if the title/name is visible
-    await expect(page.locator('h1')).toBeVisible();
-    await expect(page.locator('text=Yohanes')).toBeVisible();
+    await expect(page.locator('h1', { hasText: 'YOHANES' })).toBeVisible();
   });
 
   test('should navigate through iPod projects', async ({ page }) => {

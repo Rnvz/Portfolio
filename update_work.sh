@@ -1,3 +1,5 @@
+#!/bin/bash
+cat << 'INNER_EOF' > components/sections/Work.tsx
 'use client'
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
@@ -7,48 +9,6 @@ import { SectionLabel } from '@/components/ui/SectionLabel'
 import { PROJECTS } from '@/lib/constants'
 
 const CATEGORIES = ['ALL', 'FULL STACK', 'UI/UX', 'AI ENGINEERING', 'EXPERIMENTS']
-
-const TECH_ICONS: Record<string, string> = {
-  'Next.js':        'https://cdn.simpleicons.org/nextdotjs/white',
-  'React':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
-  'React TS':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
-  'TypeScript':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg',
-  'Tailwind':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
-  'TailwindCSS':    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
-  'Cloudflare D1':  'https://cdn.simpleicons.org/cloudflare/white',
-  'Resend':         'https://cdn.simpleicons.org/resend/white',
-  'Figma':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg',
-  'Firebase':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg',
-  'Midtrans API':   '/icons/midtrans.png',
-  'Laravel':        'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
-  'Laravel 12':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
-  'MySQL':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg',
-  'Blade Templates':'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
-  'Vite':           'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vite/vite-original.svg',
-  'HTTP':           'https://cdn.simpleicons.org/curl/white',
-  'Python':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg',
-  'Pandas':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg',
-  'Matplotlib':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg',
-  'Scikit-learn':   'https://cdn.simpleicons.org/scikitlearn/white',
-  'NumPy':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg',
-  'Streamlit':      'https://cdn.simpleicons.org/streamlit/white',
-  'Optuna':         'https://cdn.simpleicons.org/optuna/white',
-  'Node.js':        'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg',
-  'Prisma':         'https://cdn.simpleicons.org/prisma/white',
-  'SQLite':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg',
-  'HTML5':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg',
-  'CSS3':           'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg',
-  'JavaScript':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg',
-  'Anaconda':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg',
-  'BioPython':      '/icons/biopython.svg',
-  'GSAP':           'https://cdn.simpleicons.org/greensock/white',
-  'Framer Motion':  'https://cdn.simpleicons.org/framer/white',
-  'Lenis':          '/icons/lenis.png',
-  'Vercel':         'https://cdn.simpleicons.org/vercel/white',
-  'e-JURA':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
-  'Git':            'https://cdn.simpleicons.org/git/white',
-  'HTML/CSS/JS':    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg',
-}
 
 export const Work = () => {
   const [view, setView] = useState<'idle' | 'nav' | 'detail'>('idle')
@@ -131,6 +91,7 @@ export const Work = () => {
 
   return (
     <section 
+      id="work" 
       className="relative w-full min-h-screen flex items-center justify-center py-[var(--section-py)] px-[var(--section-px)]"
     >
       <SectionLabel text="03 — WORK" />
@@ -140,7 +101,7 @@ export const Work = () => {
         {/* LEFT SIDE — Project Navigator (iPod) */}
         <div className="w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1">
           {/* Device Shell (Original iPod Size) */}
-          <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[540px] h-auto xl:h-[860px] flex flex-col p-6 pb-12 xl:pb-6 shadow-2xl relative transition-all">
+          <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[540px] h-auto xl:h-[820px] flex flex-col p-6 shadow-2xl relative transition-all">
             
             {/* Screen Area */}
             <div className="w-full h-[360px] xl:h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0 p-4">
@@ -191,7 +152,7 @@ export const Work = () => {
                       <motion.div 
                         animate={shouldReduceMotion ? {} : { opacity: [0.4, 1, 0.4] }}
                         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                        className="flex flex-col items-center gap-3 absolute bottom-[15%]"
+                        className="flex flex-col items-center gap-3 absolute bottom-8"
                       >
                         <div className="w-10 h-10 rounded-full border-2 border-[var(--border-mid)] flex items-center justify-center">
                           <div className="w-2.5 h-2.5 rounded-full bg-[var(--accent-warm)]"></div>
@@ -291,10 +252,10 @@ export const Work = () => {
             </div>
 
             {/* Controls Area */}
-            <div className="flex-1 w-full flex flex-col items-center justify-center pt-2 pb-20 xl:pb-24 gap-10">
+            <div className="flex-1 w-full flex flex-col items-center justify-center pt-8 pb-4 gap-8">
               
               {/* MENU & BACK Buttons */}
-              <div className="w-full flex justify-center gap-12 md:gap-20">
+              <div className="w-full flex justify-between px-8">
                 <button 
                   onClick={handleMenu}
                   className="px-6 py-2 rounded-full border border-[var(--border-mid)] bg-black/20 text-[10px] font-mono tracking-widest text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-warm)] transition-all shadow-inner active:scale-95"
@@ -310,63 +271,32 @@ export const Work = () => {
               </div>
 
               {/* Click Wheel Area */}
-              <div className="w-56 h-56 md:w-64 md:h-64 rounded-full border border-[var(--border-mid)] bg-[#111] shadow-xl relative overflow-hidden shrink-0">
-                
-                {/* Diagonal Borders Background */}
-                <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center opacity-50">
-                  <div className="w-[150%] h-px bg-[var(--border-mid)] rotate-45 absolute" />
-                  <div className="w-[150%] h-px bg-[var(--border-mid)] -rotate-45 absolute" />
-                </div>
-                
-                {/* UP Arrow (Top Slice) */}
-                <button 
-                  onClick={handleUp} 
-                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-start justify-center pt-6 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
-                  style={{ clipPath: 'polygon(0 0, 100% 0, 50% 50%)' }}
-                  aria-label="Previous project"
-                >
-                  <svg className="w-6 h-6 group-active:-translate-y-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"/></svg>
-                </button>
-                
-                {/* RIGHT Arrow (Right Slice) */}
-                <button 
-                  onClick={handleRight} 
-                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-center justify-end pr-6 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
-                  style={{ clipPath: 'polygon(100% 0, 100% 100%, 50% 50%)' }}
-                  aria-label="Next category"
-                >
-                  <svg className="w-6 h-6 group-active:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                </button>
+              <div className="relative w-64 h-64">
+                {/* Wheel SVG Background */}
+                <svg className="absolute inset-0 w-full h-full text-[var(--border-mid)] opacity-50 drop-shadow-xl" viewBox="0 0 100 100">
+                  <path d="M35 5 h30 a5 5 0 0 1 5 5 v25 h25 a5 5 0 0 1 5 5 v30 a5 5 0 0 1 -5 5 h-25 v25 a5 5 0 0 1 -5 5 h-30 a5 5 0 0 1 -5 -5 v-25 h-25 a5 5 0 0 1 -5 -5 v-30 a5 5 0 0 1 5 -5 h25 v-25 a5 5 0 0 1 5 -5 z" fill="currentColor" />
+                </svg>
 
-                {/* DOWN Arrow (Bottom Slice) */}
-                <button 
-                  onClick={handleDown} 
-                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-end justify-center pb-6 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
-                  style={{ clipPath: 'polygon(100% 100%, 0 100%, 50% 50%)' }}
-                  aria-label="Next project"
-                >
-                  <svg className="w-6 h-6 group-active:translate-y-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                {/* UP */}
+                <button onClick={handleUp} className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 flex items-start justify-center pt-4 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors active:translate-y-1 z-10" aria-label="Previous project">
+                  <svg width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 6.5L6 1.5L11 6.5" stroke="currentColor" strokeWidth="2"/></svg>
                 </button>
-
-                {/* LEFT Arrow (Left Slice) */}
-                <button 
-                  onClick={handleLeft} 
-                  className="absolute inset-0 hover:bg-[rgba(255,255,255,0.04)] active:bg-[rgba(255,255,255,0.08)] flex items-center justify-start pl-6 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors z-10"
-                  style={{ clipPath: 'polygon(0 100%, 0 0, 50% 50%)' }}
-                  aria-label="Previous category"
-                >
-                  <svg className="w-6 h-6 group-active:-translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6-1.41 1.41z"/></svg>
+                {/* DOWN */}
+                <button onClick={handleDown} className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-16 flex items-end justify-center pb-4 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors active:-translate-y-1 z-10" aria-label="Next project">
+                  <svg width="14" height="10" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2"/></svg>
                 </button>
-
-                {/* CENTER (ACC) Button */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-                  <button 
-                    onClick={handleCenter}
-                    className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-[var(--border-mid)] bg-[var(--surface)] shadow-[inset_0_2px_15px_rgba(0,0,0,0.8)] flex items-center justify-center text-[var(--text-secondary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] active:scale-95 transition-all pointer-events-auto"
-                  >
-                    <div className="w-3.5 h-3.5 rounded-full bg-current opacity-70" />
-                  </button>
-                </div>
+                {/* LEFT */}
+                <button onClick={handleLeft} className="absolute left-0 top-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-start pl-4 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors active:translate-x-1 z-10" aria-label="Previous category">
+                  <svg width="10" height="14" viewBox="0 0 8 12" fill="none"><path d="M6.5 11L1.5 6L6.5 1" stroke="currentColor" strokeWidth="2"/></svg>
+                </button>
+                {/* RIGHT */}
+                <button onClick={handleRight} className="absolute right-0 top-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-end pr-4 text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors active:-translate-x-1 z-10" aria-label="Next category">
+                  <svg width="10" height="14" viewBox="0 0 8 12" fill="none"><path d="M1.5 1L6.5 6L1.5 11" stroke="currentColor" strokeWidth="2"/></svg>
+                </button>
+                {/* CENTER */}
+                <button onClick={handleCenter} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full border border-[var(--border-mid)] bg-[var(--surface)] shadow-[inset_0_2px_15px_rgba(0,0,0,0.8)] flex items-center justify-center text-[var(--text-secondary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] active:scale-95 transition-all z-20">
+                  <div className="w-3.5 h-3.5 rounded-full bg-current opacity-70" />
+                </button>
               </div>
 
             </div>
@@ -375,7 +305,7 @@ export const Work = () => {
         </div>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
-        <div className="w-full flex flex-col order-1 xl:order-2 justify-center">
+        <div className="w-full flex flex-col order-1 xl:order-2 justify-center h-auto xl:h-[820px]">
           <AnimatePresence mode="wait">
             {(view === 'idle' || view === 'nav') ? (
               <motion.div
@@ -419,14 +349,14 @@ export const Work = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="flex flex-col w-full h-full pb-8 xl:pb-0"
+                className="flex flex-col w-full h-full overflow-y-auto no-scrollbar pb-8 xl:pb-0"
               >
                 
-                {/* ROW 1: Title + Image aligned */}
-                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 pt-8 xl:pt-0">
+                {/* TOP SECTION: Text & Image */}
+                <div className="flex flex-col lg:flex-row gap-12 mb-12 pt-8 xl:pt-0">
                   
-                  {/* Left: Title, Description, Metadata */}
-                  <div className="flex-1 min-w-0">
+                  {/* Text Info */}
+                  <div className="flex-1">
                     <div className="mb-4">
                       <span className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] tracking-widest uppercase">
                         Work / {String(globalIndex + 1).padStart(2, '0')}
@@ -437,11 +367,11 @@ export const Work = () => {
                       {selectedProject.title}
                     </h2>
                     
-                    <p className="text-[var(--text-secondary)] font-light text-base max-w-2xl mb-8 leading-relaxed">
+                    <p className="text-[var(--text-secondary)] font-light text-base max-w-lg mb-8 leading-relaxed">
                       {selectedProject.description}
                     </p>
 
-                    <div className="grid grid-cols-2 gap-y-5 gap-x-8 mb-8">
+                    <div className="grid grid-cols-2 gap-y-6 gap-x-8 mb-8">
                       <div>
                         <h3 className="font-mono text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Role</h3>
                         <p className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.role}</p>
@@ -476,9 +406,9 @@ export const Work = () => {
                     </div>
                   </div>
 
-                  {/* Right: Image + Goal, aligned to title top */}
-                  <div className="w-full lg:w-[300px] shrink-0 flex flex-col lg:pt-[52px]">
-                    <div className="relative w-full aspect-[4/3] bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden mb-2">
+                  {/* Floating Preview Image */}
+                  <div className="w-full lg:w-[320px] shrink-0 mt-8 lg:mt-0">
+                    <div className="relative w-full aspect-[4/3] bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden mb-3">
                       <div className="absolute top-3 right-3 z-10 font-mono text-[9px] text-white/70 bg-black/50 px-2 py-1 rounded backdrop-blur-sm">
                         {String(globalIndex + 1).padStart(2, '0')} / {String(PROJECTS.length).padStart(2, '0')}
                       </div>
@@ -489,27 +419,19 @@ export const Work = () => {
                         className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500"
                       />
                     </div>
-                    <div className="flex items-center gap-4 w-full mb-6">
+                    <div className="flex items-center gap-4 w-full">
                       <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest whitespace-nowrap">Project Preview</span>
                       <div className="h-px bg-[var(--border)] flex-1"></div>
-                    </div>
-
-                    {/* The Goal */}
-                    <div className="mt-auto">
-                      <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-3">The Goal</h3>
-                      <p className="font-mono text-[11px] text-[var(--text-secondary)] leading-relaxed">
-                        {selectedProject.goal}
-                      </p>
                     </div>
                   </div>
 
                 </div>
 
-                {/* ROW 2: What Was Built + Stack with Icons */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 border-t border-[var(--border)] pt-8 mt-8">
+                {/* BOTTOM SECTION: 3 Columns */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 border-t border-[var(--border)] pt-8 mt-auto">
                   
                   {/* Col 1: Built & CTA */}
-                  <div className="flex flex-col">
+                  <div className="flex flex-col h-full">
                     <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">What Was Built</h3>
                     <div className="flex flex-col gap-2 mb-8">
                       {selectedProject.whatWasBuilt?.map((item, idx) => (
@@ -532,31 +454,24 @@ export const Work = () => {
                     </div>
                   </div>
 
-                  {/* Col 2: Stack with Icons */}
+                  {/* Col 2: Stack */}
                   <div>
                     <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">Stack</h3>
-                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                    <div className="flex flex-wrap gap-2">
                       {selectedProject.stack.map(tech => (
-                        <div key={tech} className="flex flex-col items-center gap-2 group">
-                          <div className="w-10 h-10 flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity">
-                            {TECH_ICONS[tech] ? (
-                              <img 
-                                src={TECH_ICONS[tech]} 
-                                alt={tech} 
-                                className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
-                              />
-                            ) : (
-                              <div className="w-8 h-8 rounded-full border border-[var(--border)] flex items-center justify-center">
-                                <span className="font-mono text-[8px] text-[var(--text-secondary)] uppercase">{tech.slice(0, 2)}</span>
-                              </div>
-                            )}
-                          </div>
-                          <span className="font-mono text-[9px] text-[var(--text-secondary)] group-hover:text-[var(--accent-warm)] transition-colors text-center uppercase tracking-wider">
-                            {tech}
-                          </span>
-                        </div>
+                        <span key={tech} className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-primary)] border border-[var(--border)] px-3 py-1.5 rounded-full bg-[rgba(255,255,255,0.02)]">
+                          {tech}
+                        </span>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Col 3: Goal */}
+                  <div>
+                    <h3 className="font-mono text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-4">The Goal</h3>
+                    <p className="font-mono text-[11px] text-[var(--text-secondary)] leading-relaxed">
+                      {selectedProject.goal}
+                    </p>
                   </div>
 
                 </div>
@@ -570,3 +485,4 @@ export const Work = () => {
     </section>
   )
 }
+INNER_EOF

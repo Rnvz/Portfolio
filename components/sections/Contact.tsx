@@ -52,7 +52,7 @@ export function Contact() {
   }, [reducedMotion])
 
   return (
-    <section ref={sectionRef} id="contact" className="w-full min-h-screen flex flex-col items-center justify-center text-center px-[var(--section-px)] py-[var(--section-py)] bg-[var(--scene-contact)]">
+    <section ref={sectionRef} className="w-full min-h-screen flex flex-col items-center justify-center text-center px-[var(--section-px)] py-[var(--section-py)] bg-[var(--scene-contact)]">
       <SectionLabel text="05 — Contact" accent="warm" />
       
       <div className="text-[var(--accent-warm)] font-display font-semibold text-[clamp(2.5rem,6vw,5rem)] leading-tight mb-8">
