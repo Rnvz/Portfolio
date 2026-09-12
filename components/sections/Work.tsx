@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import { SectionLabel } from '@/components/ui/SectionLabel'
+import { DeepInspect } from './DeepInspect'
 import { PROJECTS } from '@/lib/constants'
 
 const CATEGORIES = ['ALL', 'FULL STACK', 'UI/UX', 'AI ENGINEERING', 'EXPERIMENTS']
@@ -53,7 +54,7 @@ const TECH_ICONS: Record<string, string> = {
   "HTML/CSS/JS":    "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
 }
 
-const getTechIcon = (tech: string) => {
+export const getTechIcon = (tech: string) => {
   if (TECH_ICONS[tech]) return TECH_ICONS[tech];
   const t = tech.toLowerCase();
   if (t.includes("next.js")) return TECH_ICONS["Next.js"];
@@ -162,7 +163,13 @@ export const Work = () => {
       <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-16 items-center">
         
         {/* LEFT SIDE — Project Navigator (iPod) */}
-        <div className="w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1">
+        <AnimatePresence>
+        {view !== 'detail' && (
+        <motion.div 
+          initial={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
+          className="w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1"
+        >
           {/* Device Shell (Original iPod Size) */}
           <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[540px] h-auto xl:h-[860px] flex flex-col p-6 pb-12 xl:pb-6 shadow-2xl relative transition-all">
             
@@ -400,12 +407,14 @@ export const Work = () => {
             </div>
 
           </div>
-        </div>
+        </motion.div>
+        )}
+        </AnimatePresence>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
-        <div className="w-full flex flex-col order-1 xl:order-2 justify-center">
+        <div className={`w-full flex flex-col order-1 xl:order-2 justify-center transition-all duration-700 ${view === 'detail' ? 'xl:col-span-2' : ''}`}>
           <AnimatePresence mode="wait">
-            {view === 'idle' ? (
+            {view === 'idle' && (
               <motion.div
                 key="overview"
                 initial={{ opacity: 0, y: 10 }}
@@ -440,7 +449,8 @@ export const Work = () => {
                   </div>
                 </div>
               </motion.div>
-            ) : (
+            )}
+            {view === 'nav' && (
               <motion.div
                 key={selectedProject.id}
                 initial={{ opacity: 0, y: 10 }}
@@ -454,7 +464,7 @@ export const Work = () => {
                     {selectedProject.title}
                   </h2>
                   <button 
-                    onClick={() => {}} // Will be wired to deep inspect in Stage 4
+                    onClick={() => setView('detail')}
                     className="hidden md:inline-flex shrink-0 items-center gap-2 px-4 py-2 border border-[var(--border-mid)] text-[11px] font-mono uppercase tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] transition-colors rounded-full"
                   >
                     Inspect
@@ -602,6 +612,9 @@ export const Work = () => {
                 </div>
 
               </motion.div>
+            )}
+            {view === 'detail' && (
+              <DeepInspect project={selectedProject} onBack={() => setView('nav')} />
             )}
           </AnimatePresence>
         </div>

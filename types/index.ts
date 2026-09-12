@@ -13,6 +13,8 @@ export interface Project {
     description?: string
   }[]
   technologies?: string[]
+  designSpecs?: string[]
+  engineeringSpecs?: string[]
   goal?: string
   outcome?: string[]
   image?: string

@@ -4,6 +4,9 @@ import { Project, Skill, TimelineEntry, Stat } from '@/types'
 export const PROJECTS: Project[] = [
   {
     id: 'pancaindo',
+    designSpecs: ['B2B Portal UI/UX', 'CMS Interface Design', 'Figma'],
+    engineeringSpecs: ['Next.js 15 & React 19', 'TypeScript & Tailwind v4', 'Cloudflare D1, R2, KV', 'OpenNext Edge Deployment', 'Resend & Svix Webhooks', 'Zod Validation', 'RBAC & Security'],
+
     title: 'PANCAINDO',
     category: 'FULL STACK',
     role: 'Intern — Full Stack Developer',
@@ -63,6 +66,9 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'beema',
+    designSpecs: ['Multi-role UI/UX', 'User Flows', 'Interaction Patterns', 'High-fidelity Prototypes', 'Figma'],
+    engineeringSpecs: ['Laravel 12', 'MySQL', 'Blade Templates', 'Vite', 'Responsive Implementation'],
+
     title: 'BEEMA',
     category: 'FULL STACK',
     role: 'UI/UX Developer',
@@ -119,6 +125,9 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'serenity',
+    designSpecs: ['Empathy-driven UX', 'Accessibility-focused Design', 'Calming Visual Direction', 'Figma'],
+    engineeringSpecs: ['React TS', 'TailwindCSS', 'Firebase Auth / Firestore', 'Midtrans API', 'Component-based Frontend'],
+
     title: 'SERENITY',
     category: 'UI/UX',
     role: 'UI/UX & Frontend Developer',
@@ -147,6 +156,9 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'nofake',
+    designSpecs: ['Credibility-focused UI/UX', 'Information Hierarchy', 'Readability', 'Misinformation-oriented Design', 'Figma'],
+    engineeringSpecs: ['React', 'TailwindCSS', 'Firebase Hosting', 'Firebase Auth', 'Scalable Frontend'],
+
     title: 'NOFAKE',
     category: 'UI/UX',
     role: 'UI/UX & Frontend Developer',
@@ -174,6 +186,9 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'peluangnusantara',
+    designSpecs: ['Accessible UI/UX', 'Trust-building Design', 'Transparency & CTA Clarity', 'Figma'],
+    engineeringSpecs: ['HTML/CSS/JS', 'Semantic HTML', 'Responsive Frontend', 'Cross-browser Consistency', 'Git'],
+
     title: 'PELUANGNUSANTARA',
     category: 'UI/UX',
     role: 'UI/UX & Frontend Developer',
