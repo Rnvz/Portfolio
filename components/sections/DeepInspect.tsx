@@ -1,20 +1,24 @@
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Project } from '@/types'
 import { getTechIcon } from './Work' // We need to export this from Work.tsx or move it to a util
 
 export const DeepInspect = ({ project, onBack }: { project: Project, onBack: () => void }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    // Ensure we start at the top of the section when entering Deep Inspect
-    if (typeof window !== 'undefined') {
-      const lenis = (window as any).lenis;
-      if (lenis) {
-        lenis.scrollTo('#work', { offset: 0, duration: 0.8 });
-      } else {
-        document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+    // Wait for DOM layout shift to settle (AnimatePresence mode="wait" causes height changes)
+    const timeout = setTimeout(() => {
+      if (typeof window !== 'undefined' && containerRef.current) {
+        const lenis = (window as any).lenis;
+        if (lenis) {
+          lenis.scrollTo(containerRef.current, { offset: -100, duration: 0.8 });
+        } else {
+          containerRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
       }
-    }
+    }, 100);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -24,7 +28,8 @@ export const DeepInspect = ({ project, onBack }: { project: Project, onBack: () 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="w-full flex flex-col"
+      ref={containerRef}
+      className="w-full flex flex-col pt-12"
     >
       {/* Header */}
       <div className="flex justify-between items-center mb-12 border-b border-[var(--border)] pb-8">
