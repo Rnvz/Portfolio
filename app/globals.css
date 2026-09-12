@@ -179,7 +179,7 @@
   width        : 64px;
   height       : 64px;
   border-color : var(--accent-cool);
-  transform    : translate(-50%, -50%) scale(1);
+  
 }
 
 @media (hover: none) { 
@@ -248,4 +248,44 @@
 .project-card:hover {
   transform    : translateY(-4px);
   border-color : var(--border-mid);
+}
+
+/* Glass Magnifier Toggle */
+
+/* Fix centering for magnifier */
+.cursor-ring {
+  margin-top: -16px;
+  margin-left: -16px;
+}
+.cursor-ring.hovering {
+  margin-top: -32px;
+  margin-left: -32px;
+}
+.cursor-dot {
+  margin-top: -4px;
+  margin-left: -4px;
+}
+
+/* True Magnifier - Circle */
+.cursor-ring.magnifier-1 {
+  width: 240px !important;
+  height: 240px !important;
+  margin-top: -120px !important;
+  margin-left: -120px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+/* True Magnifier - Rectangle (Reading Bar) */
+.cursor-ring.magnifier-2 {
+  width: 500px !important;
+  height: 140px !important;
+  margin-top: -70px !important;
+  margin-left: -250px !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 }

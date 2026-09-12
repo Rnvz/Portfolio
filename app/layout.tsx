@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, Geist_Mono } from 'next/font/google'
 import { SmoothScrollProvider } from '@/components/layout/SmoothScrollProvider'
 import { Cursor } from '@/components/layout/Cursor'
 import { NavDots } from '@/components/layout/NavDots'
+import { MagnifierHint } from '@/components/layout/MagnifierHint'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScrollProvider>
           <Cursor />
           <NavDots />
+          <MagnifierHint />
           {children}
         </SmoothScrollProvider>
       </body>
