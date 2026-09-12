@@ -19,7 +19,7 @@ const TECH_ICONS: Record<string, string> = {
   'Resend':         'https://cdn.simpleicons.org/resend/white',
   'Figma':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg',
   'Firebase':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg',
-  'Midtrans API':   '',
+  'Midtrans API':   '/icons/midtrans.png',
   'Laravel':        'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
   'Laravel 12':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
   'MySQL':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg',
@@ -43,7 +43,7 @@ const TECH_ICONS: Record<string, string> = {
   'BioPython':      '/icons/biopython.svg',
   'GSAP':           'https://cdn.simpleicons.org/greensock/white',
   'Framer Motion':  'https://cdn.simpleicons.org/framer/white',
-  'Lenis':          '',
+  'Lenis':          '/icons/lenis.png',
   'Vercel':         'https://cdn.simpleicons.org/vercel/white',
   'e-JURA':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
 }
