@@ -46,6 +46,8 @@ const TECH_ICONS: Record<string, string> = {
   'Lenis':          '/icons/lenis.png',
   'Vercel':         'https://cdn.simpleicons.org/vercel/white',
   'e-JURA':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
+  'Git':            'https://cdn.simpleicons.org/git/white',
+  'HTML/CSS/JS':    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg',
 }
 
 export const Work = () => {
