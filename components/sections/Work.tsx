@@ -24,12 +24,21 @@ const TECH_ICONS: Record<string, string> = {
   'Laravel 12':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
   'MySQL':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg',
   'Blade Templates':'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg',
+  'Vite':           'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vite/vite-original.svg',
   'HTTP':           'https://cdn.simpleicons.org/curl/white',
   'Python':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg',
   'Pandas':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg',
   'Matplotlib':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg',
   'Scikit-learn':   'https://cdn.simpleicons.org/scikitlearn',
   'NumPy':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg',
+  'Streamlit':      'https://cdn.simpleicons.org/streamlit/white',
+  'Optuna':         'https://cdn.simpleicons.org/optuna/white',
+  'Node.js':        'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg',
+  'Prisma':         'https://cdn.simpleicons.org/prisma/white',
+  'SQLite':         'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg',
+  'HTML5':          'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg',
+  'CSS3':           'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg',
+  'JavaScript':     'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg',
   'Anaconda':       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg',
   'BioPython':      '/icons/biopython.svg',
   'GSAP':           'https://cdn.simpleicons.org/greensock',
@@ -130,7 +139,7 @@ export const Work = () => {
         {/* LEFT SIDE — Project Navigator (iPod) */}
         <div className="w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1">
           {/* Device Shell (Original iPod Size) */}
-          <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[540px] h-auto xl:h-[820px] flex flex-col p-6 shadow-2xl relative transition-all">
+          <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[540px] h-auto xl:h-[860px] flex flex-col p-6 pb-12 xl:pb-6 shadow-2xl relative transition-all">
             
             {/* Screen Area */}
             <div className="w-full h-[360px] xl:h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0 p-4">
@@ -281,7 +290,7 @@ export const Work = () => {
             </div>
 
             {/* Controls Area */}
-            <div className="flex-1 w-full flex flex-col items-center justify-center pt-4 pb-16 gap-8">
+            <div className="flex-1 w-full flex flex-col items-center justify-center pt-2 pb-20 xl:pb-24 gap-10">
               
               {/* MENU & BACK Buttons */}
               <div className="w-full flex justify-center gap-12 md:gap-20">
