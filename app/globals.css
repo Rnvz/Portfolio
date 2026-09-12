@@ -64,6 +64,20 @@
     --ease-linear   : linear;
   }
 
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  html, body {
+    /* Hide scrollbars globally */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
   body {
     background-color: var(--bg-base);
     color: var(--text-primary);
