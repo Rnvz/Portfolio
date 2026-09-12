@@ -6,7 +6,6 @@ export const PROJECTS: Project[] = [
     id: 'pancaindo',
     designSpecs: ['B2B Portal UI/UX', 'CMS Interface Design', 'Figma'],
     engineeringSpecs: ['Next.js 15 & React 19', 'TypeScript & Tailwind v4', 'Cloudflare D1, R2, KV', 'OpenNext Edge Deployment', 'Resend & Svix Webhooks', 'Zod Validation', 'RBAC & Security'],
-
     title: 'PANCAINDO',
     category: 'FULL STACK',
     role: 'Intern — Full Stack Developer',
@@ -39,11 +38,13 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'gym-management-system',
+    designSpecs: ['End-to-end UI/UX Design', 'High-fidelity Prototypes', 'User Flows', 'Responsive UI', 'Figma'],
+    engineeringSpecs: ['React TS', 'Node.js Backend', 'Prisma ORM', 'SQLite', 'REST API', 'Database Schema'],
     title: 'GYM MANAGEMENT SYSTEM',
     category: 'FULL STACK',
     role: 'Freelance — Full Stack Developer',
     period: 'Sep 2025 — Feb 2026',
-    description: 'End-to-end gym management with Figma-designed UI, responsive React frontend, and Node.js backend with Prisma ORM.',
+    description: 'A comprehensive production B2B commerce ecosystem developed for Indonesia\'s leading wine and spirits distributor. The system features a public-facing product portal with an advanced 200+ SKU catalog and multi-criteria filtering, paired with an internal CMS governed by Role-Based Access Control (RBAC). It also integrates a custom newsletter builder and first-party analytics, all deployed securely on edge infrastructure using Cloudflare and OpenNext.',
     status: 'Completed',
     visibility: 'Private',
     systems: [
@@ -62,17 +63,17 @@ export const PROJECTS: Project[] = [
       'React TS', 'TailwindCSS', 'Node.js', 'Prisma ORM', 'SQLite', 'Figma'
     ],
     goal: 'Digitize gym operations and member management for a local fitness center.',
-    image: '/projects/gym-system.webp'
+    image: '/projects/gym-logo.png',
+    designImage: '/projects/gym-design.png'
   },
   {
     id: 'beema',
     designSpecs: ['Multi-role UI/UX', 'User Flows', 'Interaction Patterns', 'High-fidelity Prototypes', 'Figma'],
     engineeringSpecs: ['Laravel 12', 'MySQL', 'Blade Templates', 'Vite', 'Responsive Implementation'],
-
     title: 'BEEMA',
     category: 'FULL STACK',
     role: 'UI/UX Developer',
-    description: 'Multi-role portal for Admin, Lecturer, and Student workflows designed in Figma and built in Laravel 12.',
+    description: 'A multi-role academic portal designed to facilitate thesis management across Admin, Lecturer, and Student workflows. Developed using Laravel 12 and Vite, the project involved creating high-fidelity Figma prototypes tailored for distinct interaction patterns, resulting in a highly responsive and unified Blade-based frontend experience.',
     status: 'Completed',
     visibility: 'Public',
     goal: "Design and implement a responsive academic thesis management system.",
@@ -92,15 +93,18 @@ export const PROJECTS: Project[] = [
     technologies: [
       'Laravel 12', 'MySQL', 'Blade Templates', 'Vite', 'Figma'
     ],
-    image: '/projects/beema.webp',
+    image: '/projects/beema-logo.png',
+    designImage: '/projects/beema-design.png',
     github: 'https://github.com/Rnvz'
   },
   {
     id: 'supreme-court-judgement-classification',
+    designSpecs: ['Streamlit UI', 'Data Visualization'],
+    engineeringSpecs: ['Python', 'Scikit-learn', 'Pandas', 'Optuna Hyperparameter Tuning', 'NLP Classification Pipeline', 'Gaussian Naive Bayes', 'Real-time Prediction'],
     title: 'SUPREME COURT JUDGEMENT CLASSIFICATION',
     category: 'AI ENGINEERING',
     role: 'AI Engineer',
-    description: 'NLP pipeline using Gaussian Naive Bayes to classify court outcomes, deployed as an interactive Streamlit prediction app.',
+    description: 'An end-to-end Natural Language Processing (NLP) pipeline that classifies Supreme Court judgement outcomes based on case facts. Built with Python and Scikit-learn, the Gaussian Naive Bayes model was optimized via Optuna for high accuracy, and deployed as a real-time, interactive data visualization tool using Streamlit.',
     status: 'Completed',
     visibility: 'Public',
     goal: "Apply machine learning to predict court judgement outcomes based on case facts.",
@@ -127,11 +131,10 @@ export const PROJECTS: Project[] = [
     id: 'serenity',
     designSpecs: ['Empathy-driven UX', 'Accessibility-focused Design', 'Calming Visual Direction', 'Figma'],
     engineeringSpecs: ['React TS', 'TailwindCSS', 'Firebase Auth / Firestore', 'Midtrans API', 'Component-based Frontend'],
-
     title: 'SERENITY',
     category: 'UI/UX',
     role: 'UI/UX & Frontend Developer',
-    description: 'Empathy-driven mental health platform with accessible UI, Firebase authentication, and Midtrans payment integration.',
+    description: 'An empathy-driven mental health platform with a strong focus on accessibility and calming visual language. Designed meticulously in Figma and implemented in React TS, it seamlessly integrates Firebase authentication and the Midtrans API to handle secure, transparent transactions while maintaining a trustworthy user experience.',
     status: 'Completed',
     visibility: 'Public',
     goal: "Create a mental health platform focused on empathy, accessibility, and secure transactions.",
@@ -158,11 +161,10 @@ export const PROJECTS: Project[] = [
     id: 'nofake',
     designSpecs: ['Credibility-focused UI/UX', 'Information Hierarchy', 'Readability', 'Misinformation-oriented Design', 'Figma'],
     engineeringSpecs: ['React', 'TailwindCSS', 'Firebase Hosting', 'Firebase Auth', 'Scalable Frontend'],
-
     title: 'NOFAKE',
     category: 'UI/UX',
     role: 'UI/UX & Frontend Developer',
-    description: 'Credibility-focused UI/UX prioritizing clear information hierarchy, with a scalable React and TailwindCSS frontend to combat digital misinformation.',
+    description: 'A digital platform engineered specifically to combat online misinformation through credibility-focused UI/UX design. It establishes a strong information hierarchy and readability standards, powered by a scalable React and TailwindCSS architecture hosted on Firebase, ensuring trustworthy and high-performance content delivery.',
     status: 'Completed',
     visibility: 'Public',
     goal: "Design a digital platform to combat misinformation with a focus on credibility and information hierarchy.",
@@ -181,18 +183,18 @@ export const PROJECTS: Project[] = [
     technologies: [
       'React', 'TailwindCSS', 'Firebase Hosting', 'Firebase Auth', 'Figma'
     ],
-    image: '/projects/pni-portal.webp',
+    image: '/projects/nofake-logo.png',
+    designImage: '/projects/nofake-design.png',
     github: 'https://github.com/Rnvz'
   },
   {
     id: 'peluangnusantara',
     designSpecs: ['Accessible UI/UX', 'Trust-building Design', 'Transparency & CTA Clarity', 'Figma'],
     engineeringSpecs: ['HTML/CSS/JS', 'Semantic HTML', 'Responsive Frontend', 'Cross-browser Consistency', 'Git'],
-
     title: 'PELUANGNUSANTARA',
     category: 'UI/UX',
     role: 'UI/UX & Frontend Developer',
-    description: 'Accessible and trust-building UI/UX for a crowdfunding platform developed with semantic HTML, CSS, and JavaScript focusing on cross-browser consistency.',
+    description: 'A transparent and accessible crowdfunding platform designed to build trust through clear Calls to Action (CTA) and semantic frontend architecture. Built with HTML, CSS, and JavaScript, the interface prioritizes cross-browser consistency and inclusive design patterns to maximize engagement and digital fundraising efforts.',
     status: 'Completed',
     visibility: 'Public',
     goal: "Build a trustworthy crowdfunding platform using semantic HTML and CSS.",
@@ -211,7 +213,8 @@ export const PROJECTS: Project[] = [
     technologies: [
       'Figma', 'HTML/CSS/JS', 'Git'
     ],
-    image: '/projects/serenity.webp',
+    image: '/projects/peluang-logo.png',
+    designImage: '/projects/peluang-design.png',
     github: 'https://github.com/Rnvz'
   }
 ]
@@ -253,22 +256,22 @@ export const CERTIFICATIONS = [
     title: 'Alibaba Cloud Certified Associate - Cloud Engineer',
     issuer: 'Alibaba Cloud',
     year: '2024',
-    image: '/projects/cert-alibaba.jpg',
-  },
+    image: '/cert-alibaba.jpg'
+    },
   {
     id: 'cert2',
     title: 'Learning SOLID Programming Principles',
     issuer: 'DICODING',
     year: '2023',
-    image: '/projects/cert-solid.png',
-  },
+    image: '/cert-solid.png'
+    },
   {
     id: 'cert3',
     title: 'Basic AI Course',
     issuer: 'DICODING',
     year: '2023',
-    image: '/projects/cert-ai.png',
-  },
+    image: '/cert-ai.png'
+    },
 ]
 
 export const STATS: Stat[] = [

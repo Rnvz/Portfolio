@@ -18,6 +18,7 @@ export interface Project {
   goal?: string
   outcome?: string[]
   image?: string
+  designImage?: string
   url?: string
   github?: string
 }

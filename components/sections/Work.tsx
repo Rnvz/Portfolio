@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import { SectionLabel } from '@/components/ui/SectionLabel'
-import { DeepInspect } from './DeepInspect'
 import { PROJECTS } from '@/lib/constants'
 
 const CATEGORIES = ['ALL', 'FULL STACK', 'UI/UX', 'AI ENGINEERING', 'EXPERIMENTS']
@@ -71,7 +70,8 @@ export const getTechIcon = (tech: string) => {
 }
 
 export const Work = () => {
-  const [view, setView] = useState<'idle' | 'nav' | 'detail'>('idle')
+  const [view, setView] = useState<'idle' | 'nav'>('idle')
+  const [designLightbox, setDesignLightbox] = useState<string | null>(null)
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
@@ -121,24 +121,19 @@ export const Work = () => {
     if (view === 'idle') {
       setView('nav')
     } else if (view === 'nav') {
-      setView('detail')
-    } else if (view === 'detail') {
-      // In detail view, maybe open link? Or do nothing?
-      // User can click the "Inspect Project" button to visit the link.
-      // Or we can open it here:
+      
+    } else if (view === 'nav') {
       if (selectedProject.url) window.open(selectedProject.url, '_blank')
       else if (selectedProject.github) window.open(selectedProject.github, '_blank')
     }
   }, [view, selectedProject])
 
   const handleMenu = useCallback(() => {
-    if (view === 'detail') setView('nav')
-    else if (view === 'nav') setView('idle')
+    if (view === 'nav') setView('idle')
   }, [view])
 
   const handleBack = useCallback(() => {
-    if (view === 'detail') setView('nav')
-    else if (view === 'nav') setView('idle')
+    if (view === 'nav') setView('idle')
   }, [view])
 
   useEffect(() => {
@@ -164,7 +159,7 @@ export const Work = () => {
         
         {/* LEFT SIDE — Project Navigator (iPod) */}
         <AnimatePresence>
-        {view !== 'detail' && (
+        
         <motion.div 
           initial={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
@@ -408,11 +403,10 @@ export const Work = () => {
 
           </div>
         </motion.div>
-        )}
         </AnimatePresence>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
-        <div className={`w-full flex flex-col order-1 xl:order-2 justify-center transition-all duration-700 ${view === 'detail' ? 'xl:col-span-2' : ''}`}>
+        <div className={`w-full flex flex-col order-1 xl:order-2 justify-center transition-all duration-700 ${''}`}>
           <AnimatePresence mode="wait">
             {view === 'idle' && (
               <motion.div
@@ -463,12 +457,14 @@ export const Work = () => {
                   <h2 className="font-display text-4xl lg:text-5xl xl:text-[3rem] text-[var(--text-primary)] tracking-wide uppercase leading-none">
                     {selectedProject.title}
                   </h2>
-                  <button 
-                    onClick={() => setView('detail')}
-                    className="hidden md:inline-flex shrink-0 items-center gap-2 px-4 py-2 border border-[var(--border-mid)] text-[11px] font-mono uppercase tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] transition-colors rounded-full"
-                  >
-                    Inspect
-                  </button>
+                  {selectedProject.designImage && (
+                    <button 
+                      onClick={() => setDesignLightbox(selectedProject.designImage!)}
+                      className="hidden md:inline-flex shrink-0 items-center gap-2 px-4 py-2 border border-[var(--border-mid)] text-[11px] font-mono uppercase tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] transition-colors rounded-full"
+                    >
+                      View Design
+                    </button>
+                  )}
                 </div>
                 
                 {/* Tabs */}
@@ -613,13 +609,45 @@ export const Work = () => {
 
               </motion.div>
             )}
-            {view === 'detail' && (
-              <DeepInspect project={selectedProject} onBack={() => setView('nav')} />
-            )}
+            
           </AnimatePresence>
         </div>
 
       </div>
+
+      {/* Lightbox Overlay */}
+      <AnimatePresence>
+        {designLightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setDesignLightbox(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-12 bg-black/90 backdrop-blur-sm cursor-zoom-out"
+          >
+            <button 
+              onClick={() => setDesignLightbox(null)}
+              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[var(--surface)] text-[var(--text-primary)] hover:text-[var(--accent-warm)] transition-colors border border-[var(--border)] z-50"
+            >
+              ✕
+            </button>
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-7xl h-full flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={designLightbox} 
+                alt="Project Design" 
+                className="w-full h-full object-contain drop-shadow-2xl rounded-lg"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
