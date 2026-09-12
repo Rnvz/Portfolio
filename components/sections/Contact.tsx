@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { SplitText } from '@/components/ui/SplitText'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import Link from 'next/link'
 
 export function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -139,8 +140,10 @@ export function Contact() {
       </ul>
 
       <div ref={footerRef} className="mt-auto font-mono text-[0.7rem] text-[var(--text-dim)] uppercase tracking-widest flex flex-col md:flex-row gap-4 justify-between w-full max-w-5xl px-4 md:px-12">
-        <span>© 2025 YOHANES WENANTA. ALL RIGHTS RESERVED.</span>
-        <span className="hover:text-[var(--accent-warm)] transition-colors cursor-pointer">COPYRIGHT POLICY</span>
+        <span>© {new Date().getFullYear()} YOHANES WENANTA. ALL RIGHTS RESERVED.</span>
+        <Link href="/copyright" className="hover:text-[var(--accent-warm)] transition-colors cursor-pointer">
+          COPYRIGHT POLICY
+        </Link>
       </div>
     </section>
   )
