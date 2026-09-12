@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { SplitText } from '@/components/ui/SplitText'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
 import Link from 'next/link'
 
 export function Contact() {
@@ -68,18 +69,22 @@ export function Contact() {
 
       <ul ref={linksRef} className="flex flex-col w-full max-w-5xl px-4 md:px-12 mb-16">
         <li className="group border-b border-[var(--border-light)] hover:border-[var(--accent-warm)] transition-colors duration-500">
-          <a href="mailto:yohaneswenanta2410@gmail.com" className="flex flex-col lg:flex-row lg:items-center justify-between py-6 w-full">
-            <span className="font-mono text-sm md:text-base text-[var(--text-dim)] mb-4 lg:mb-0 group-hover:text-[var(--accent-warm)] transition-colors duration-500">
-              01 — Email
-            </span>
-            <span className="font-display font-medium text-xl sm:text-2xl md:text-4xl lg:text-5xl text-[var(--text-primary)] group-hover:text-[var(--accent-warm)] transition-colors duration-500 tracking-tight flex items-center justify-between lg:justify-end gap-4 w-full lg:w-auto break-all lg:break-normal">
-              yohaneswenanta2410@gmail.com
-              <svg className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[var(--accent-warm)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </span>
-          </a>
+          <ObfuscatedEmail className="flex flex-col lg:flex-row lg:items-center justify-between py-6 w-full">
+            {(email) => (
+              <>
+                <span className="font-mono text-sm md:text-base text-[var(--text-dim)] mb-4 lg:mb-0 group-hover:text-[var(--accent-warm)] transition-colors duration-500">
+                  01 — Email
+                </span>
+                <span className="font-display font-medium text-xl sm:text-2xl md:text-4xl lg:text-5xl text-[var(--text-primary)] group-hover:text-[var(--accent-warm)] transition-colors duration-500 tracking-tight flex items-center justify-between lg:justify-end gap-4 w-full lg:w-auto break-all lg:break-normal">
+                  {email}
+                  <svg className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[var(--accent-warm)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </>
+            )}
+          </ObfuscatedEmail>
         </li>
         <li className="group border-b border-[var(--border-light)] hover:border-[var(--accent-warm)] transition-colors duration-500">
           <a href="https://github.com/Rnvz" target="_blank" rel="noopener noreferrer" className="flex flex-col lg:flex-row lg:items-center justify-between py-6 w-full">

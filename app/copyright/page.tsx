@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
+import { ObfuscatedEmail } from '@/components/ui/ObfuscatedEmail'
 
 export const metadata: Metadata = {
   title: 'Copyright Policy | Yohanes Wenanta',
@@ -61,7 +62,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="font-mono text-sm tracking-widest text-[var(--text-primary)] uppercase mb-4">5. Contact</h2>
             <p>
-              If you have any questions regarding this Copyright Policy, or if you believe any material on this site infringes on your own copyright, please contact me immediately via email at <a href="mailto:yohaneswenanta2410@gmail.com" className="text-[var(--accent-warm)] hover:underline">yohaneswenanta2410@gmail.com</a>.
+              If you have any questions regarding this Copyright Policy, or if you believe any material on this site infringes on your own copyright, please contact me immediately via email at <ObfuscatedEmail className="text-[var(--accent-warm)] hover:underline" />.
             </p>
           </section>
 
