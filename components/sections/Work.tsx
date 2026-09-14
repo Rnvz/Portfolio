@@ -539,10 +539,15 @@ export const Work = () => {
                             <div key={idx} className="flex flex-col border-b border-[var(--border)] last:border-0 pb-3">
                               <button 
                                 onClick={() => setExpandedFeature(expandedFeature === idx ? -1 : idx)}
-                                className="flex items-start gap-3 text-left focus:outline-none group transition-colors"
+                                className="flex items-center justify-between w-full text-left focus:outline-none group transition-colors"
                               >
-                                <span className={`font-mono text-[11px] mt-0.5 transition-colors ${expandedFeature === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{String(idx + 1).padStart(2, '0')}</span>
-                                <span className={`font-mono text-[12px] font-semibold uppercase tracking-wider transition-colors ${expandedFeature === idx ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{item.title}</span>
+                                <div className="flex items-start gap-3">
+                                  <span className={`font-mono text-[11px] mt-0.5 transition-colors ${expandedFeature === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{String(idx + 1).padStart(2, '0')}</span>
+                                  <span className={`font-mono text-[12px] font-semibold uppercase tracking-wider transition-colors ${expandedFeature === idx ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{item.title}</span>
+                                </div>
+                                <span className={`font-mono text-[14px] font-light transition-transform duration-300 ${expandedFeature === idx ? 'text-[var(--accent-warm)] rotate-180' : 'text-[var(--text-secondary)] group-hover:text-white rotate-0'}`}>
+                                  {expandedFeature === idx ? '−' : '+'}
+                                </span>
                               </button>
                               <AnimatePresence>
                                 {expandedFeature === idx && (
