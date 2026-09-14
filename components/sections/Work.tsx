@@ -72,11 +72,25 @@ export const getTechIcon = (tech: string) => {
 export const Work = () => {
   const [view, setView] = useState<'idle' | 'nav'>('idle')
   const [designLightbox, setDesignLightbox] = useState<string | null>(null)
+  const [isZoomed, setIsZoomed] = useState(false)
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
   const [expandedFeature, setExpandedFeature] = useState<number>(0)
   const shouldReduceMotion = useReducedMotion()
+
+
+  useEffect(() => {
+    if (designLightbox) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+      setIsZoomed(false)
+    }
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [designLightbox])
 
   useEffect(() => {
     setDetailTab('OVERVIEW')
@@ -697,11 +711,11 @@ export const Work = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setDesignLightbox(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-12 bg-black/90 backdrop-blur-sm cursor-zoom-out"
+            className={`fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm transition-all ${isZoomed ? 'overflow-auto cursor-zoom-out block' : 'overflow-hidden cursor-zoom-in flex items-center justify-center p-4 md:p-12'}`}
           >
             <button 
               onClick={() => setDesignLightbox(null)}
-              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[var(--surface)] text-[var(--text-primary)] hover:text-[var(--accent-warm)] transition-colors border border-[var(--border)] z-50"
+              className="fixed top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[var(--surface)] text-[var(--text-primary)] hover:text-[var(--accent-warm)] transition-colors border border-[var(--border)] z-[110]"
             >
               ✕
             </button>
@@ -710,13 +724,16 @@ export const Work = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-7xl h-full flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()}
+              className={`relative ${isZoomed ? 'w-fit h-fit min-w-full min-h-full p-4 md:p-12 flex items-center justify-center' : 'w-full max-w-7xl h-full flex items-center justify-center'}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsZoomed(!isZoomed);
+              }}
             >
               <img 
                 src={designLightbox} 
                 alt="Project Design" 
-                className="w-full h-full object-contain drop-shadow-2xl rounded-lg"
+                className={`block drop-shadow-2xl rounded-lg transition-transform duration-300 ${isZoomed ? 'w-auto h-auto max-w-none max-h-none mx-auto' : 'w-full h-full object-contain mx-auto'}`}
               />
             </motion.div>
           </motion.div>
