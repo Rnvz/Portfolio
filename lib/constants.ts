@@ -105,25 +105,65 @@ export const PROJECTS: Project[] = [
     category: 'FULL STACK',
     role: 'Freelance — Full Stack Developer',
     period: 'Sep 2025 — Feb 2026',
-    description: "Production-oriented B2B digital ecosystem developed for a leading wine and spirits distributor in Indonesia, combining a public-facing product portal with internal operations, content management, role-based access control, newsletter infrastructure, first-party analytics, and edge-based infrastructure.",
+    description: "An end-to-end gym management system developed from product interface design through backend implementation, combining responsive application design, database architecture, and REST API development.",
     status: 'Completed',
     visibility: 'Private',
     systems: [
-      'UI/UX Design',
-      'React Frontend',
-      'Node.js Backend',
-      'REST API',
-      'Database Schema'
+      'UI / UX DESIGN',
+      'RESPONSIVE FRONTEND',
+      'BACKEND',
+      'DATABASE',
+      'REST API'
     ],
     built: [
-      { title: 'UI/UX Design', description: 'End-to-end design with high-fidelity prototypes' },
-      { title: 'Frontend Interface', description: 'Responsive React interface' },
-      { title: 'Backend API', description: 'Node.js backend with REST API and Prisma ORM schema' }
+      {
+        title: 'UI/UX DESIGN',
+        description: 'I led the end-to-end UI/UX design process in Figma, translating client requirements into high-fidelity prototypes and establishing the foundation for a fully responsive interface.',
+        features: [
+          'End-to-end UI/UX design',
+          'Client requirement translation',
+          'High-fidelity prototypes',
+          'Responsive interface design'
+        ]
+      },
+      {
+        title: 'FRONTEND',
+        description: 'I implemented the frontend using React, TypeScript, and TailwindCSS. The focus was on a pixel-perfect translation from the initial Figma designs into a robust, responsive web interface.',
+        features: [
+          'React & TypeScript architecture',
+          'TailwindCSS styling',
+          'Responsive implementation',
+          'Design-to-interface translation'
+        ]
+      },
+      {
+        title: 'BACKEND',
+        description: 'I developed the server-side application using Node.js and integrated Prisma ORM to ensure type-safe and reliable backend operations.',
+        features: [
+          'Node.js application logic',
+          'Prisma ORM integration',
+          'Backend development'
+        ]
+      },
+      {
+        title: 'DATABASE & API',
+        description: 'I designed the underlying database schema and exposed a REST API to facilitate a seamless client/server data flow between the React interface and the SQLite persistence layer.',
+        features: [
+          'Database schema design',
+          'REST API development',
+          'Client/server data flow'
+        ]
+      }
     ],
     technologies: [
       'React TS', 'TailwindCSS', 'Node.js', 'Prisma ORM', 'SQLite', 'Figma'
     ],
-    goal: "Build a modern and scalable platform to streamline operations, improve distribution efficiency, and support business growth in the beverage industry.",
+    stack: {
+      frontend: ['React TS', 'TailwindCSS'],
+      backend: ['Node.js', 'Prisma ORM', 'SQLite'],
+      design: ['Figma']
+    },
+    goal: "Translate client requirements into a responsive digital management experience while establishing the backend and data architecture required to connect the application interface with persistent business data.",
     image: '/projects/gym-logo.png',
     designImage: '/projects/gym-design.png'
   },
