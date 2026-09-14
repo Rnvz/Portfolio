@@ -42,7 +42,7 @@ export function Cursor() {
       }
       
       vpClone.style.backgroundColor = bodyBg
-      vpClone.innerHTML = ''
+      vpClone.textContent = ''
       vpClone.appendChild(clone)
       ringRef.current.style.background = bodyBg
     } else {
