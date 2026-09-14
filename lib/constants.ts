@@ -22,12 +22,68 @@ export const PROJECTS: Project[] = [
       'Edge Infrastructure'
     ],
     built: [
-      { title: 'Public B2B Product Portal', description: '200+ SKU catalog, multi-criteria filtering, tasting notes, brand profiles, nationwide venue directory, event calendar' },
-      { title: 'Internal CMS', description: 'CRUD for products, brands, events, venues, distributors, publications and newsletters' },
-      { title: 'Role-Based Access Control', description: 'Super Admin, Admin, Staff. Granular permissions, HTTP-only sessions, CSRF protection, SQLite-backed brute-force prevention' },
-      { title: 'Newsletter System', description: 'Tiptap HTML email builder, Resend batch sending, delivery tracking, Svix webhook verification' },
-      { title: 'First-Party Analytics', description: 'Pageviews, unique visitors, device type, browser, OS, Geo-IP' },
-      { title: 'Infrastructure', description: 'Cloudflare Pages, D1, R2, KV, OpenNext, automated cache purge' }
+      { 
+        title: 'Public B2B Product Portal', 
+        description: 'I developed the customer-facing B2B product portal as the primary product discovery interface. The platform contains more than 200 SKUs and supports multi-criteria filtering across category, brand, country, bottle size, and tags. Product information is supplemented by tasting notes and brand profiles, while the broader ecosystem includes a nationwide venue directory and event calendar.',
+        features: [
+          '200+ SKU catalog',
+          'Multi-criteria filtering',
+          'Tasting notes & brand profiles',
+          'Nationwide venue directory',
+          'Event calendar'
+        ]
+      },
+      { 
+        title: 'Internal CMS', 
+        description: 'The internal CMS dashboard allows administrators to manage products, brands, events, venues, distributors, publications, and newsletters. A key domain-specific feature is the dynamic product specification form, which adapts its fields based on the product category—for instance, requiring \'Vintage\' and \'Grape Variety\' for wines, or \'Cask Type\' and \'Age Statement\' for whiskies.',
+        features: [
+          'CRUD operations for core entities',
+          'Dynamic product specification forms',
+          'Category-adaptive fields'
+        ]
+      },
+      { 
+        title: 'Role-Based Access Control', 
+        description: 'The platform enforces strict role-based access control across Super Admin, Admin, and Staff tiers. It secures the system using granular permissions per module, HTTP-only cookie sessions, CSRF protection, and SQLite-backed brute-force prevention.',
+        features: [
+          'Super Admin, Admin, and Staff roles',
+          'Granular module permissions',
+          'HTTP-only sessions & CSRF protection',
+          'SQLite-backed brute-force prevention'
+        ]
+      },
+      { 
+        title: 'Newsletter System', 
+        description: 'The integrated newsletter system enables mass broadcasting directly from the CMS. It utilizes a Tiptap HTML email builder for content creation and Resend for batch delivery. The system also displays recipient-level delivery statuses (sent, pending, bounced) via Svix webhook signature verification.',
+        features: [
+          'Tiptap HTML email builder',
+          'Resend batch sending',
+          'Recipient-level delivery status',
+          'Svix webhook signature verification'
+        ]
+      },
+      { 
+        title: 'First-Party Analytics', 
+        description: 'I implemented a self-hosted, first-party analytics pipeline to eliminate reliance on third-party trackers. It captures essential metrics such as pageviews, unique visitors, device type, browser, operating system, and Geo-IP data.',
+        features: [
+          'Self-hosted analytics',
+          'No third-party trackers',
+          'Pageviews & unique visitors',
+          'Device, browser, OS, Geo-IP tracking'
+        ]
+      },
+      { 
+        title: 'Edge Infrastructure', 
+        description: 'The entire ecosystem is deployed on edge infrastructure using Cloudflare Pages, with Cloudflare D1 for edge SQLite database, R2 for object storage, and KV for rate limiting. OpenNext handles the deployment runtime, and an automated cache purge is triggered across the Cloudflare Zone API whenever content is updated in the CMS.',
+        features: [
+          'Cloudflare Pages (Deployment)',
+          'Cloudflare D1 (Edge SQLite)',
+          'Cloudflare R2 (Object Storage)',
+          'Cloudflare KV (Rate Limiting)',
+          'OpenNext runtime integration',
+          'Automated Zone API cache purge'
+        ]
+      }
     ],
     technologies: [
       'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Cloudflare D1', 'Cloudflare R2', 'Cloudflare KV', 'OpenNext', 'Resend', 'Svix', 'Zod', 'Figma'

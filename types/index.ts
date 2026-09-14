@@ -11,8 +11,17 @@ export interface Project {
   built?: {
     title: string
     description?: string
+    features?: string[]
   }[]
   technologies?: string[]
+  stack?: {
+    frontend?: string[]
+    backend?: string[]
+    infrastructure?: string[]
+    services?: string[]
+    design?: string[]
+    other?: string[]
+  }
   designSpecs?: string[]
   engineeringSpecs?: string[]
   goal?: string

@@ -542,6 +542,16 @@ export const Work = () => {
                               {item.description && (
                                 <p className="font-mono text-[12px] text-[var(--text-secondary)] leading-relaxed pl-7 mt-1.5">{item.description}</p>
                               )}
+                              {item.features && item.features.length > 0 && (
+                                <ul className="pl-7 mt-2 space-y-1">
+                                  {item.features.map((feat, fidx) => (
+                                    <li key={fidx} className="font-mono text-[11px] text-[var(--text-secondary)] flex items-start gap-2">
+                                      <span className="text-[var(--border-mid)] mt-[2px]">—</span>
+                                      <span className="leading-relaxed">{feat}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
                             </div>
                           ))}
                         </div>
