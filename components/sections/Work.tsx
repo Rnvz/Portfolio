@@ -301,30 +301,56 @@ export const Work = () => {
                               transition={{ duration: 0.2 }}
                               className="flex flex-col h-full"
                             >
-                              <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[var(--surface)] border border-[var(--border)] mb-4 flex items-center justify-center">
-                                {selectedProject.image ? (
-                                  <Image
-                                    src={selectedProject.image}
-                                    alt={selectedProject.title}
-                                    fill
-                                    className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500"
-                                  />
-                                ) : (
-                                  <span className="font-mono text-xs text-[var(--text-dim)] uppercase tracking-widest">No Image</span>
-                                )}
-                              </div>
-                              <div className="mt-auto">
-                                <h4 className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-widest mb-1 truncate">
-                                  {selectedProject.title}
-                                </h4>
-                                <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider mb-3 truncate">
-                                  {selectedProject.category} · {selectedProject.period}
+                              <div className="flex flex-col w-full h-full rounded-xl bg-transparent border border-[var(--border)] p-4 md:p-5 overflow-hidden">
+                                {/* Header */}
+                                <div className="flex items-center gap-3 mb-2">
+                                  <svg className="w-4 h-4 text-[var(--accent-warm)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                                  </svg>
+                                  <h4 className="font-mono text-[14px] font-medium text-[var(--text-primary)] uppercase tracking-widest truncate">
+                                    {selectedProject.title}
+                                  </h4>
+                                </div>
+                                <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider mb-4 pl-7">
+                                  {selectedProject.category} / {selectedProject.period}
                                 </p>
-                                <div className="flex items-center gap-1.5">
+                                
+                                <div className="w-full h-px bg-[var(--border-mid)]/50 mb-4" />
+                                
+                                {/* Status */}
+                                <div className="flex items-center gap-2 mb-3">
                                   <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.status?.toUpperCase() === 'PRODUCTION' ? 'bg-[var(--accent-warm)]' : 'bg-green-500'}`} />
-                                  <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">
+                                  <span className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-widest">
                                     {selectedProject.status}
                                   </span>
+                                </div>
+                                
+                                {/* Description */}
+                                <p className="font-mono text-[9px] text-[var(--text-secondary)] leading-relaxed line-clamp-4 mb-4">
+                                  {selectedProject.description}
+                                </p>
+                                
+                                <div className="w-full h-px bg-[var(--border-mid)]/50 mb-3" />
+                                
+                                {/* System Array */}
+                                <div>
+                                  <h5 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest mb-3">
+                                    SYSTEM
+                                  </h5>
+                                  {selectedProject.systems && selectedProject.systems.length > 0 ? (
+                                    <div className="grid grid-cols-2 gap-y-2 gap-x-2">
+                                      {selectedProject.systems.slice(0, 6).map((sys, idx) => (
+                                        <div key={idx} className="flex items-start gap-1.5">
+                                          <span className="text-[var(--text-secondary)] text-[8px] mt-0.5">■</span>
+                                          <span className="font-mono text-[8px] text-[var(--text-primary)] leading-tight truncate" title={sys}>
+                                            {sys}
+                                          </span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  ) : (
+                                    <span className="font-mono text-[8px] text-[var(--text-dim)]">N/A</span>
+                                  )}
                                 </div>
                               </div>
                             </motion.div>
