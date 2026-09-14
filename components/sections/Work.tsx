@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 import Image from 'next/image'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { PROJECTS } from '@/lib/constants'
@@ -72,7 +73,7 @@ export const getTechIcon = (tech: string) => {
 export const Work = () => {
   const [view, setView] = useState<'idle' | 'nav'>('idle')
   const [designLightbox, setDesignLightbox] = useState<string | null>(null)
-  const [zoomLevel, setZoomLevel] = useState(0)
+  
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
@@ -85,7 +86,7 @@ export const Work = () => {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'auto'
-      setZoomLevel(0)
+      
     }
     return () => {
       document.body.style.overflow = 'auto'
@@ -710,63 +711,59 @@ export const Work = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setDesignLightbox(null)}
-            className={`fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm transition-all ${zoomLevel > 0 ? 'overflow-auto block' : 'overflow-hidden flex items-center justify-center p-4 md:p-12'}`}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm"
           >
-            {/* Zoom Controls */}
-            <div 
-              className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[120] flex items-center gap-2 bg-[#1A1A1A] border border-[var(--border)] rounded-full px-2 py-1.5 drop-shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button 
-                onClick={() => setZoomLevel(Math.max(0, zoomLevel - 1))} 
-                className={`w-8 h-8 flex items-center justify-center rounded-full transition-colors ${zoomLevel === 0 ? 'text-[var(--border-mid)]' : 'text-[var(--text-primary)] hover:bg-[var(--surface)]'}`}
-                disabled={zoomLevel === 0}
-              >
-                −
-              </button>
-              <span className="font-mono text-[11px] text-[var(--text-primary)] w-14 text-center tracking-widest">
-                {zoomLevel === 0 ? 'FIT' : `${zoomLevel + 1}x`}
-              </span>
-              <button 
-                onClick={() => setZoomLevel(Math.min(6, zoomLevel + 1))} 
-                className={`w-8 h-8 flex items-center justify-center rounded-full transition-colors ${zoomLevel === 6 ? 'text-[var(--border-mid)]' : 'text-[var(--text-primary)] hover:bg-[var(--surface)]'}`}
-                disabled={zoomLevel === 6}
-              >
-                +
-              </button>
-            </div>
-
             <button 
               onClick={() => setDesignLightbox(null)}
               className="fixed top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[var(--surface)] text-[var(--text-primary)] hover:text-[var(--accent-warm)] transition-colors border border-[var(--border)] z-[110]"
             >
               ✕
             </button>
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className={`relative ${zoomLevel > 0 ? 'w-fit h-fit min-w-full min-h-full p-4 md:p-12 flex items-center justify-center cursor-zoom-in' : 'w-full max-w-7xl h-full flex items-center justify-center cursor-zoom-in'}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                setZoomLevel(prev => prev < 6 ? prev + 1 : 0);
-              }}
+            
+            <TransformWrapper
+              initialScale={1}
+              minScale={0.5}
+              maxScale={8}
+              centerOnInit={true}
+              wheel={{ step: 0.1 }}
             >
-              <img 
-                src={designLightbox} 
-                alt="Project Design" 
-                className={`block drop-shadow-2xl rounded-lg transition-all duration-300 mx-auto`}
-                style={{
-                  width: zoomLevel === 0 ? '100%' : `${100 + (zoomLevel * 50)}vw`,
-                  height: zoomLevel === 0 ? '100%' : 'auto',
-                  maxWidth: 'none',
-                  maxHeight: zoomLevel === 0 ? '100%' : 'none',
-                  objectFit: zoomLevel === 0 ? 'contain' : 'fill'
-                }}
-              />
-            </motion.div>
+              {({ zoomIn, zoomOut, resetTransform }) => (
+                <>
+                  <div 
+                    className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[120] flex items-center gap-2 bg-[#1A1A1A] border border-[var(--border)] rounded-full px-2 py-1.5 drop-shadow-2xl"
+                  >
+                    <button 
+                      onClick={() => zoomOut()} 
+                      className="w-8 h-8 flex items-center justify-center rounded-full text-[var(--text-primary)] hover:bg-[var(--surface)] transition-colors"
+                    >
+                      −
+                    </button>
+                    <button 
+                      onClick={() => resetTransform()}
+                      className="font-mono text-[11px] text-[var(--text-primary)] hover:text-[var(--accent-warm)] transition-colors w-14 text-center tracking-widest"
+                    >
+                      RESET
+                    </button>
+                    <button 
+                      onClick={() => zoomIn()} 
+                      className="w-8 h-8 flex items-center justify-center rounded-full text-[var(--text-primary)] hover:bg-[var(--surface)] transition-colors"
+                    >
+                      +
+                    </button>
+                  </div>
+                  
+                  <div className="w-screen h-screen cursor-grab active:cursor-grabbing">
+                    <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
+                      <img 
+                        src={designLightbox} 
+                        alt="Project Design" 
+                        className="w-auto h-auto max-w-[95vw] max-h-[95vh] object-contain drop-shadow-2xl rounded-lg pointer-events-none"
+                      />
+                    </TransformComponent>
+                  </div>
+                </>
+              )}
+            </TransformWrapper>
           </motion.div>
         )}
       </AnimatePresence>
