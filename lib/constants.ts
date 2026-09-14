@@ -94,7 +94,8 @@ export const PROJECTS: Project[] = [
       other: ['Zod (Validation)', 'Tiptap (Content)']
     },
     goal: "Build a scalable digital platform that supports product discovery for external users while providing internal teams with structured tools for content management, access control, communication, analytics, and operational workflows.",
-    image: '/projects/pni-portal.webp',
+    image: '/projects/pni-logo-new.png',
+    bgColor: '#FDFFFF',
     url: 'https://pancaindo.com',
   },
   {
@@ -164,7 +165,8 @@ export const PROJECTS: Project[] = [
       design: ['Figma']
     },
     goal: "Translate client requirements into a responsive digital management experience while establishing the backend and data architecture required to connect the application interface with persistent business data.",
-    image: '/projects/gym-logo-new.png',
+    image: '/projects/gym-logo.png',
+    bgColor: '#1E1E1E',
     designImage: '/projects/gym-design.png'
   },
   {
@@ -234,6 +236,7 @@ export const PROJECTS: Project[] = [
     },
     goal: "Create a consistent consultation experience while recognizing that Admin, Lecturer, and Student users have different responsibilities and therefore require different interaction flows.",
     image: '/projects/beema-logo-new.png',
+    bgColor: '#0E0E0E',
     designImage: '/projects/beema-design.png'
   },
   {
@@ -370,6 +373,7 @@ export const PROJECTS: Project[] = [
     },
     goal: "Create a calmer and more approachable consultation experience by combining thoughtful visual design, accessible interaction patterns, responsive implementation, authentication, and payment functionality.",
     image: '/projects/serenity-logo-new.png',
+    bgColor: '#1A1916',
     github: 'https://github.com/Rnvz'
   },
   {
@@ -436,6 +440,7 @@ export const PROJECTS: Project[] = [
     },
     goal: "Create a clearer and more credibility-oriented information experience that helps users navigate misinformation through readable interfaces and structured content presentation.",
     image: '/projects/nofake-logo-new.png',
+    bgColor: '#FDFDFF',
     designImage: '/projects/nofake-design.png',
     github: 'https://github.com/Rnvz'
   },
@@ -505,6 +510,7 @@ export const PROJECTS: Project[] = [
     },
     goal: "Build a crowdfunding experience where users can understand campaign information more clearly and interact with important actions through an accessible and trust-oriented interface.",
     image: '/projects/peluang-logo-new.png',
+    bgColor: '#0D0D0D',
     designImage: '/projects/peluang-design.png',
     github: 'https://github.com/Rnvz'
   }

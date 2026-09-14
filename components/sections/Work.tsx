@@ -301,7 +301,10 @@ export const Work = () => {
                               transition={{ duration: 0.2 }}
                               className="flex flex-col h-full"
                             >
-                              <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white border border-[var(--border)] mb-4 p-4 flex items-center justify-center">
+                              <div 
+                                className="relative w-full aspect-square rounded-xl overflow-hidden border border-[var(--border)] mb-4 p-4 flex items-center justify-center transition-colors duration-300"
+                                style={{ backgroundColor: selectedProject.bgColor || 'transparent' }}
+                              >
                                 {selectedProject.image ? (
                                   <div className="relative w-full h-full">
                                     <Image
@@ -312,7 +315,7 @@ export const Work = () => {
                                     />
                                   </div>
                                 ) : (
-                                  <span className="font-mono text-xs text-[#0a0a0a] uppercase tracking-widest">No Image</span>
+                                  <span className="font-mono text-xs text-[var(--text-dim)] uppercase tracking-widest">No Image</span>
                                 )}
                               </div>
                               <div className="mt-auto">
