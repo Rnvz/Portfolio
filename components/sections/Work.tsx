@@ -484,7 +484,7 @@ export const Work = () => {
                   ))}
                 </div>
 
-                <div className="flex-1 overflow-visible pr-4">
+                <div className="overflow-visible pr-4">
                   <AnimatePresence mode="wait">
                   {detailTab === 'OVERVIEW' && (
                     <motion.div key="overview" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="flex flex-col gap-8">
