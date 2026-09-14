@@ -140,8 +140,8 @@ export const Work = () => {
     } else if (view === 'nav') {
       
     } else if (view === 'nav') {
-      if (selectedProject.url) window.open(selectedProject.url, '_blank')
-      else if (selectedProject.github) window.open(selectedProject.github, '_blank')
+      if (selectedProject.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
+      else if (selectedProject.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
     }
   }, [view, selectedProject])
 

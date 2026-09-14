@@ -49,7 +49,7 @@ export const DeepInspect = ({ project, onBack }: { project: Project, onBack: () 
             <a 
               href={project.url} 
               target="_blank" 
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="px-6 py-3 border border-[var(--accent-warm)] text-[var(--accent-warm)] hover:bg-[var(--accent-warm)] hover:text-[#0a0a0a] transition-colors rounded-full font-mono text-xs uppercase tracking-widest"
             >
               Visit Live Site
