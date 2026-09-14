@@ -587,31 +587,71 @@ export const Work = () => {
                   )}
 
                   {detailTab === 'TECH STACK' && (
-                    <motion.div key="tech" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="flex flex-col gap-8">
-                      <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Technologies & Tools</h3>
-                      <div className="grid grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-y-8 gap-x-2">
-                        {selectedProject.technologies?.map(tech => {
-                          const iconUrl = getTechIcon(tech);
-                          return (
-                            <div key={tech} className="flex flex-col items-center gap-3 group w-full">
-                              <div className="w-10 h-10 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
-                                {iconUrl ? (
-                                  <img 
-                                    src={iconUrl} 
-                                    alt={tech} 
-                                    className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
-                                  />
-                                ) : (
-                                  <div className="w-8 h-8 border border-[var(--border)] rounded-md flex items-center justify-center text-[10px] font-mono text-[var(--text-secondary)]">?</div>
-                                )}
+                    <motion.div key="tech" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="flex flex-col gap-10">
+                      {selectedProject.stack ? (
+                        <>
+                          {Object.entries(selectedProject.stack).map(([groupName, techs]) => {
+                            if (!techs || techs.length === 0) return null;
+                            return (
+                              <div key={groupName} className="flex flex-col gap-4">
+                                <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-2">{groupName}</h3>
+                                <div className="grid grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-y-6 gap-x-2">
+                                  {techs.map((tech: string) => {
+                                    // Handle cases where tech is "Zod (Validation)" by extracting "Zod" for the icon lookup
+                                    const cleanTech = tech.split(' (')[0];
+                                    const iconUrl = getTechIcon(cleanTech);
+                                    return (
+                                      <div key={tech} className="flex flex-col items-center gap-3 group w-full">
+                                        <div className="w-10 h-10 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                                          {iconUrl ? (
+                                            <img 
+                                              src={iconUrl} 
+                                              alt={cleanTech} 
+                                              className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
+                                            />
+                                          ) : (
+                                            <div className="w-8 h-8 border border-[var(--border)] rounded-md flex items-center justify-center text-[10px] font-mono text-[var(--text-secondary)]">?</div>
+                                          )}
+                                        </div>
+                                        <span className="font-mono font-semibold text-[10px] text-[var(--text-secondary)] group-hover:text-[var(--accent-warm)] transition-colors text-center uppercase tracking-widest px-1">
+                                          {tech}
+                                        </span>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
                               </div>
-                              <span className="font-mono font-semibold text-[10px] text-[var(--text-secondary)] group-hover:text-[var(--accent-warm)] transition-colors text-center uppercase tracking-widest">
-                                {tech}
-                              </span>
-                            </div>
-                          )
-                        })}
-                      </div>
+                            )
+                          })}
+                        </>
+                      ) : (
+                        <>
+                          <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Technologies & Tools</h3>
+                          <div className="grid grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-y-8 gap-x-2">
+                            {selectedProject.technologies?.map(tech => {
+                              const iconUrl = getTechIcon(tech);
+                              return (
+                                <div key={tech} className="flex flex-col items-center gap-3 group w-full">
+                                  <div className="w-10 h-10 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                                    {iconUrl ? (
+                                      <img 
+                                        src={iconUrl} 
+                                        alt={tech} 
+                                        className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
+                                      />
+                                    ) : (
+                                      <div className="w-8 h-8 border border-[var(--border)] rounded-md flex items-center justify-center text-[10px] font-mono text-[var(--text-secondary)]">?</div>
+                                    )}
+                                  </div>
+                                  <span className="font-mono font-semibold text-[10px] text-[var(--text-secondary)] group-hover:text-[var(--accent-warm)] transition-colors text-center uppercase tracking-widest">
+                                    {tech}
+                                  </span>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </>
+                      )}
                     </motion.div>
                   )}
                   </AnimatePresence>

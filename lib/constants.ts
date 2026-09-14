@@ -85,9 +85,14 @@ export const PROJECTS: Project[] = [
         ]
       }
     ],
-    technologies: [
-      'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Cloudflare D1', 'Cloudflare R2', 'Cloudflare KV', 'OpenNext', 'Resend', 'Svix', 'Zod', 'Figma'
-    ],
+    technologies: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Cloudflare D1', 'Cloudflare R2', 'Cloudflare KV', 'OpenNext', 'Resend', 'Svix', 'Zod', 'Figma'],
+    stack: {
+      frontend: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS v4'],
+      infrastructure: ['Cloudflare Pages', 'Cloudflare D1', 'Cloudflare R2', 'Cloudflare KV', 'OpenNext'],
+      services: ['Resend', 'Svix'],
+      design: ['Figma'],
+      other: ['Zod (Validation)', 'Tiptap (Content)']
+    },
     goal: "Build a scalable digital platform that supports product discovery for external users while providing internal teams with structured tools for content management, access control, communication, analytics, and operational workflows.",
     image: '/projects/pni-portal.webp',
     url: 'https://pancaindo.com',
