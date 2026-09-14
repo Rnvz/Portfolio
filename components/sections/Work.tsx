@@ -75,10 +75,12 @@ export const Work = () => {
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
+  const [expandedFeature, setExpandedFeature] = useState<number>(0)
   const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
     setDetailTab('OVERVIEW')
+    setExpandedFeature(0)
   }, [selectedIndex])
 
   const filteredProjects = useMemo(() => {
@@ -482,7 +484,7 @@ export const Work = () => {
                   ))}
                 </div>
 
-                <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
+                <div className="flex-1 overflow-visible pr-4">
                   <AnimatePresence mode="wait">
                   {detailTab === 'OVERVIEW' && (
                     <motion.div key="overview" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="flex flex-col gap-8">
@@ -534,24 +536,41 @@ export const Work = () => {
                         <h3 className="font-mono text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest">What Was Built</h3>
                         <div className="flex flex-col gap-4">
                           {selectedProject.built?.map((item, idx) => (
-                            <div key={idx} className="flex flex-col">
-                              <div className="flex items-start gap-3">
-                                <span className="font-mono text-[11px] text-[var(--text-secondary)] mt-0.5">{String(idx + 1).padStart(2, '0')}</span>
-                                <span className="font-mono text-[13px] font-semibold text-[var(--text-primary)] uppercase tracking-wider">{item.title}</span>
-                              </div>
-                              {item.description && (
-                                <p className="font-mono text-[12px] text-[var(--text-secondary)] leading-relaxed pl-7 mt-1.5">{item.description}</p>
-                              )}
-                              {item.features && item.features.length > 0 && (
-                                <ul className="pl-7 mt-2 space-y-1">
-                                  {item.features.map((feat, fidx) => (
-                                    <li key={fidx} className="font-mono text-[11px] text-[var(--text-secondary)] flex items-start gap-2">
-                                      <span className="text-[var(--border-mid)] mt-[2px]">—</span>
-                                      <span className="leading-relaxed">{feat}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
+                            <div key={idx} className="flex flex-col border-b border-[var(--border)] last:border-0 pb-3">
+                              <button 
+                                onClick={() => setExpandedFeature(expandedFeature === idx ? -1 : idx)}
+                                className="flex items-start gap-3 text-left focus:outline-none group transition-colors"
+                              >
+                                <span className={`font-mono text-[11px] mt-0.5 transition-colors ${expandedFeature === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{String(idx + 1).padStart(2, '0')}</span>
+                                <span className={`font-mono text-[12px] font-semibold uppercase tracking-wider transition-colors ${expandedFeature === idx ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{item.title}</span>
+                              </button>
+                              <AnimatePresence>
+                                {expandedFeature === idx && (
+                                  <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="overflow-hidden"
+                                  >
+                                    <div className="pt-2">
+                                      {item.description && (
+                                        <p className="font-mono text-[11px] text-[var(--text-secondary)] leading-relaxed pl-7 mb-2">{item.description}</p>
+                                      )}
+                                      {item.features && item.features.length > 0 && (
+                                        <ul className="pl-7 space-y-1 pb-1">
+                                          {item.features.map((feat, fidx) => (
+                                            <li key={fidx} className="font-mono text-[10px] text-[var(--text-secondary)] flex items-start gap-2">
+                                              <span className="text-[var(--border-mid)] mt-[1px]">—</span>
+                                              <span className="leading-relaxed">{feat}</span>
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      )}
+                                    </div>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
                             </div>
                           ))}
                         </div>
