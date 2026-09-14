@@ -10,15 +10,15 @@ export const PROJECTS: Project[] = [
     category: 'FULL STACK',
     role: 'Intern — Full Stack Developer',
     period: 'Feb — Sep 2026',
-    description: 'Production ecosystem for Indonesia\'s leading wine and spirits distributor. Public portal and internal CMS with RBAC and analytics.',
+    description: "Production-oriented B2B digital ecosystem developed for a leading wine and spirits distributor in Indonesia, combining a public-facing product portal with internal operations, content management, role-based access control, newsletter infrastructure, first-party analytics, and edge-based infrastructure.",
     status: 'Production',
     visibility: 'Private',
     systems: [
-      'Public Portal',
+      'Public B2B Product Portal',
       'Internal CMS',
-      'RBAC',
-      'Newsletter',
-      'Analytics',
+      'Role-Based Access Control',
+      'Newsletter System',
+      'First-Party Analytics',
       'Edge Infrastructure'
     ],
     built: [
@@ -32,7 +32,7 @@ export const PROJECTS: Project[] = [
     technologies: [
       'Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Cloudflare D1', 'Cloudflare R2', 'Cloudflare KV', 'OpenNext', 'Resend', 'Svix', 'Zod', 'Figma'
     ],
-    goal: 'Build a modern and scalable platform to streamline operations, improve distribution efficiency, and support business growth in the beverage industry.',
+    goal: "Build a scalable digital platform that supports product discovery for external users while providing internal teams with structured tools for content management, access control, communication, analytics, and operational workflows.",
     image: '/projects/pni-portal.webp',
     url: 'https://pancaindo.com',
   },
@@ -44,7 +44,7 @@ export const PROJECTS: Project[] = [
     category: 'FULL STACK',
     role: 'Freelance — Full Stack Developer',
     period: 'Sep 2025 — Feb 2026',
-    description: 'A comprehensive production B2B commerce ecosystem developed for Indonesia\'s leading wine and spirits distributor. The system features a public-facing product portal with an advanced 200+ SKU catalog and multi-criteria filtering, paired with an internal CMS governed by Role-Based Access Control (RBAC). It also integrates a custom newsletter builder and first-party analytics, all deployed securely on edge infrastructure using Cloudflare and OpenNext.',
+    description: "Production-oriented B2B digital ecosystem developed for a leading wine and spirits distributor in Indonesia, combining a public-facing product portal with internal operations, content management, role-based access control, newsletter infrastructure, first-party analytics, and edge-based infrastructure.",
     status: 'Completed',
     visibility: 'Private',
     systems: [
@@ -62,7 +62,7 @@ export const PROJECTS: Project[] = [
     technologies: [
       'React TS', 'TailwindCSS', 'Node.js', 'Prisma ORM', 'SQLite', 'Figma'
     ],
-    goal: 'Digitize gym operations and member management for a local fitness center.',
+    goal: "Build a modern and scalable platform to streamline operations, improve distribution efficiency, and support business growth in the beverage industry.",
     image: '/projects/gym-logo.png',
     designImage: '/projects/gym-design.png'
   },
@@ -73,7 +73,7 @@ export const PROJECTS: Project[] = [
     title: 'BEEMA',
     category: 'FULL STACK',
     role: 'UI/UX Developer',
-    description: 'A multi-role academic portal designed to facilitate thesis management across Admin, Lecturer, and Student workflows. Developed using Laravel 12 and Vite, the project involved creating high-fidelity Figma prototypes tailored for distinct interaction patterns, resulting in a highly responsive and unified Blade-based frontend experience.',
+    description: "Production-oriented B2B digital ecosystem developed for a leading wine and spirits distributor in Indonesia, combining a public-facing product portal with internal operations, content management, role-based access control, newsletter infrastructure, first-party analytics, and edge-based infrastructure.",
     status: 'Completed',
     visibility: 'Public',
     goal: "Design and implement a responsive academic thesis management system.",
