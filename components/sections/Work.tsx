@@ -406,7 +406,7 @@ export const Work = () => {
         </AnimatePresence>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
-        <div className={`w-full flex flex-col order-1 xl:order-2 justify-center transition-all duration-700 ${''}`}>
+        <div className="w-full h-auto xl:h-[860px] flex flex-col order-1 xl:order-2 justify-center transition-all duration-700">
           <AnimatePresence mode="wait">
             {view === 'idle' && (
               <motion.div

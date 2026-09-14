@@ -446,25 +446,64 @@ export const PROJECTS: Project[] = [
     title: 'PELUANGNUSANTARA',
     category: 'UI/UX',
     role: 'UI/UX & Frontend Developer',
-    description: 'A transparent and accessible crowdfunding platform designed to build trust through clear Calls to Action (CTA) and semantic frontend architecture. Built with HTML, CSS, and JavaScript, the interface prioritizes cross-browser consistency and inclusive design patterns to maximize engagement and digital fundraising efforts.',
+    description: "PeluangNusantara is a crowdfunding platform concept focused on trust, accessibility, transparency, and clear calls-to-action. The project combines UX design with a semantic frontend implementation designed for responsive and consistent behaviour across browsers.",
     status: 'Completed',
     visibility: 'Public',
-    goal: "Build a trustworthy crowdfunding platform using semantic HTML and CSS.",
-    outcome: [
-      "Achieved cross-browser consistency.",
-      "Designed clear calls to action to drive engagement."
-    ],
     systems: [
-      'Trust-Building Design',
-      'Semantic Frontend'
+      'TRUST-BUILDING UX',
+      'INFORMATION HIERARCHY',
+      'CLEAR CTA',
+      'SEMANTIC FRONTEND',
+      'RESPONSIVE DESIGN',
+      'CROSS-BROWSER CONSISTENCY'
     ],
     built: [
-      { title: 'Accessible UX', description: 'Trust-building design with transparency and CTA clarity' },
-      { title: 'Frontend Implementation', description: 'Semantic HTML and responsive frontend with cross-browser consistency' }
+      {
+        title: 'TRUST-BUILDING UI/UX',
+        description: 'I designed the platform to prioritize trust and transparency, utilizing accessible design principles to assure users during the crowdfunding process.',
+        features: [
+          'Accessible design principles',
+          'Trust-oriented interface',
+          'Process transparency'
+        ]
+      },
+      {
+        title: 'INFORMATION CLARITY',
+        description: 'I structured the campaign information hierarchy to ensure potential backers could easily digest and understand the goals and impact of each project.',
+        features: [
+          'Information hierarchy',
+          'Campaign information structuring',
+          'Enhanced user understanding'
+        ]
+      },
+      {
+        title: 'CALL-TO-ACTION',
+        description: 'I strategically placed and styled Calls to Action (CTAs) to maximize visibility and support user decision-making without being aggressive.',
+        features: [
+          'CTA clarity & styling',
+          'Action visibility optimization',
+          'Decision support positioning'
+        ]
+      },
+      {
+        title: 'FRONTEND',
+        description: 'I built the responsive web interface using semantic HTML, CSS, and JavaScript, focusing on lightweight performance and cross-browser consistency.',
+        features: [
+          'Semantic HTML structure',
+          'CSS & JavaScript implementation',
+          'Responsive cross-browser consistency'
+        ]
+      }
     ],
     technologies: [
-      'Figma', 'HTML/CSS/JS', 'Git'
+      'Figma', 'HTML', 'CSS', 'JavaScript', 'Git'
     ],
+    stack: {
+      frontend: ['HTML', 'CSS', 'JavaScript'],
+      design: ['Figma'],
+      other: ['Git']
+    },
+    goal: "Build a crowdfunding experience where users can understand campaign information more clearly and interact with important actions through an accessible and trust-oriented interface.",
     image: '/projects/peluang-logo.png',
     designImage: '/projects/peluang-design.png',
     github: 'https://github.com/Rnvz'
