@@ -508,22 +508,22 @@ export const Work = () => {
                       <div className="grid grid-cols-2 gap-y-6 gap-x-6">
                         <div>
                           <h3 className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Role</h3>
-                          <p className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.role}</p>
+                          <p className="font-mono text-[14px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.role}</p>
                         </div>
                         <div>
                           <h3 className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Status</h3>
-                          <p className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-1.5">
+                          <p className="font-mono text-[14px] text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-1.5">
                             <span className={`text-[12px] ${selectedProject.status?.toUpperCase() === 'PRODUCTION' ? 'text-[var(--accent-warm)]' : 'text-green-500'}`}>●</span> 
                             {selectedProject.status}
                           </p>
                         </div>
                         <div>
                           <h3 className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Period</h3>
-                          <p className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.period}</p>
+                          <p className="font-mono text-[14px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.period}</p>
                         </div>
                         <div>
                           <h3 className="font-mono text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">Visibility</h3>
-                          <p className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.visibility}</p>
+                          <p className="font-mono text-[14px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.visibility}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -542,10 +542,10 @@ export const Work = () => {
                                 className="flex items-center justify-between w-full text-left focus:outline-none group transition-colors"
                               >
                                 <div className="flex items-start gap-3">
-                                  <span className={`font-mono text-[11px] mt-0.5 transition-colors ${expandedFeature === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{String(idx + 1).padStart(2, '0')}</span>
-                                  <span className={`font-mono text-[12px] font-semibold uppercase tracking-wider transition-colors ${expandedFeature === idx ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{item.title}</span>
+                                  <span className={`font-mono text-[13px] mt-0.5 transition-colors ${expandedFeature === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{String(idx + 1).padStart(2, '0')}</span>
+                                  <span className={`font-mono text-[14px] font-semibold uppercase tracking-wider transition-colors ${expandedFeature === idx ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)] group-hover:text-white'}`}>{item.title}</span>
                                 </div>
-                                <span className={`font-mono text-[14px] font-light transition-transform duration-300 ${expandedFeature === idx ? 'text-[var(--accent-warm)] rotate-180' : 'text-[var(--text-secondary)] group-hover:text-white rotate-0'}`}>
+                                <span className={`font-mono text-[18px] font-light transition-transform duration-300 ${expandedFeature === idx ? 'text-[var(--accent-warm)] rotate-180' : 'text-[var(--text-secondary)] group-hover:text-white rotate-0'}`}>
                                   {expandedFeature === idx ? '−' : '+'}
                                 </span>
                               </button>
@@ -560,12 +560,12 @@ export const Work = () => {
                                   >
                                     <div className="pt-2">
                                       {item.description && (
-                                        <p className="font-mono text-[11px] text-[var(--text-secondary)] leading-relaxed pl-7 mb-2">{item.description}</p>
+                                        <p className="font-mono text-[13px] text-[var(--text-secondary)] leading-relaxed pl-8 mb-3">{item.description}</p>
                                       )}
                                       {item.features && item.features.length > 0 && (
                                         <ul className="pl-7 space-y-1 pb-1">
                                           {item.features.map((feat, fidx) => (
-                                            <li key={fidx} className="font-mono text-[10px] text-[var(--text-secondary)] flex items-start gap-2">
+                                            <li key={fidx} className="font-mono text-[12px] text-[var(--text-secondary)] flex items-start gap-2">
                                               <span className="text-[var(--border-mid)] mt-[1px]">—</span>
                                               <span className="leading-relaxed">{feat}</span>
                                             </li>
@@ -589,7 +589,7 @@ export const Work = () => {
                             {selectedProject.systems?.map(sys => (
                               <li key={sys} className="flex items-center gap-3">
                                 <span className="text-[var(--accent-warm)] text-xs">■</span>
-                                <span className="font-mono text-[13px] text-[var(--text-primary)] uppercase tracking-wider">{sys}</span>
+                                <span className="font-mono text-[14px] text-[var(--text-primary)] uppercase tracking-wider">{sys}</span>
                               </li>
                             ))}
                           </ul>
