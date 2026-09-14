@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { PROJECTS } from '@/lib/constants'
 
-const CATEGORIES = ['ALL', 'FULL STACK', 'UI/UX', 'AI ENGINEERING', 'EXPERIMENTS']
+const CATEGORIES = ['ALL', 'FRONTEND', 'BACKEND', 'FULL STACK', 'UI/UX', 'AI ENGINEERING']
 
 const TECH_ICONS: Record<string, string> = {
   "Next.js":        "https://cdn.simpleicons.org/nextdotjs/white",
@@ -100,19 +100,25 @@ export const Work = () => {
 
   const filteredProjects = useMemo(() => {
     if (activeCategory === 'ALL') return PROJECTS
-    return PROJECTS.filter(p => p.category === activeCategory)
+    return PROJECTS.filter(p => {
+      const projectCat = p.category === 'AI / ML' ? 'AI ENGINEERING' : p.category;
+      if (['FRONTEND', 'BACKEND', 'UI/UX'].includes(activeCategory) && projectCat === 'FULL STACK') {
+        return true;
+      }
+      return projectCat === activeCategory;
+    })
   }, [activeCategory])
 
-  const selectedProject = filteredProjects[selectedIndex] || PROJECTS[0]
-  const globalIndex = PROJECTS.findIndex(p => p.id === selectedProject.id)
+  const selectedProject = filteredProjects.length > 0 ? (filteredProjects[selectedIndex] || filteredProjects[0]) : null
+  const globalIndex = selectedProject ? PROJECTS.findIndex(p => p.id === selectedProject.id) : -1
 
   const handleUp = useCallback(() => {
-    if (view === 'idle') return
+    if (view === 'idle' || filteredProjects.length === 0) return
     setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredProjects.length - 1))
   }, [view, filteredProjects.length])
 
   const handleDown = useCallback(() => {
-    if (view === 'idle') return
+    if (view === 'idle' || filteredProjects.length === 0) return
     setSelectedIndex((prev) => (prev < filteredProjects.length - 1 ? prev + 1 : 0))
   }, [view, filteredProjects.length])
 
@@ -140,8 +146,8 @@ export const Work = () => {
     } else if (view === 'nav') {
       
     } else if (view === 'nav') {
-      if (selectedProject.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
-      else if (selectedProject.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
+      if (selectedProject?.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
+      else if (selectedProject?.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
     }
   }, [view, selectedProject])
 
@@ -293,64 +299,76 @@ export const Work = () => {
                         {/* Preview Column */}
                         <div className="flex flex-col h-full">
                           <AnimatePresence mode="wait">
-                            <motion.div
-                              key={selectedProject.id}
-                              initial={{ opacity: 0, scale: 0.95 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              exit={{ opacity: 0, scale: 0.95 }}
-                              transition={{ duration: 0.2 }}
-                              className="flex flex-col h-full"
-                            >
-                              <div 
-                                className="relative w-full aspect-square rounded-xl overflow-hidden border border-[var(--border)] mb-4 p-4 flex items-center justify-center transition-colors duration-300"
-                                style={{ backgroundColor: selectedProject.bgColor || 'transparent' }}
+                            {selectedProject ? (
+                              <motion.div
+                                key={selectedProject.id}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.2 }}
+                                className="flex flex-col h-full"
                               >
-                                {selectedProject.image ? (
-                                  <div className="relative w-full h-full">
-                                    <Image
-                                      src={selectedProject.image}
-                                      alt={selectedProject.title}
-                                      fill
-                                      className="object-contain"
-                                    />
-                                  </div>
-                                ) : (
-                                  <div className="flex flex-col items-center justify-center gap-5 text-center p-6 w-full h-full border border-dashed border-[var(--border-mid)] rounded-lg bg-[var(--surface-2)]/30">
-                                    <div className="flex flex-col items-center gap-1.5">
-                                      <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">Category</span>
-                                      <span className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.category}</span>
+                                <div 
+                                  className="relative w-full aspect-square rounded-xl overflow-hidden border border-[var(--border)] mb-4 p-4 flex items-center justify-center transition-colors duration-300"
+                                  style={{ backgroundColor: selectedProject.bgColor || 'transparent' }}
+                                >
+                                  {selectedProject.image ? (
+                                    <div className="relative w-full h-full">
+                                      <Image
+                                        src={selectedProject.image}
+                                        alt={selectedProject.title}
+                                        fill
+                                        className="object-contain"
+                                      />
                                     </div>
-                                    {selectedProject.role && (
+                                  ) : (
+                                    <div className="flex flex-col items-center justify-center gap-5 text-center p-6 w-full h-full border border-dashed border-[var(--border-mid)] rounded-lg bg-[var(--surface-2)]/30">
                                       <div className="flex flex-col items-center gap-1.5">
-                                        <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">Role</span>
-                                        <span className="font-mono text-[11px] text-[var(--accent-warm)] uppercase tracking-wider text-center">{selectedProject.role}</span>
+                                        <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">Category</span>
+                                        <span className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.category}</span>
                                       </div>
-                                    )}
-                                    <div className="flex flex-col items-center gap-1.5">
-                                      <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">Status</span>
-                                      <div className="flex items-center gap-2">
-                                        <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.status?.toLowerCase() === 'completed' ? 'bg-green-500' : 'bg-yellow-500'}`} />
-                                        <span className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.status || 'COMPLETED'}</span>
+                                      {selectedProject.role && (
+                                        <div className="flex flex-col items-center gap-1.5">
+                                          <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">Role</span>
+                                          <span className="font-mono text-[11px] text-[var(--accent-warm)] uppercase tracking-wider text-center">{selectedProject.role}</span>
+                                        </div>
+                                      )}
+                                      <div className="flex flex-col items-center gap-1.5">
+                                        <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">Status</span>
+                                        <div className="flex items-center gap-2">
+                                          <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.status?.toLowerCase() === 'completed' ? 'bg-green-500' : 'bg-yellow-500'}`} />
+                                          <span className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.status || 'COMPLETED'}</span>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                )}
-                              </div>
-                              <div className="mt-auto">
-                                <h4 className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-widest mb-1 truncate">
-                                  {selectedProject.title}
-                                </h4>
-                                <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider mb-3 truncate">
-                                  {selectedProject.category} · {selectedProject.period}
-                                </p>
-                                <div className="flex items-center gap-1.5">
-                                  <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.status?.toUpperCase() === 'PRODUCTION' ? 'bg-[var(--accent-warm)]' : 'bg-green-500'}`} />
-                                  <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">
-                                    {selectedProject.status}
-                                  </span>
+                                  )}
                                 </div>
-                              </div>
-                            </motion.div>
+                                <div className="mt-auto">
+                                  <h4 className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-widest mb-1 truncate">
+                                    {selectedProject.title}
+                                  </h4>
+                                  <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider mb-3 truncate">
+                                    {selectedProject.category} · {selectedProject.period}
+                                  </p>
+                                  <div className="flex items-center gap-1.5">
+                                    <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.status?.toUpperCase() === 'PRODUCTION' ? 'bg-[var(--accent-warm)]' : 'bg-green-500'}`} />
+                                    <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">
+                                      {selectedProject.status}
+                                    </span>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                key="empty"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="flex items-center justify-center h-full border border-dashed border-[var(--border)] rounded-xl"
+                              >
+                                <span className="font-mono text-[10px] text-[var(--text-dim)] uppercase tracking-widest">No Projects Found</span>
+                              </motion.div>
+                            )}
                           </AnimatePresence>
                         </div>
                       </div>
@@ -484,7 +502,7 @@ export const Work = () => {
                 </div>
               </motion.div>
             )}
-            {view === 'nav' && (
+            {view === 'nav' && selectedProject && (
               <motion.div
                 key={selectedProject.id}
                 initial={{ opacity: 0, y: 10 }}
