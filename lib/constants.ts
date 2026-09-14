@@ -273,26 +273,65 @@ export const PROJECTS: Project[] = [
     title: 'SERENITY',
     category: 'UI/UX',
     role: 'UI/UX & Frontend Developer',
-    description: 'An empathy-driven mental health platform with a strong focus on accessibility and calming visual language. Designed meticulously in Figma and implemented in React TS, it seamlessly integrates Firebase authentication and the Midtrans API to handle secure, transparent transactions while maintaining a trustworthy user experience.',
+    
+    description: "Serenity is a mental health consultation platform centered around an empathy-driven digital experience. The project combines accessibility-focused UI/UX design with a responsive component-based frontend and application functionality for authentication and payments.",
     status: 'Completed',
     visibility: 'Public',
-    goal: "Create a mental health platform focused on empathy, accessibility, and secure transactions.",
-    outcome: [
-      "Designed an accessible and calming UI.",
-      "Integrated secure Firebase Auth and Midtrans payment."
-    ],
     systems: [
-      'Accessible Design',
-      'Component Frontend',
-      'Auth & Payments'
+      'EMPATHY-DRIVEN UX',
+      'ACCESSIBILITY',
+      'RESPONSIVE FRONTEND',
+      'AUTHENTICATION',
+      'PAYMENTS'
     ],
     built: [
-      { title: 'Empathy-Driven UX', description: 'Accessibility-focused design with a calming visual direction' },
-      { title: 'Frontend Development', description: 'Responsive component-based frontend integrated with Firebase authentication and Midtrans payment' }
+      {
+        title: 'EMPATHY-DRIVEN UI/UX',
+        description: 'I designed the interface in Figma with a focus on mental health user context, utilizing calming aesthetics and strict accessibility principles to ensure an approachable experience.',
+        features: [
+          'Figma interface design',
+          'Mental health user context',
+          'Calming visual aesthetics',
+          'Accessibility-first approach'
+        ]
+      },
+      {
+        title: 'FRONTEND SYSTEM',
+        description: 'I engineered a pixel-perfect, responsive frontend using React and TailwindCSS, structured around a scalable component-based architecture.',
+        features: [
+          'Pixel-perfect implementation',
+          'Component-based architecture',
+          'React & TailwindCSS',
+          'Responsive frontend'
+        ]
+      },
+      {
+        title: 'AUTHENTICATION',
+        description: 'I implemented secure user access by integrating Firebase Authentication to manage user identities and sessions.',
+        features: [
+          'Firebase Authentication integration',
+          'Secure user identity management'
+        ]
+      },
+      {
+        title: 'PAYMENT',
+        description: 'I built the transaction layer by integrating the Midtrans API to handle secure consultation payments.',
+        features: [
+          'Midtrans API integration',
+          'Secure payment processing'
+        ]
+      }
     ],
     technologies: [
-      'Figma', 'React TS', 'TailwindCSS', 'Firebase Auth / Firestore', 'Midtrans API'
+      'Figma', 'React TS', 'TailwindCSS', 'Firebase Auth', 'Firebase Firestore', 'Midtrans API'
     ],
+    stack: {
+      frontend: ['React TS', 'TailwindCSS'],
+      backend: ['Firebase Firestore'],
+      services: ['Firebase Auth', 'Midtrans API'],
+      design: ['Figma']
+    },
+    goal: "Create a calmer and more approachable consultation experience by combining thoughtful visual design, accessible interaction patterns, responsive implementation, authentication, and payment functionality.",
     image: '/projects/serenity.webp',
     github: 'https://github.com/Rnvz'
   },
