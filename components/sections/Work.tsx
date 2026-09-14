@@ -301,36 +301,30 @@ export const Work = () => {
                               transition={{ duration: 0.2 }}
                               className="flex flex-col h-full"
                             >
-                              <div className="flex flex-col w-full h-full rounded-xl bg-transparent border border-[var(--border)] p-6 overflow-hidden">
-                                {/* Header */}
-                                <div className="flex items-center gap-3 mb-6 border-b border-[var(--border-mid)]/50 pb-5 shrink-0">
-                                  <svg className="w-5 h-5 text-[var(--accent-warm)] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                                  </svg>
-                                  <h4 className="font-mono text-[13px] font-semibold text-[var(--text-primary)] uppercase tracking-widest truncate">
-                                    {selectedProject.title}
-                                  </h4>
-                                </div>
-                                
-                                {/* Metadata Grid */}
-                                <div className="flex flex-col gap-6 flex-1 justify-center">
-                                  <div>
-                                    <p className="font-mono text-[10px] text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Role</p>
-                                    <p className="font-mono text-xs text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.role || selectedProject.category}</p>
-                                  </div>
-                                  
-                                  <div>
-                                    <p className="font-mono text-[10px] text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Period</p>
-                                    <p className="font-mono text-xs text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.period}</p>
-                                  </div>
-                                  
-                                  <div>
-                                    <p className="font-mono text-[10px] text-[var(--text-secondary)] uppercase tracking-widest mb-1.5">Status</p>
-                                    <div className="flex items-center gap-2">
-                                      <div className={`w-2 h-2 rounded-full shrink-0 ${selectedProject.status?.toUpperCase() === 'PRODUCTION' ? 'bg-[var(--accent-warm)]' : 'bg-green-500'}`} />
-                                      <span className="font-mono text-xs text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.status}</span>
-                                    </div>
-                                  </div>
+                              <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[var(--surface)] border border-[var(--border)] mb-4 flex items-center justify-center">
+                                {selectedProject.image ? (
+                                  <Image
+                                    src={selectedProject.image}
+                                    alt={selectedProject.title}
+                                    fill
+                                    className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500"
+                                  />
+                                ) : (
+                                  <span className="font-mono text-xs text-[var(--text-dim)] uppercase tracking-widest">No Image</span>
+                                )}
+                              </div>
+                              <div className="mt-auto">
+                                <h4 className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-widest mb-1 truncate">
+                                  {selectedProject.title}
+                                </h4>
+                                <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider mb-3 truncate">
+                                  {selectedProject.category} · {selectedProject.period}
+                                </p>
+                                <div className="flex items-center gap-1.5">
+                                  <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.status?.toUpperCase() === 'PRODUCTION' ? 'bg-[var(--accent-warm)]' : 'bg-green-500'}`} />
+                                  <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">
+                                    {selectedProject.status}
+                                  </span>
                                 </div>
                               </div>
                             </motion.div>
