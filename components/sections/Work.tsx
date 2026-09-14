@@ -301,16 +301,18 @@ export const Work = () => {
                               transition={{ duration: 0.2 }}
                               className="flex flex-col h-full"
                             >
-                              <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[var(--surface)] border border-[var(--border)] mb-4 flex items-center justify-center">
+                              <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white border border-[var(--border)] mb-4 p-4 flex items-center justify-center">
                                 {selectedProject.image ? (
-                                  <Image
-                                    src={selectedProject.image}
-                                    alt={selectedProject.title}
-                                    fill
-                                    className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-500"
-                                  />
+                                  <div className="relative w-full h-full">
+                                    <Image
+                                      src={selectedProject.image}
+                                      alt={selectedProject.title}
+                                      fill
+                                      className="object-contain"
+                                    />
+                                  </div>
                                 ) : (
-                                  <span className="font-mono text-xs text-[var(--text-dim)] uppercase tracking-widest">No Image</span>
+                                  <span className="font-mono text-xs text-[#0a0a0a] uppercase tracking-widest">No Image</span>
                                 )}
                               </div>
                               <div className="mt-auto">
