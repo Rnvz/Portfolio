@@ -241,28 +241,65 @@ export const PROJECTS: Project[] = [
     designSpecs: ['Streamlit UI', 'Data Visualization'],
     engineeringSpecs: ['Python', 'Scikit-learn', 'Pandas', 'Optuna Hyperparameter Tuning', 'NLP Classification Pipeline', 'Gaussian Naive Bayes', 'Real-time Prediction'],
     title: 'SUPREME COURT JUDGEMENT CLASSIFICATION',
-    category: 'AI ENGINEERING',
+    category: 'AI / ML',
     role: 'AI Engineer',
-    description: 'An end-to-end Natural Language Processing (NLP) pipeline that classifies Supreme Court judgement outcomes based on case facts. Built with Python and Scikit-learn, the Gaussian Naive Bayes model was optimized via Optuna for high accuracy, and deployed as a real-time, interactive data visualization tool using Streamlit.',
+    period: 'Oct — Dec 2023',
+    description: "An NLP-based machine-learning project focused on classifying court judgement outcomes from user-provided case facts. The project combines data processing, model development, hyperparameter optimization, and interactive deployment through a web application.",
     status: 'Completed',
     visibility: 'Public',
-    goal: "Apply machine learning to predict court judgement outcomes based on case facts.",
-    outcome: [
-      "Trained a Gaussian Naive Bayes model with high accuracy.",
-      "Deployed a live interactive Streamlit application."
-    ],
     systems: [
-      'NLP Pipeline',
-      'Classification Model',
-      'Interactive UI'
+      'DATA PROCESSING',
+      'NLP PIPELINE',
+      'CLASSIFICATION',
+      'MODEL OPTIMIZATION',
+      'INTERACTIVE DEPLOYMENT'
     ],
     built: [
-      { title: 'Classification Pipeline', description: 'NLP classification pipeline with Gaussian Naive Bayes and Optuna hyperparameter tuning' },
-      { title: 'Interactive Deployment', description: 'Streamlit deployment with real-time prediction from user-provided case facts' }
+      {
+        title: 'CLASSIFICATION PIPELINE',
+        description: 'I built an NLP classification pipeline utilizing Gaussian Naive Bayes to predict and classify supreme court judgement outcomes based on specific case facts.',
+        features: [
+          'NLP classification pipeline',
+          'Gaussian Naive Bayes model',
+          'Outcome prediction'
+        ]
+      },
+      {
+        title: 'MODEL OPTIMIZATION',
+        description: 'I improved the model\'s performance and reliability by systematically tuning hyperparameters using Optuna.',
+        features: [
+          'Optuna integration',
+          'Hyperparameter tuning',
+          'Performance optimization'
+        ]
+      },
+      {
+        title: 'DATA PROCESSING',
+        description: 'I managed the initial data preparation and processing workflows utilizing Pandas to ensure clean, structured input for the NLP pipeline.',
+        features: [
+          'Pandas data processing',
+          'Data preparation workflow',
+          'Structured model input'
+        ]
+      },
+      {
+        title: 'INTERACTIVE APPLICATION',
+        description: 'I deployed the classification model into an interactive Streamlit application, allowing users to input case facts and instantly receive real-time predictions.',
+        features: [
+          'Streamlit web application',
+          'Interactive user input',
+          'Real-time model prediction'
+        ]
+      }
     ],
     technologies: [
       'Python', 'Scikit-learn', 'Pandas', 'Optuna', 'Streamlit'
     ],
+    stack: {
+      frontend: ['Streamlit'],
+      backend: ['Python', 'Pandas', 'Scikit-learn', 'Optuna']
+    },
+    goal: "Convert a machine-learning classification pipeline into an accessible interactive application where users can provide case facts and receive a model-generated prediction.",
     image: '/projects/supreme-court.webp',
     github: 'https://github.com/Rnvz'
   },
