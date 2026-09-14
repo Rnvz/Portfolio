@@ -379,25 +379,62 @@ export const PROJECTS: Project[] = [
     title: 'NOFAKE',
     category: 'UI/UX',
     role: 'UI/UX & Frontend Developer',
-    description: 'A digital platform engineered specifically to combat online misinformation through credibility-focused UI/UX design. It establishes a strong information hierarchy and readability standards, powered by a scalable React and TailwindCSS architecture hosted on Firebase, ensuring trustworthy and high-performance content delivery.',
+    description: "NoFake is a credibility-focused platform designed around the challenge of presenting misinformation-related content in a way that is easier to understand and navigate. The project emphasizes information hierarchy, readability, UI/UX clarity, and frontend performance.",
     status: 'Completed',
     visibility: 'Public',
-    goal: "Design a digital platform to combat misinformation with a focus on credibility and information hierarchy.",
-    outcome: [
-      "Developed a scalable React frontend.",
-      "Established a trustworthy visual language."
-    ],
     systems: [
-      'Information Hierarchy',
-      'Misinformation Product Design'
+      'CREDIBILITY-FOCUSED UX',
+      'INFORMATION HIERARCHY',
+      'RESPONSIVE FRONTEND',
+      'FAST-LOADING ARCHITECTURE'
     ],
     built: [
-      { title: 'Credibility-Focused UX', description: 'Information hierarchy and readability for misinformation-oriented product design' },
-      { title: 'Frontend Implementation', description: 'Scalable React frontend with TailwindCSS and Firebase Hosting' }
+      {
+        title: 'CREDIBILITY-FOCUSED DESIGN',
+        description: 'I led the visual design in Figma, establishing a trustworthy and credible aesthetic that prioritizes readability and clear information hierarchy to counter misinformation effectively.',
+        features: [
+          'Figma interface design',
+          'Credibility-focused aesthetics',
+          'Readability optimization'
+        ]
+      },
+      {
+        title: 'INFORMATION ARCHITECTURE',
+        description: 'I structured the platform\'s content to ensure users can naturally navigate complex misinformation topics, focusing heavily on logical content grouping and importance hierarchy.',
+        features: [
+          'Content structuring',
+          'Logical importance hierarchy',
+          'Optimized reading experience'
+        ]
+      },
+      {
+        title: 'FRONTEND ARCHITECTURE',
+        description: 'I built a scalable and fast-loading frontend architecture utilizing React and TailwindCSS, prioritizing performance to maintain user trust and engagement.',
+        features: [
+          'React frontend architecture',
+          'TailwindCSS styling',
+          'Fast-loading focus'
+        ]
+      },
+      {
+        title: 'PLATFORM',
+        description: 'I deployed the platform using Firebase Hosting for rapid content delivery globally, and integrated Firebase Authentication for secure user management.',
+        features: [
+          'Firebase Hosting deployment',
+          'Firebase Authentication integration'
+        ]
+      }
     ],
     technologies: [
       'React', 'TailwindCSS', 'Firebase Hosting', 'Firebase Auth', 'Figma'
     ],
+    stack: {
+      frontend: ['React', 'TailwindCSS'],
+      infrastructure: ['Firebase Hosting'],
+      services: ['Firebase Auth'],
+      design: ['Figma']
+    },
+    goal: "Create a clearer and more credibility-oriented information experience that helps users navigate misinformation through readable interfaces and structured content presentation.",
     image: '/projects/nofake-logo.png',
     designImage: '/projects/nofake-design.png',
     github: 'https://github.com/Rnvz'
