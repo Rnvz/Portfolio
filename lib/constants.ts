@@ -174,29 +174,67 @@ export const PROJECTS: Project[] = [
     title: 'BEEMA',
     category: 'FULL STACK',
     role: 'UI/UX Developer',
-    description: "Production-oriented B2B digital ecosystem developed for a leading wine and spirits distributor in Indonesia, combining a public-facing product portal with internal operations, content management, role-based access control, newsletter infrastructure, first-party analytics, and edge-based infrastructure.",
+    period: 'Mar 2024 — Jun 2024',
+    description: "BeeMa is a multi-role consultation management portal designed around distinct workflows for Admin, Lecturer, and Student users. The project focused on creating clear user flows and interaction patterns, then translating those high-fidelity designs into a responsive web implementation.",
     status: 'Completed',
     visibility: 'Public',
-    goal: "Design and implement a responsive academic thesis management system.",
-    outcome: [
-      "Created high-fidelity prototypes for Admin, Lecturer, and Student roles.",
-      "Implemented responsive frontend using Laravel Blade."
-    ],
     systems: [
-      'User Flows',
-      'Interaction Patterns',
-      'Responsive Implementation'
+      'ADMIN',
+      'LECTURER',
+      'STUDENT',
+      'USER FLOWS',
+      'INTERACTION PATTERNS',
+      'RESPONSIVE INTERFACE'
     ],
     built: [
-      { title: 'Multi-Role UX', description: 'Admin, Lecturer, and Student workflows with high-fidelity prototypes' },
-      { title: 'Frontend Implementation', description: 'Responsive Laravel Blade implementation' }
+      {
+        title: 'MULTI-ROLE EXPERIENCE',
+        description: 'I designed tailored digital experiences to accommodate the distinct needs of Admins, Lecturers, and Students, ensuring each role had dedicated tools and appropriate data access.',
+        features: [
+          'Admin control dashboards',
+          'Lecturer management portals',
+          'Student consultation access'
+        ]
+      },
+      {
+        title: 'USER FLOWS',
+        description: 'I mapped out comprehensive user flows and interaction patterns to guarantee a seamless, role-specific experience throughout the consultation lifecycle.',
+        features: [
+          'End-to-end user flows',
+          'Role-specific interaction patterns',
+          'Optimized consultation lifecycle'
+        ]
+      },
+      {
+        title: 'HIGH-FIDELITY DESIGN',
+        description: 'I established the visual and interaction direction by creating high-fidelity prototypes in Figma, serving as the definitive blueprint for frontend development.',
+        features: [
+          'Figma interface design',
+          'High-fidelity prototypes',
+          'Visual & interaction direction'
+        ]
+      },
+      {
+        title: 'FRONTEND IMPLEMENTATION',
+        description: 'I led the design-to-code implementation, translating the Figma prototypes into responsive Laravel Blade templates while maintaining strict visual consistency across devices.',
+        features: [
+          'Laravel Blade templates',
+          'Responsive visual consistency',
+          'Pixel-perfect design-to-code'
+        ]
+      }
     ],
     technologies: [
       'Laravel 12', 'MySQL', 'Blade Templates', 'Vite', 'Figma'
     ],
+    stack: {
+      frontend: ['Blade Templates', 'Vite'],
+      backend: ['Laravel 12', 'MySQL'],
+      design: ['Figma']
+    },
+    goal: "Create a consistent consultation experience while recognizing that Admin, Lecturer, and Student users have different responsibilities and therefore require different interaction flows.",
     image: '/projects/beema-logo.png',
-    designImage: '/projects/beema-design.png',
-    github: 'https://github.com/Rnvz'
+    designImage: '/projects/beema-design.png'
   },
   {
     id: 'supreme-court-judgement-classification',
