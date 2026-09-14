@@ -315,7 +315,25 @@ export const Work = () => {
                                     />
                                   </div>
                                 ) : (
-                                  <span className="font-mono text-xs text-[var(--text-dim)] uppercase tracking-widest">No Image</span>
+                                  <div className="flex flex-col items-center justify-center gap-5 text-center p-6 w-full h-full border border-dashed border-[var(--border-mid)] rounded-lg bg-[var(--surface-2)]/30">
+                                    <div className="flex flex-col items-center gap-1.5">
+                                      <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">Category</span>
+                                      <span className="font-mono text-[11px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.category}</span>
+                                    </div>
+                                    {selectedProject.role && (
+                                      <div className="flex flex-col items-center gap-1.5">
+                                        <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">Role</span>
+                                        <span className="font-mono text-[11px] text-[var(--accent-warm)] uppercase tracking-wider text-center">{selectedProject.role}</span>
+                                      </div>
+                                    )}
+                                    <div className="flex flex-col items-center gap-1.5">
+                                      <span className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest">Status</span>
+                                      <div className="flex items-center gap-2">
+                                        <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.status?.toLowerCase() === 'completed' ? 'bg-green-500' : 'bg-yellow-500'}`} />
+                                        <span className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.status || 'COMPLETED'}</span>
+                                      </div>
+                                    </div>
+                                  </div>
                                 )}
                               </div>
                               <div className="mt-auto">

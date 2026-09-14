@@ -165,8 +165,8 @@ export const PROJECTS: Project[] = [
       design: ['Figma']
     },
     goal: "Translate client requirements into a responsive digital management experience while establishing the backend and data architecture required to connect the application interface with persistent business data.",
-    image: '/projects/gym-logo.png',
-    bgColor: '#1E1E1E',
+    image: '/projects/gym-logo-new.png',
+    bgColor: '#161716',
     designImage: '/projects/gym-design.png'
   },
   {
@@ -303,7 +303,7 @@ export const PROJECTS: Project[] = [
       backend: ['Python', 'Pandas', 'Scikit-learn', 'Optuna']
     },
     goal: "Convert a machine-learning classification pipeline into an accessible interactive application where users can provide case facts and receive a model-generated prediction.",
-    image: '/projects/supreme-court.webp',
+
     github: 'https://github.com/Rnvz'
   },
   {
