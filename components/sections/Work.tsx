@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 import Image from 'next/image'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { PROJECTS } from '@/lib/constants'
@@ -72,8 +71,7 @@ export const getTechIcon = (tech: string) => {
 
 export const Work = () => {
   const [view, setView] = useState<'idle' | 'nav'>('idle')
-  const [designLightbox, setDesignLightbox] = useState<string | null>(null)
-  
+    
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
@@ -81,17 +79,7 @@ export const Work = () => {
   const shouldReduceMotion = useReducedMotion()
 
 
-  useEffect(() => {
-    if (designLightbox) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-      
-    }
-    return () => {
-      document.body.style.overflow = 'auto'
-    }
-  }, [designLightbox])
+  
 
   useEffect(() => {
     setDetailTab('OVERVIEW')
@@ -498,12 +486,14 @@ export const Work = () => {
                     {selectedProject.title}
                   </h2>
                   {selectedProject.designImage && (
-                    <button 
-                      onClick={() => setDesignLightbox(selectedProject.designImage!)}
+                    <a 
+                      href={selectedProject.designImage}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="hidden md:inline-flex shrink-0 items-center gap-2 px-4 py-2 border border-[var(--border-mid)] text-[11px] font-mono uppercase tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] transition-colors rounded-full"
                     >
                       View Design
-                    </button>
+                    </a>
                   )}
                 </div>
                 
@@ -727,69 +717,7 @@ export const Work = () => {
 
       </div>
 
-      {/* Lightbox Overlay */}
-      <AnimatePresence>
-        {designLightbox && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm"
-          >
-            <button 
-              onClick={() => setDesignLightbox(null)}
-              className="fixed top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[var(--surface)] text-[var(--text-primary)] hover:text-[var(--accent-warm)] transition-colors border border-[var(--border)] z-[110]"
-            >
-              ✕
-            </button>
-            
-            <TransformWrapper
-              initialScale={1}
-              minScale={0.5}
-              maxScale={8}
-              centerOnInit={true}
-              wheel={{ step: 0.04 }}
-            >
-              {({ zoomIn, zoomOut, resetTransform }) => (
-                <>
-                  <div 
-                    className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[120] flex items-center gap-2 bg-[#1A1A1A] border border-[var(--border)] rounded-full px-2 py-1.5 drop-shadow-2xl"
-                  >
-                    <button 
-                      onClick={() => zoomOut()} 
-                      className="w-8 h-8 flex items-center justify-center rounded-full text-[var(--text-primary)] hover:bg-[var(--surface)] transition-colors"
-                    >
-                      −
-                    </button>
-                    <button 
-                      onClick={() => resetTransform()}
-                      className="font-mono text-[11px] text-[var(--text-primary)] hover:text-[var(--accent-warm)] transition-colors w-14 text-center tracking-widest"
-                    >
-                      RESET
-                    </button>
-                    <button 
-                      onClick={() => zoomIn()} 
-                      className="w-8 h-8 flex items-center justify-center rounded-full text-[var(--text-primary)] hover:bg-[var(--surface)] transition-colors"
-                    >
-                      +
-                    </button>
-                  </div>
-                  
-                  <div className="w-screen h-screen cursor-grab active:cursor-grabbing">
-                    <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
-                      <img 
-                        src={designLightbox} 
-                        alt="Project Design" 
-                        className="w-auto h-auto max-w-[95vw] max-h-[95vh] object-contain drop-shadow-2xl rounded-lg pointer-events-none"
-                      />
-                    </TransformComponent>
-                  </div>
-                </>
-              )}
-            </TransformWrapper>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      
     </section>
   )
 }

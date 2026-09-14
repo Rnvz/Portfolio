@@ -101,7 +101,7 @@ export function Contact() {
           </a>
         </li>
         <li className="group border-b border-[var(--border-light)] hover:border-[var(--accent-warm)] transition-colors duration-500">
-          <a href="https://tinyurl.com/wp3y3eak" target="_blank" rel="noopener noreferrer" className="flex flex-col lg:flex-row lg:items-center justify-between py-4 lg:py-5 w-full">
+          <a href="/cv/CV_YohanesWenanta.pdf" target="_blank" rel="noopener noreferrer" className="flex flex-col lg:flex-row lg:items-center justify-between py-4 lg:py-5 w-full">
             <span className="font-mono text-sm md:text-base text-[var(--text-dim)] mb-4 lg:mb-0 group-hover:text-[var(--accent-warm)] transition-colors duration-500">
               03 — Curriculum Vitae
             </span>
