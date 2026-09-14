@@ -24,13 +24,13 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Yohanes Wenanta — Full Stack Developer & UI/UX Designer',
+  title: 'Rnvz Portfolio',
   description:
     'Full Stack Developer and UI/UX Designer based in Jakarta, Indonesia. ' +
     'Building production web systems and thoughtful digital experiences.',
   keywords: ['full stack developer', 'ui ux designer', 'next.js', 'jakarta', 'indonesia'],
   openGraph: {
-    title: 'Yohanes Wenanta',
+    title: 'Rnvz Portfolio',
     description: 'Full Stack Developer & UI/UX Designer',
     url: 'https://yohaneswenanta.pages.dev',
     type: 'website',
