@@ -321,7 +321,7 @@ export const Work = () => {
                onClick={() => setIsMobileFullscreen(true)}
                className="px-8 py-4 mt-2 rounded-full border border-[var(--border-mid)] bg-[var(--surface)] text-[10px] font-mono tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] active:scale-95 transition-all shadow-[0_0_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
              >
-               ENTER IPOD GALLERY
+               ENTER PROJECT GALLERY
                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                  <path d="M5 12h14"></path>
                  <path d="m12 5 7 7-7 7"></path>
