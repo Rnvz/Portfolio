@@ -15,10 +15,7 @@ export function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null)
   const roleRef = useRef<HTMLDivElement>(null)
   const contextRef = useRef<HTMLDivElement>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
-  const anchorInnerRef = useRef<HTMLDivElement>(null)
-  const anchorRingRef = useRef<HTMLDivElement>(null)
-  const reducedMotion = useReducedMotion()
+        const reducedMotion = useReducedMotion()
 
   const [scrambleText, setScrambleText] = useState("YOHANES WENANTA")
 
@@ -64,11 +61,6 @@ export function Hero() {
       { opacity: 0.7, x: 0, duration: 1, ease: 'power3.out' },
       "-=0.6"
     )
-    introTl.fromTo(anchorRef.current,
-      { opacity: 0, scale: 0 },
-      { opacity: 1, scale: 1, duration: 1.2, ease: 'back.out(1.7)' },
-      "-=0.5"
-    )
 
     // ─── Scroll Timeline (Compositional Transformation) ───
     //
@@ -100,56 +92,20 @@ export function Hero() {
     // Only the anchor has a tiny pulse.
     // ════════════════════════════════════════════
 
-    // Anchor inner dot: very subtle warm-up
-    scrollTl.to(anchorInnerRef.current, {
-      opacity: 0.6,
-      scale: 1.3,
-      duration: 2,
-      ease: 'power1.inOut',
-    }, 0)
+    
 
     // ════════════════════════════════════════════
     // PHASE 2: ROLE REVEAL (2.0 – 4.5)
     // Role sweeps in from below. Name stays perfectly still.
-    // Anchor evolves subtly.
-    // ════════════════════════════════════════════
+    
 
-    // Role: appear from below
-    scrollTl.fromTo(roleRef.current,
-      { opacity: 0, y: 24, scale: 0.97 },
-      { opacity: 1, y: 0, scale: 1, duration: 2, ease: 'power3.out' },
-      2.2
-    )
-
-    // Anchor: ring shifts down slightly
-    scrollTl.to(anchorRef.current, {
-      y: 5,
-      duration: 2.5,
-      ease: 'power2.inOut',
-    }, 2)
-
-    // Anchor inner: grows a bit more
-    scrollTl.to(anchorInnerRef.current, {
-      scale: 1.8,
-      opacity: 0.75,
-      duration: 2.5,
-      ease: 'power2.inOut',
-    }, 2)
+    
 
     // ════════════════════════════════════════════
     // PHASE 3: CONTEXT REVEAL (4.5 – 7.0)
     // Role shifts up a touch.
     // Education/context enters.
-    // Anchor ring warms.
-    // ════════════════════════════════════════════
-
-    // Role: slight upward drift
-    scrollTl.to(roleRef.current, {
-      y: -6,
-      opacity: 0.9,
-      duration: 2.5,
-      ease: 'power2.inOut',
-    }, 4.5)
+    
 
     // Context: reveal with spatial entry
     scrollTl.fromTo(contextRef.current,
