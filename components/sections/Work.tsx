@@ -9,48 +9,48 @@ import { PROJECTS } from '@/lib/constants'
 const CATEGORIES = ['ALL', 'FRONTEND', 'BACKEND', 'FULL STACK', 'UI/UX', 'AI ENGINEERING']
 
 const TECH_ICONS: Record<string, string> = {
-  "Next.js":        "https://cdn.simpleicons.org/nextdotjs/white",
-  "React":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
-  "React TS":       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
-  "TypeScript":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
-  "Tailwind":       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
-  "TailwindCSS":    "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
-  "Cloudflare D1":  "https://cdn.simpleicons.org/cloudflare/F38020",
-  "Resend":         "https://cdn.simpleicons.org/resend/white",
-  "Svix":           "https://www.svix.com/icon.svg",
-  "Zod":            "https://cdn.simpleicons.org/zod/3068b7",
-  "OpenNext":       "https://cdn.simpleicons.org/serverless/FD5750",
-  "Figma":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg",
-  "Firebase":       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg",
+  "Next.js":        "/icons/nextdotjs.svg",
+  "React":          "/icons/react.svg",
+  "React TS":       "/icons/react.svg",
+  "TypeScript":     "/icons/typescript.svg",
+  "Tailwind":       "/icons/tailwindcss.svg",
+  "TailwindCSS":    "/icons/tailwindcss.svg",
+  "Cloudflare D1":  "/icons/cloudflare.svg",
+  "Resend":         "/icons/resend.svg",
+  "Svix":           "/icons/svix.svg",
+  "Zod":            "/icons/zod.svg",
+  "OpenNext":       "/icons/opennext.svg",
+  "Figma":          "/icons/figma.svg",
+  "Firebase":       "/icons/firebase.svg",
   "Midtrans API":   "/icons/midtrans.png",
-  "Laravel":        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
-  "Laravel 12":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
-  "MySQL":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg",
-  "Blade Templates":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
-  "Vite":           "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vite/vite-original.svg",
-  "HTTP":           "https://cdn.simpleicons.org/curl/white",
-  "Python":         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
-  "Pandas":         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg",
-  "Matplotlib":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg",
-  "Scikit-learn":   "https://cdn.simpleicons.org/scikitlearn/white",
-  "NumPy":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg",
-  "Streamlit":      "https://cdn.simpleicons.org/streamlit/white",
-  "Optuna":         "https://cdn.simpleicons.org/optuna/white",
-  "Node.js":        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
-  "Prisma":         "https://cdn.simpleicons.org/prisma/white",
-  "SQLite":         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg",
-  "HTML5":          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
-  "CSS3":           "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
-  "JavaScript":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
-  "Anaconda":       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/anaconda/anaconda-original.svg",
+  "Laravel":        "/icons/laravel.svg",
+  "Laravel 12":     "/icons/laravel.svg",
+  "MySQL":          "/icons/mysql.svg",
+  "Blade Templates":"/icons/laravel.svg",
+  "Vite":           "/icons/vite.svg",
+  "HTTP":           "/icons/curl.svg",
+  "Python":         "/icons/python.svg",
+  "Pandas":         "/icons/pandas.svg",
+  "Matplotlib":     "/icons/matplotlib.svg",
+  "Scikit-learn":   "/icons/scikitlearn.svg",
+  "NumPy":          "/icons/numpy.svg",
+  "Streamlit":      "/icons/streamlit.svg",
+  "Optuna":         "/icons/optuna.svg",
+  "Node.js":        "/icons/nodejs.svg",
+  "Prisma":         "/icons/prisma.svg",
+  "SQLite":         "/icons/sqlite.svg",
+  "HTML5":          "/icons/html5.svg",
+  "CSS3":           "/icons/css3.svg",
+  "JavaScript":     "/icons/javascript.svg",
+  "Anaconda":       "/icons/anaconda.svg",
   "BioPython":      "/icons/biopython.svg",
-  "GSAP":           "https://cdn.simpleicons.org/greensock/white",
-  "Framer Motion":  "https://cdn.simpleicons.org/framer/white",
+  "GSAP":           "/icons/gsap.svg",
+  "Framer Motion":  "/icons/framer.svg",
   "Lenis":          "/icons/lenis.png",
-  "Vercel":         "https://cdn.simpleicons.org/vercel/white",
-  "e-JURA":         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
-  "Git":            "https://cdn.simpleicons.org/git/white",
-  "HTML/CSS/JS":    "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+  "Vercel":         "/icons/vercel.svg",
+  "e-JURA":         "/icons/laravel.svg",
+  "Git":            "/icons/git.svg",
+  "HTML/CSS/JS":    "/icons/javascript.svg",
 }
 
 export const getTechIcon = (tech: string) => {
@@ -60,12 +60,12 @@ export const getTechIcon = (tech: string) => {
   if (t.includes("react")) return TECH_ICONS["React"];
   if (t.includes("tailwind")) return TECH_ICONS["Tailwind"];
   if (t.includes("cloudflare")) return TECH_ICONS["Cloudflare D1"];
-  if (t.includes("html")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg";
-  if (t.includes("css")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg";
-  if (t.includes("js")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg";
-  if (t.includes("node.js")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg";
-  if (t.includes("prisma")) return "https://cdn.simpleicons.org/prisma/white";
-  if (t.includes("sqlite")) return "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg";
+  if (t.includes("html")) return "/icons/html5.svg";
+  if (t.includes("css")) return "/icons/css3.svg";
+  if (t.includes("js")) return "/icons/javascript.svg";
+  if (t.includes("node.js")) return "/icons/nodejs.svg";
+  if (t.includes("prisma")) return "/icons/prisma.svg";
+  if (t.includes("sqlite")) return "/icons/sqlite.svg";
   return null;
 }
 
