@@ -47,8 +47,8 @@ export function Hero() {
           return fixedScramble[index]
         }).join(""))
         if (iteration >= originalText.length) clearInterval(interval)
-        iteration += 1 / 1.8
-      }, 35)
+        iteration += 1 / 2.2
+      }, 45)
     }, 1800)
 
     // ─── Intro Animation (on load) ───
