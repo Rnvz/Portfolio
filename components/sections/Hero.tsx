@@ -84,9 +84,9 @@ export function Hero() {
       scrollTrigger: {
         trigger: wrapper,
         start: 'top top',
-        end: '+=80%',
+        end: '+=130%',
         pin: true,
-        scrub: 0.8,
+        scrub: 1.5,
         anticipatePin: 1,
       },
     })
