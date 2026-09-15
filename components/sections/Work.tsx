@@ -83,6 +83,25 @@ export const Work = () => {
   const [expandedFeature, setExpandedFeature] = useState<number>(0)
   const shouldReduceMotion = useReducedMotion()
 
+  const [isMobileFullscreen, setIsMobileFullscreen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
+    if (isMobileFullscreen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [isMobileFullscreen])
+
 
   
 
@@ -260,16 +279,47 @@ export const Work = () => {
 
       <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-0 xl:gap-16 items-center">
         
+        {/* Mobile OPEN button placeholder */}
+        {isMobile && !isMobileFullscreen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="w-full flex flex-col items-center justify-center py-32 order-2"
+          >
+             <button 
+               onClick={() => setIsMobileFullscreen(true)}
+               className="group flex flex-col items-center justify-center gap-6"
+             >
+                <div className="w-32 h-32 rounded-full border border-[var(--border-mid)] flex flex-col items-center justify-center bg-[var(--surface)] group-hover:border-[var(--accent-warm)] transition-colors shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+                  <span className="font-mono text-xs tracking-widest text-[var(--text-primary)]">OPEN</span>
+                  <span className="font-mono text-[9px] text-[var(--accent-warm)] mt-2 uppercase tracking-widest text-center px-4">iPod Gallery</span>
+                </div>
+             </button>
+          </motion.div>
+        )}
+
         {/* LEFT SIDE — Project Navigator (iPod) */}
         <AnimatePresence>
-        
+        {(!isMobile || isMobileFullscreen) && (
         <motion.div 
-          initial={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
-          className="w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1"
+          initial={isMobile ? { y: '100%', opacity: 0 } : { opacity: 1, x: 0 }}
+          animate={isMobile ? { y: 0, opacity: 1 } : { opacity: 1, x: 0 }}
+          exit={isMobile ? { y: '100%', opacity: 0 } : { opacity: 0, x: -50, filter: 'blur(10px)' }}
+          transition={isMobile ? { type: 'spring', damping: 25, stiffness: 200 } : { duration: 0.3 }}
+          className={`
+            w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1
+            ${isMobile && isMobileFullscreen ? 'fixed inset-0 z-[100] bg-[var(--background)] flex items-center justify-center' : ''}
+          `}
         >
           {/* Device Shell (Original iPod Size) */}
-          <div className="bg-[var(--surface)] md:border border-[var(--border-mid)] rounded-none md:rounded-[3rem] w-full max-w-full md:max-w-[540px] h-[100dvh] md:h-[860px] flex flex-col p-4 md:p-6 pb-8 md:pb-6 shadow-none md:shadow-2xl relative transition-all transform md:scale-[1.15] lg:scale-[1.25] xl:scale-100">
+          <div className={`
+            bg-[var(--surface)] relative transition-all flex flex-col
+            ${isMobile && isMobileFullscreen 
+              ? 'w-full h-[100dvh] rounded-none p-4 pb-8 shadow-none border-0' 
+              : 'border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[540px] h-[860px] p-6 pb-6 shadow-2xl transform scale-[1.15] lg:scale-[1.25] xl:scale-100'
+            }
+          `}>
             
             {/* Screen Area */}
             <div className="w-full flex-1 md:flex-none md:h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0 p-4 pb-2">
@@ -687,14 +737,22 @@ export const Work = () => {
             {/* Controls Area */}
             <div className="w-full flex flex-col items-center justify-center pt-6 pb-8 md:pt-2 md:pb-24 gap-6 md:gap-10 shrink-0 md:flex-1">
               
-              {/* MENU & BACK Buttons */}
-              <div className="w-full flex justify-center gap-12 md:gap-20">
+              {/* MENU, EXIT, & BACK Buttons */}
+              <div className="w-full flex justify-center items-center gap-4 md:gap-20">
                 <button 
                   onClick={handleMenu}
                   className="px-6 py-2 rounded-full border border-[var(--border-mid)] bg-black/20 text-[10px] font-mono tracking-widest text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-warm)] transition-all shadow-inner active:scale-95"
                 >
                   MENU
                 </button>
+                {isMobile && isMobileFullscreen && (
+                  <button 
+                    onClick={() => setIsMobileFullscreen(false)}
+                    className="px-6 py-2 rounded-full border border-[var(--accent-warm)] bg-[var(--accent-warm)]/10 text-[10px] font-mono tracking-widest text-[var(--accent-warm)] hover:bg-[var(--accent-warm)] hover:text-[var(--background)] transition-all shadow-inner active:scale-95"
+                  >
+                    EXIT
+                  </button>
+                )}
                 <button 
                   onClick={handleBack}
                   className="px-6 py-2 rounded-full border border-[var(--border-mid)] bg-black/20 text-[10px] font-mono tracking-widest text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-warm)] transition-all shadow-inner active:scale-95"
@@ -767,6 +825,7 @@ export const Work = () => {
 
           </div>
         </motion.div>
+        )}
         </AnimatePresence>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
