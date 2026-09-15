@@ -31,7 +31,7 @@ export function Hero() {
 
     // ─── Scramble Effect ───
     let iteration = 0
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const letters = "ABCDEFGHNOPRSTUVXYZ"
     const targetText = "YOHANES WENANTA"
     const startDelay = setTimeout(() => {
       const interval = setInterval(() => {
@@ -42,7 +42,7 @@ export function Hero() {
               if (index < iteration) {
                 return targetText[index]
               }
-              return letters[Math.floor(Math.random() * 26)]
+              return letters[Math.floor(Math.random() * letters.length)]
             })
             .join("")
         )
@@ -52,7 +52,7 @@ export function Hero() {
         iteration += 1 / 5
       }, 45)
       return () => clearInterval(interval)
-    }, 1800)
+    }, 2500)
 
     // ─── Intro Animation (on load) ───
     const introTl = gsap.timeline({ delay: 1.0 })
