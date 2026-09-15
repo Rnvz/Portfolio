@@ -83,30 +83,15 @@ export const Work = () => {
   const [expandedFeature, setExpandedFeature] = useState<number>(0)
   const shouldReduceMotion = useReducedMotion()
 
-  const sectionRef = React.useRef<HTMLElement>(null)
   const [isMobileFullscreen, setIsMobileFullscreen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const [hasExited, setHasExited] = useState(false)
 
   useEffect(() => {
-    if (!isMobile) return
-    const observer = new IntersectionObserver((entries) => {
-      const entry = entries[0]
-      if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
-        if (!hasExited && !isMobileFullscreen) {
-          setIsMobileFullscreen(true)
-        }
-      }
-      if (!entry.isIntersecting) {
-        setHasExited(false)
-      }
-    }, { threshold: [0, 0.1, 0.15, 0.2, 0.3] })
-    
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-    return () => observer.disconnect()
-  }, [isMobile, hasExited, isMobileFullscreen])
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -295,20 +280,68 @@ export const Work = () => {
 
   return (
     <section 
-      ref={sectionRef}
       className="relative w-full min-h-screen flex items-center justify-center py-20 md:py-[var(--section-py)] md:px-[var(--section-px)]"
     >
       <div className="hidden xl:block"><SectionLabel text="03 — WORK" /></div>
 
       <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-0 xl:gap-16 items-center">
         
+        {/* Mobile OPEN button placeholder */}
+        {isMobile && !isMobileFullscreen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="w-full flex flex-col items-center justify-center py-20 order-2 px-6"
+          >
+             {/* Text from Desktop UI */}
+             <div className="text-center mb-16">
+               <h2 className="text-4xl font-display text-[var(--text-primary)] mb-6 tracking-tight">
+                 Selected Work.
+               </h2>
+               <p className="text-[var(--text-secondary)] max-w-md mx-auto text-sm leading-relaxed font-sans mb-12">
+                 A curated collection of projects spanning full-stack development, UI/UX design, and AI engineering.
+               </p>
+               
+               <div className="flex justify-center items-center gap-6 md:gap-12 text-center">
+                  <div>
+                    <div className="text-2xl font-display text-[var(--text-primary)] mb-2">7</div>
+                    <div className="text-[9px] font-mono tracking-widest text-[var(--text-dim)] uppercase">Projects</div>
+                  </div>
+                  <div className="w-px h-8 bg-[var(--border)]"></div>
+                  <div>
+                    <div className="text-2xl font-display text-[var(--text-primary)] mb-2">35+</div>
+                    <div className="text-[9px] font-mono tracking-widest text-[var(--text-dim)] uppercase">Technologies</div>
+                  </div>
+                  <div className="w-px h-8 bg-[var(--border)]"></div>
+                  <div>
+                    <div className="text-2xl font-display text-[var(--text-primary)] mb-2">3</div>
+                    <div className="text-[9px] font-mono tracking-widest text-[var(--text-dim)] uppercase">Domains</div>
+                  </div>
+               </div>
+             </div>
+
+             {/* OPEN Button */}
+             <button 
+               onClick={() => setIsMobileFullscreen(true)}
+               className="group flex flex-col items-center justify-center gap-6"
+             >
+                <div className="w-28 h-28 rounded-full border border-[var(--border-mid)] flex flex-col items-center justify-center bg-[var(--surface)] group-hover:border-[var(--accent-warm)] transition-colors shadow-2xl relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+                  <span className="font-mono text-xs tracking-widest text-[var(--text-primary)]">OPEN</span>
+                  <span className="font-mono text-[9px] text-[var(--accent-warm)] mt-1 uppercase tracking-widest text-center px-4">iPod Gallery</span>
+                </div>
+             </button>
+          </motion.div>
+        )}
+
         {/* LEFT SIDE — Project Navigator (iPod) */}
         <AnimatePresence>
+        {(!isMobile || isMobileFullscreen) && (
         <motion.div 
-          layout
-          initial={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
-          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+          initial={isMobile ? { y: '100%', opacity: 0 } : { opacity: 1, x: 0 }}
+          animate={isMobile ? { y: 0, opacity: 1 } : { opacity: 1, x: 0 }}
+          exit={isMobile ? { y: '100%', opacity: 0 } : { opacity: 0, x: -50, filter: 'blur(10px)' }}
+          transition={isMobile ? { type: 'spring', damping: 25, stiffness: 200 } : { duration: 0.3 }}
           className={`
             w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1
             ${isMobile && isMobileFullscreen ? 'fixed inset-0 z-[100] bg-[var(--background)] flex items-center justify-center' : ''}
@@ -749,7 +782,7 @@ export const Work = () => {
                 </button>
                 {isMobile && isMobileFullscreen && (
                   <button 
-                    onClick={() => { setIsMobileFullscreen(false); setHasExited(true); }}
+                    onClick={() => setIsMobileFullscreen(false)}
                     className="px-6 py-2 rounded-full border border-[var(--accent-warm)] bg-[var(--accent-warm)]/10 text-[10px] font-mono tracking-widest text-[var(--accent-warm)] hover:bg-[var(--accent-warm)] hover:text-[var(--background)] transition-all shadow-inner active:scale-95"
                   >
                     EXIT
@@ -827,6 +860,7 @@ export const Work = () => {
 
           </div>
         </motion.div>
+        )}
         </AnimatePresence>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
