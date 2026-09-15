@@ -47,8 +47,8 @@ export function Hero() {
           return fixedScramble[index]
         }).join(""))
         if (iteration >= originalText.length) clearInterval(interval)
-        iteration += 1 / 3
-      }, 65)
+        iteration += 1 / 1.8
+      }, 35)
     }, 1800)
 
     // ─── Intro Animation (on load) ───
@@ -84,7 +84,7 @@ export function Hero() {
       scrollTrigger: {
         trigger: wrapper,
         start: 'top top',
-        end: '+=220%',
+        end: '+=80%',
         pin: true,
         scrub: 0.8,
         anticipatePin: 1,
