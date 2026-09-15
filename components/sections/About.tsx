@@ -123,9 +123,9 @@ export function About() {
         
         {/* Right Column */}
         <div className="flex flex-col pt-8 lg:pt-0 w-full">
-          <div ref={skillsRef} className="flex flex-wrap justify-center gap-y-6 md:gap-y-10 gap-x-4 md:gap-x-6 w-full">
+          <div ref={skillsRef} className="grid grid-cols-4 md:grid-cols-7 gap-y-6 md:gap-y-10 gap-x-2 md:gap-x-6 w-full justify-items-center">
             {SKILLS.map((skill) => (
-              <div key={skill.name} className="flex flex-col items-center gap-2 md:gap-3 group w-[56px] md:w-[72px]">
+              <div key={skill.name} className="flex flex-col items-center gap-2 md:gap-3 group w-full max-w-[72px]">
                 <div className="w-10 h-10 md:w-14 md:h-14 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
                   <img 
                     src={skill.icon} 
