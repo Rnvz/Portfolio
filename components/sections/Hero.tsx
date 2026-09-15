@@ -15,6 +15,7 @@ export function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null)
   const roleRef = useRef<HTMLDivElement>(null)
   const contextRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
         const reducedMotion = useReducedMotion()
 
   const [scrambleText, setScrambleText] = useState("YOHANES WENANTA")
@@ -27,30 +28,29 @@ export function Hero() {
     // ─── Scramble Effect ───
     let iteration = 0
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    const originalText = "YOHANES WENANTA"
-
-    const fixedScramble = originalText.split("").map(l =>
-      l === " " ? " " : letters[Math.floor(Math.random() * 26)]
-    )
-    setScrambleText(fixedScramble.join(""))
-
-    let interval: NodeJS.Timeout
+    const targetText = "YOHANES WENANTA"
     const startDelay = setTimeout(() => {
-      interval = setInterval(() => {
-        setScrambleText(originalText.split("").map((letter, index) => {
-          if (letter === " ") return " "
-          if (index < Math.floor(iteration)) return originalText[index]
-          if (index < Math.floor(iteration) + 3) return letters[Math.floor(Math.random() * 26)]
-          return fixedScramble[index]
-        }).join(""))
-        if (iteration >= originalText.length) clearInterval(interval)
-        iteration += 1 / 2.2
-      }, 45)
+      const interval = setInterval(() => {
+        setScrambleText((prev) =>
+          prev
+            .split("")
+            .map((letter, index) => {
+              if (index < iteration) {
+                return targetText[index]
+              }
+              return letters[Math.floor(Math.random() * 26)]
+            })
+            .join("")
+        )
+        if (iteration >= targetText.length) {
+          clearInterval(interval)
+        }
+        iteration += 1 / 3
+      }, 30)
+      return () => clearInterval(interval)
     }, 1800)
 
     // ─── Intro Animation (on load) ───
-    // Starts at 0.8s so title fades in (with blur) BEFORE
-    // the scramble begins resolving at 1.8s. No overlap.
     const introTl = gsap.timeline({ delay: 0.8 })
     introTl.fromTo(titleRef.current,
       { opacity: 0, y: 30, scale: 0.95, filter: 'blur(8px)' },
@@ -61,135 +61,25 @@ export function Hero() {
       { opacity: 0.7, x: 0, duration: 1, ease: 'power3.out' },
       "-=0.6"
     )
-
-    // ─── Scroll Timeline (Compositional Transformation) ───
-    //
-    // 10 units total across ~220vh for fine-grained control:
-    //
-    //   0   – 2.0  → IDENTITY HOLD      (0–20%)   title dominant, nothing else
-    //   2.0 – 4.5  → ROLE REVEAL        (20–45%)  role enters, title subtly adjusts
-    //   4.5 – 7.0  → CONTEXT REVEAL     (45–70%)  education enters, composition densifies
-    //   7.0 – 8.8  → COMPOSITION HOLD   (70–88%)  everything visible, near-static
-    //   8.8 – 10.0 → EXIT / TRANSITION  (88–100%) graceful departure
-    //
-    const mm = gsap.matchMedia()
-    
-    mm.add("(min-width: 768px)", () => {
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapper,
-          start: 'top top',
-          end: '+=130%',
-          pin: true,
-          scrub: 1.5,
-          anticipatePin: 1,
-        },
-      })
-
-// ════════════════════════════════════════════
-    // PHASE 1: IDENTITY HOLD (0 – 2.0)
-    // Nothing moves. The name breathes.
-    // Only the anchor has a tiny pulse.
-    // ════════════════════════════════════════════
-
-    
-
-    // ════════════════════════════════════════════
-    // PHASE 2: ROLE REVEAL (2.0 – 4.5)
-    // Role sweeps in from below. Name stays perfectly still.
-    
-
-    
-
-    // ════════════════════════════════════════════
-    // PHASE 3: CONTEXT REVEAL (4.5 – 7.0)
-    // Role shifts up a touch.
-    // Education/context enters.
-    
-
-    // Context: reveal with spatial entry
-    scrollTl.fromTo(contextRef.current,
-      { opacity: 0, y: 16, scale: 0.98 },
-      { opacity: 0.85, y: 0, scale: 1, duration: 2, ease: 'power3.out' },
-      4.8
+    introTl.fromTo(roleRef.current,
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
+      "-=0.5"
     )
-
-    
-
-    
-
-    // ════════════════════════════════════════════
-    // PHASE 4: COMPOSITION HOLD (7.0 – 8.8)
-    // Everything is visible. Near-static.
-    // Only the most subtle drift to keep it alive.
-    // The user appreciates the full identity.
-    // ════════════════════════════════════════════
-
-    
-
-    // ════════════════════════════════════════════
-    // PHASE 5: EXIT / TRANSITION (8.8 – 10.0)
-    // Graceful departure. Title fades last.
-    // Only 12% of the total scroll range.
-    // ════════════════════════════════════════════
-
-    // Title: exit
-    scrollTl.to(titleWrapperRef.current, {
-      y: -35,
-      opacity: 0,
-      scale: 0.88,
-      duration: 1.2,
-      ease: 'power2.in',
-    }, 8.8)
-
-    // Role: exit
-    scrollTl.to(roleRef.current, {
-      y: -20,
-      opacity: 0,
-      duration: 1.0,
-      ease: 'power2.in',
-    }, 8.9)
-
-    // Context: exit
-    scrollTl.to(contextRef.current, {
-      y: -15,
-      opacity: 0,
-      duration: 1.0,
-      ease: 'power2.in',
-    }, 9.0)
-
-    // Label: exit
-    scrollTl.to(labelRef.current, {
-      opacity: 0,
-      x: -10,
-      duration: 0.8,
-      ease: 'power2.in',
-    }, 9.0)
-
-    
-    })
-
-    mm.add("(max-width: 767px)", () => {
-      const mobileTl = gsap.timeline({ delay: 2.2 })
-      
-      mobileTl.fromTo(roleRef.current,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
-        "-=0.5"
-      )
-      mobileTl.fromTo(contextRef.current,
-        { opacity: 0, y: 10 },
-        { opacity: 0.85, y: 0, duration: 1, ease: 'power3.out' },
-        "-=0.5"
-      )
-      
-    })
+    introTl.fromTo(contextRef.current,
+      { opacity: 0, y: 10 },
+      { opacity: 0.85, y: 0, duration: 1, ease: 'power3.out' },
+      "-=0.7"
+    )
+    introTl.fromTo(buttonRef.current,
+      { opacity: 0, y: 10 },
+      { opacity: 0.7, y: 0, duration: 1, ease: 'power3.out' },
+      "-=0.5"
+    )
 
     return () => {
       clearTimeout(startDelay)
-      clearInterval(interval)
       introTl.kill()
-      mm.revert()
     }
   }, [reducedMotion])
 
@@ -256,8 +146,9 @@ export function Hero() {
         </div>
 
                 {/* Navigation Button */}
-        <div className="absolute bottom-[8vh] w-full flex justify-center z-30 opacity-0 animate-[fadeIn_1s_ease-in-out_3s_forwards]">
+        <div className="absolute bottom-[8vh] w-full flex justify-center z-30">
           <button 
+            ref={buttonRef}
             onClick={() => {
               // @ts-ignore
               if (window.lenis) {
@@ -291,7 +182,7 @@ export function Hero() {
                 }
               }
             }}
-            className="flex flex-col items-center gap-3 opacity-70 hover:opacity-100 transition-opacity"
+            className="flex flex-col items-center gap-3 hover:opacity-100 transition-opacity" style={{ opacity: 0 }}
           >
             <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] md:tracking-[0.3em] text-[var(--text-secondary)]">Tap to explore</span>
             <svg className="w-4 h-4 md:w-5 md:h-5 animate-bounce text-[var(--accent-warm)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
