@@ -101,12 +101,22 @@ export const Work = () => {
 
   
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDesignLightbox(false)
+    }
+    
     if (designLightbox) {
       document.body.style.overflow = 'hidden'
+      window.addEventListener('keydown', handleKeyDown)
     } else {
       document.body.style.overflow = 'unset'
+      window.removeEventListener('keydown', handleKeyDown)
     }
-    return () => { document.body.style.overflow = 'unset' }
+    
+    return () => { 
+      document.body.style.overflow = 'unset'
+      window.removeEventListener('keydown', handleKeyDown)
+    }
   }, [designLightbox])
   
   const selectedProject = filteredProjects.length > 0 ? (filteredProjects[selectedIndex] || filteredProjects[0]) : null
@@ -737,6 +747,7 @@ export const Work = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col touch-none overscroll-none"
+            onClick={() => setDesignLightbox(false)}
           >
             <button 
               onClick={() => setDesignLightbox(false)}
@@ -755,7 +766,7 @@ export const Work = () => {
             >
               {({ zoomIn, zoomOut, resetTransform }) => (
                 <>
-                  <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 p-2 rounded-2xl bg-[var(--surface)] border border-[var(--border)] z-[110] shadow-2xl">
+                  <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 p-2 rounded-2xl bg-[var(--surface)] border border-[var(--border)] z-[110] shadow-2xl" onClick={(e) => e.stopPropagation()}>
                     <button onClick={() => zoomOut()} className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                       <span className="text-xl leading-none mb-1">-</span>
                     </button>
@@ -774,6 +785,7 @@ export const Work = () => {
                         alt="Design View" 
                         className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain select-none shadow-2xl rounded-sm"
                         draggable={false}
+                        onClick={(e) => e.stopPropagation()}
                       />
                     </TransformComponent>
                   </div>
