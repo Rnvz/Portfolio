@@ -76,6 +76,7 @@ export const Work = () => {
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [mobileDetailView, setMobileDetailView] = useState(false)
+  const [mobileTab, setMobileTab] = useState<'overview' | 'goal' | 'stack'>('overview')
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
   const [designLightbox, setDesignLightbox] = useState(false)
   const [expandedFeature, setExpandedFeature] = useState<number>(0)
@@ -124,32 +125,50 @@ export const Work = () => {
   const globalIndex = selectedProject ? PROJECTS.findIndex(p => p.id === selectedProject.id) : -1
 
   const handleUp = useCallback(() => {
-    if (view === 'idle' || filteredProjects.length === 0) return
+    if (view === 'idle') return
+    if (mobileDetailView) {
+      const el = document.getElementById('mobile-detail-container')
+      if (el) el.scrollBy({ top: -60, behavior: 'smooth' })
+      return
+    }
     setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredProjects.length - 1))
-  }, [view, filteredProjects.length])
+  }, [view, filteredProjects.length, mobileDetailView, mobileTab])
 
   const handleDown = useCallback(() => {
-    if (view === 'idle' || filteredProjects.length === 0) return
+    if (view === 'idle') return
+    if (mobileDetailView) {
+      const el = document.getElementById('mobile-detail-container')
+      if (el) el.scrollBy({ top: 60, behavior: 'smooth' })
+      return
+    }
     setSelectedIndex((prev) => (prev < filteredProjects.length - 1 ? prev + 1 : 0))
-  }, [view, filteredProjects.length])
+  }, [view, filteredProjects.length, mobileDetailView])
 
   const handleLeft = useCallback(() => {
     if (view === 'idle') return
+    if (mobileDetailView) {
+      setMobileTab(prev => prev === 'stack' ? 'goal' : prev === 'goal' ? 'overview' : 'overview')
+      return
+    }
     setActiveCategory((prev) => {
       const idx = CATEGORIES.indexOf(prev)
       return idx > 0 ? CATEGORIES[idx - 1] : CATEGORIES[CATEGORIES.length - 1]
     })
     setSelectedIndex(0)
-  }, [view])
+  }, [view, mobileDetailView])
 
   const handleRight = useCallback(() => {
     if (view === 'idle') return
+    if (mobileDetailView) {
+      setMobileTab(prev => prev === 'overview' ? 'goal' : prev === 'goal' ? 'stack' : 'stack')
+      return
+    }
     setActiveCategory((prev) => {
       const idx = CATEGORIES.indexOf(prev)
       return idx < CATEGORIES.length - 1 ? CATEGORIES[idx + 1] : CATEGORIES[0]
     })
     setSelectedIndex(0)
-  }, [view])
+  }, [view, mobileDetailView])
 
   const handleCenter = useCallback(() => {
     if (view === 'idle') {
@@ -283,7 +302,83 @@ export const Work = () => {
                       exit={{ opacity: 0, transition: { duration: 0.2 } }}
                       className="flex flex-col h-full w-full"
                     >
-                      {/* Categories */}
+                      
+
+                      {/* Navigator Content */}
+                                            {mobileDetailView && selectedProject ? (
+                        <div id="mobile-detail-container" className="flex flex-col h-full w-full overflow-y-auto no-scrollbar relative z-30 bg-[#0a0a0a] px-1 pb-4">
+                          <div className="sticky top-0 bg-[#0a0a0a]/90 backdrop-blur-md z-40 pb-2 mb-4 pt-1 border-b border-[var(--border-mid)]">
+                            <div className="flex items-center justify-between mb-3">
+                              <button 
+                                onClick={() => setMobileDetailView(false)}
+                                className="flex items-center gap-1.5 text-[var(--text-secondary)] hover:text-white transition-colors"
+                              >
+                                <span className="font-mono text-[9px] uppercase tracking-widest">← Back</span>
+                              </button>
+                            </div>
+                            
+                            <h3 className="font-display text-xl text-[var(--text-primary)] mb-1 leading-tight truncate">{selectedProject.title}</h3>
+                            <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider truncate mb-3">{selectedProject.category} · {selectedProject.period}</p>
+                            
+                            {/* TABS */}
+                            <div className="flex items-center gap-4">
+                              <button onClick={() => setMobileTab('overview')} className={`font-mono text-[9px] uppercase tracking-widest pb-1 border-b ${mobileTab === 'overview' ? 'text-[var(--accent-warm)] border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] border-transparent'}`}>Overview</button>
+                              <button onClick={() => setMobileTab('goal')} className={`font-mono text-[9px] uppercase tracking-widest pb-1 border-b ${mobileTab === 'goal' ? 'text-[var(--accent-warm)] border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] border-transparent'}`}>Deep Dive</button>
+                              <button onClick={() => setMobileTab('stack')} className={`font-mono text-[9px] uppercase tracking-widest pb-1 border-b ${mobileTab === 'stack' ? 'text-[var(--accent-warm)] border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] border-transparent'}`}>Tech Stack</button>
+                            </div>
+                          </div>
+                          
+                          <div className="flex flex-col gap-4">
+                            {mobileTab === 'overview' && (
+                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
+                                {selectedProject.description ? (
+                                  <p className="font-mono text-[10px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap">{selectedProject.description}</p>
+                                ) : (
+                                  <p className="font-mono text-[10px] text-[var(--text-secondary)] italic">No overview available.</p>
+                                )}
+                                {selectedProject.url && (
+                                  <a 
+                                    href={selectedProject.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-mono text-[9px] text-black bg-[var(--accent-warm)] py-2 text-center rounded uppercase tracking-widest mt-2 hover:bg-white transition-colors block w-full"
+                                  >
+                                    View Project
+                                  </a>
+                                )}
+                              </motion.div>
+                            )}
+
+                            {mobileTab === 'goal' && (
+                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
+                                {selectedProject.goal ? (
+                                  <p className="font-mono text-[10px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap">{selectedProject.goal}</p>
+                                ) : (
+                                  <p className="font-mono text-[10px] text-[var(--text-secondary)] italic">No deep dive details.</p>
+                                )}
+                              </motion.div>
+                            )}
+
+                            {mobileTab === 'stack' && (
+                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
+                                <div className="flex flex-wrap gap-2">
+                                  {(selectedProject.technologies || []).map(tech => (
+                                    <span key={tech} className="font-mono text-[8px] bg-white/5 border border-[var(--border)] px-2 py-1 rounded text-[var(--text-secondary)]">{tech}</span>
+                                  ))}
+                                  {Object.values(selectedProject.stack || {}).flat().map(tech => (
+                                    <span key={tech} className="font-mono text-[8px] bg-white/5 border border-[var(--border)] px-2 py-1 rounded text-[var(--text-secondary)]">{tech}</span>
+                                  ))}
+                                  {!(selectedProject.technologies?.length) && !selectedProject.stack && (
+                                    <p className="font-mono text-[10px] text-[var(--text-secondary)] italic">No tech stack listed.</p>
+                                  )}
+                                </div>
+                              </motion.div>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                        {/* Categories */}
                       <div className="flex items-center gap-2 overflow-x-auto no-scrollbar mb-6 pb-2 border-b border-[var(--border)] shrink-0">
                         {CATEGORIES.map(cat => (
                           <button
@@ -298,63 +393,6 @@ export const Work = () => {
                         ))}
                       </div>
 
-                      {/* Navigator Content */}
-                                            {mobileDetailView && selectedProject ? (
-                        <div className="flex flex-col h-full w-full overflow-y-auto no-scrollbar relative z-30 bg-[#0a0a0a] px-1 pb-4">
-                          <button 
-                            onClick={() => setMobileDetailView(false)}
-                            className="sticky top-0 bg-[#0a0a0a]/90 backdrop-blur-sm z-40 py-2 border-b border-[var(--border)] mb-4 flex items-center gap-2 text-[var(--accent-warm)] hover:text-white transition-colors"
-                          >
-                            <span className="font-mono text-[9px] uppercase tracking-widest">← Back</span>
-                          </button>
-                          
-                          <div className="flex flex-col gap-6">
-                            <div>
-                              <h3 className="font-display text-xl text-[var(--text-primary)] mb-1 leading-tight">{selectedProject.title}</h3>
-                              <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider">{selectedProject.category} · {selectedProject.period}</p>
-                            </div>
-
-                            {selectedProject.description && (
-                              <div>
-                                <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-2">Overview</h4>
-                                <p className="font-mono text-[10px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap">{selectedProject.description}</p>
-                              </div>
-                            )}
-
-                            {selectedProject.goal && (
-                              <div>
-                                <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-2">The Goal</h4>
-                                <p className="font-mono text-[10px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap">{selectedProject.goal}</p>
-                              </div>
-                            )}
-
-                            {selectedProject.stack || selectedProject.technologies ? (
-                              <div>
-                                <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-2">Tech Stack</h4>
-                                <div className="flex flex-wrap gap-2">
-                                  {(selectedProject.technologies || []).map(tech => (
-                                    <span key={tech} className="font-mono text-[8px] bg-white/5 border border-[var(--border)] px-2 py-1 rounded text-[var(--text-secondary)]">{tech}</span>
-                                  ))}
-                                  {Object.values(selectedProject.stack || {}).flat().map(tech => (
-                                    <span key={tech} className="font-mono text-[8px] bg-white/5 border border-[var(--border)] px-2 py-1 rounded text-[var(--text-secondary)]">{tech}</span>
-                                  ))}
-                                </div>
-                              </div>
-                            ) : null}
-
-                            {selectedProject.url && (
-                              <a 
-                                href={selectedProject.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="font-mono text-[9px] text-black bg-[var(--accent-warm)] py-2 text-center rounded uppercase tracking-widest mt-2 hover:bg-white transition-colors"
-                              >
-                                View Project
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      ) : (
                         <div className="flex-1 grid grid-cols-2 gap-4 h-full overflow-hidden">
                         {/* List Column */}
                         <div className="flex flex-col gap-1 overflow-y-auto no-scrollbar pr-2 relative">
@@ -408,8 +446,8 @@ export const Work = () => {
                                     <span className="font-mono text-xs text-[var(--text-dim)] uppercase tracking-widest">No Image</span>
                                   )}
                                 </div>
-                                <div className="mt-auto">
-                                  <h4 className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-widest mb-1 truncate">
+                                <div className="mt-4 flex flex-col gap-1">
+                                  <h4 className="font-mono text-[10px] text-[var(--text-primary)] uppercase tracking-widest truncate">
                                     {selectedProject.title}
                                   </h4>
                                   <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider mb-3 truncate">
@@ -421,6 +459,12 @@ export const Work = () => {
                                       {selectedProject.status}
                                     </span>
                                   </div>
+                                </div>
+                                <div className="mt-auto pt-4 flex items-center gap-2 text-[var(--accent-warm)] animate-pulse">
+                                  <span className="font-mono text-[8px] uppercase tracking-widest">Tap / Press Center to Open</span>
+                                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                  </svg>
                                 </div>
                               </motion.div>
                             ) : (
@@ -437,6 +481,7 @@ export const Work = () => {
                           </AnimatePresence>
                         </div>
                       </div>
+                        </>
                       )} {/* end mobileDetailView check */}
                     </motion.div>
                   )}
