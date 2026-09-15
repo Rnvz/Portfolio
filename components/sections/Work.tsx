@@ -154,21 +154,35 @@ export const Work = () => {
   const handleCenter = useCallback(() => {
     if (view === 'idle') {
       setView('nav')
+      setMobileDetailView(false)
     } else if (view === 'nav') {
-      
-    } else if (view === 'nav') {
-      if (selectedProject?.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
-      else if (selectedProject?.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
+      if (window.innerWidth < 1280) {
+        if (mobileDetailView) {
+          if (selectedProject?.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
+          else if (selectedProject?.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
+        } else {
+          setMobileDetailView(true)
+        }
+      } else {
+        if (selectedProject?.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
+        else if (selectedProject?.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
+      }
     }
-  }, [view, selectedProject])
+  }, [view, selectedProject, mobileDetailView])
 
   const handleMenu = useCallback(() => {
-    if (view === 'nav') setView('idle')
-  }, [view])
+    if (view === 'nav') {
+      if (mobileDetailView) setMobileDetailView(false)
+      else setView('idle')
+    }
+  }, [view, mobileDetailView])
 
   const handleBack = useCallback(() => {
-    if (view === 'nav') setView('idle')
-  }, [view])
+    if (view === 'nav') {
+      if (mobileDetailView) setMobileDetailView(false)
+      else setView('idle')
+    }
+  }, [view, mobileDetailView])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -181,7 +195,7 @@ export const Work = () => {
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [handleUp, handleDown, handleLeft, handleRight, handleCenter, handleBack])
+  }, [handleUp, handleDown, handleLeft, handleRight, handleCenter, handleBack, mobileDetailView])
 
   return (
     <section 
@@ -423,7 +437,7 @@ export const Work = () => {
                           </AnimatePresence>
                         </div>
                       </div>
-                      )} // end mobileDetailView check
+                      )} {/* end mobileDetailView check */}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -431,7 +445,7 @@ export const Work = () => {
             </div>
 
             {/* Controls Area */}
-            <div className="flex-1 w-full flex flex-col items-center justify-center pt-2 pb-20 xl:pb-24 gap-10">
+            <div className="w-full flex flex-col items-center justify-center pt-6 pb-8 xl:pt-2 xl:pb-24 gap-6 xl:gap-10 shrink-0 xl:flex-1">
               
               {/* MENU & BACK Buttons */}
               <div className="w-full flex justify-center gap-12 md:gap-20">
