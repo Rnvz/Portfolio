@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 import Image from 'next/image'
@@ -83,8 +83,30 @@ export const Work = () => {
   const [expandedFeature, setExpandedFeature] = useState<number>(0)
   const shouldReduceMotion = useReducedMotion()
 
+  const sectionRef = React.useRef<HTMLElement>(null)
   const [isMobileFullscreen, setIsMobileFullscreen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [hasExited, setHasExited] = useState(false)
+
+  useEffect(() => {
+    if (!isMobile) return
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0]
+      if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+        if (!hasExited && !isMobileFullscreen) {
+          setIsMobileFullscreen(true)
+        }
+      }
+      if (!entry.isIntersecting) {
+        setHasExited(false)
+      }
+    }, { threshold: [0, 0.4, 0.5] })
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+    return () => observer.disconnect()
+  }, [isMobile, hasExited, isMobileFullscreen])
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -273,40 +295,20 @@ export const Work = () => {
 
   return (
     <section 
-      className="relative w-full min-h-screen flex items-center justify-center md:py-[var(--section-py)] md:px-[var(--section-px)]"
+      ref={sectionRef}
+      className="relative w-full min-h-screen flex items-center justify-center py-20 md:py-[var(--section-py)] md:px-[var(--section-px)]"
     >
       <div className="hidden xl:block"><SectionLabel text="03 — WORK" /></div>
 
       <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-0 xl:gap-16 items-center">
         
-        {/* Mobile OPEN button placeholder */}
-        {isMobile && !isMobileFullscreen && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="w-full flex flex-col items-center justify-center py-32 order-2"
-          >
-             <button 
-               onClick={() => setIsMobileFullscreen(true)}
-               className="group flex flex-col items-center justify-center gap-6"
-             >
-                <div className="w-32 h-32 rounded-full border border-[var(--border-mid)] flex flex-col items-center justify-center bg-[var(--surface)] group-hover:border-[var(--accent-warm)] transition-colors shadow-2xl relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
-                  <span className="font-mono text-xs tracking-widest text-[var(--text-primary)]">OPEN</span>
-                  <span className="font-mono text-[9px] text-[var(--accent-warm)] mt-2 uppercase tracking-widest text-center px-4">iPod Gallery</span>
-                </div>
-             </button>
-          </motion.div>
-        )}
-
         {/* LEFT SIDE — Project Navigator (iPod) */}
         <AnimatePresence>
-        {(!isMobile || isMobileFullscreen) && (
         <motion.div 
-          initial={isMobile ? { y: '100%', opacity: 0 } : { opacity: 1, x: 0 }}
-          animate={isMobile ? { y: 0, opacity: 1 } : { opacity: 1, x: 0 }}
-          exit={isMobile ? { y: '100%', opacity: 0 } : { opacity: 0, x: -50, filter: 'blur(10px)' }}
-          transition={isMobile ? { type: 'spring', damping: 25, stiffness: 200 } : { duration: 0.3 }}
+          layout
+          initial={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
+          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           className={`
             w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1
             ${isMobile && isMobileFullscreen ? 'fixed inset-0 z-[100] bg-[var(--background)] flex items-center justify-center' : ''}
@@ -747,7 +749,7 @@ export const Work = () => {
                 </button>
                 {isMobile && isMobileFullscreen && (
                   <button 
-                    onClick={() => setIsMobileFullscreen(false)}
+                    onClick={() => { setIsMobileFullscreen(false); setHasExited(true); }}
                     className="px-6 py-2 rounded-full border border-[var(--accent-warm)] bg-[var(--accent-warm)]/10 text-[10px] font-mono tracking-widest text-[var(--accent-warm)] hover:bg-[var(--accent-warm)] hover:text-[var(--background)] transition-all shadow-inner active:scale-95"
                   >
                     EXIT
@@ -825,7 +827,6 @@ export const Work = () => {
 
           </div>
         </motion.div>
-        )}
         </AnimatePresence>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
