@@ -54,20 +54,21 @@ export function Contact() {
   }, [reducedMotion])
 
   return (
-    <section ref={sectionRef} className="w-full min-h-screen flex flex-col items-center justify-center text-center px-[var(--section-px)] py-[var(--section-py)] bg-[var(--scene-contact)]">
-      <SectionLabel text="05 — Contact" accent="warm" />
+    <section ref={sectionRef} className="w-full min-h-screen flex flex-col justify-center px-[var(--section-px)] py-[var(--section-py)] bg-[var(--scene-contact)]">
+      <div className="w-full max-w-5xl mx-auto flex flex-col items-start">
+        <SectionLabel text="05 — Contact" accent="warm" />
       
       <div className="text-[var(--accent-warm)] font-display font-semibold text-[clamp(2.5rem,6vw,5rem)] leading-tight mb-4">
         <SplitText text="Let's build something." delay={0.2} />
       </div>
       
-      <div ref={subTextRef} className="mb-8 max-w-3xl mx-auto overflow-hidden">
-        <p className="font-mono text-[var(--text-secondary)] text-sm md:text-base uppercase tracking-widest text-center">
+      <div ref={subTextRef} className="mb-12 max-w-3xl overflow-hidden">
+        <p className="font-mono text-[var(--text-secondary)] text-sm md:text-base uppercase tracking-widest text-left">
           Available for: Fulltime, Part time, Hybrid, Remote, Freelance
         </p>
       </div>
 
-      <ul ref={linksRef} className="flex flex-col w-full max-w-5xl px-4 md:px-12 mb-8">
+      <ul ref={linksRef} className="flex flex-col w-full max-w-5xl mb-12">
         <li className="group border-b border-[var(--border-light)] hover:border-[var(--accent-warm)] transition-colors duration-500">
           <ObfuscatedEmail className="flex flex-col lg:flex-row lg:items-center justify-between py-4 lg:py-5 w-full">
             {(email) => (
@@ -144,11 +145,12 @@ export function Contact() {
         </li>
       </ul>
 
-      <div ref={footerRef} className="mt-auto font-mono text-[0.7rem] text-[var(--text-dim)] uppercase tracking-widest flex flex-col md:flex-row gap-4 justify-between w-full max-w-5xl px-4 md:px-12">
+      <div ref={footerRef} className="mt-auto font-mono text-[0.7rem] text-[var(--text-dim)] uppercase tracking-widest flex flex-col md:flex-row gap-4 justify-between w-full max-w-5xl pt-8 border-t border-[var(--border-light)]">
         <span>© {new Date().getFullYear()} YOHANES WENANTA. ALL RIGHTS RESERVED.</span>
         <Link href="/copyright" className="hover:text-[var(--accent-warm)] transition-colors cursor-pointer">
           COPYRIGHT POLICY
         </Link>
+      </div>
       </div>
     </section>
   )
