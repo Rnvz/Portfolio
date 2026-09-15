@@ -553,21 +553,21 @@ export const CERTIFICATIONS = [
     title: 'Alibaba Cloud Certified Associate - Cloud Engineer',
     issuer: 'Alibaba Cloud',
     year: '2024',
-    image: '/cert-alibaba.jpg'
+    image: '/projects/cert-alibaba.jpg'
     },
   {
     id: 'cert2',
     title: 'Learning SOLID Programming Principles',
     issuer: 'DICODING',
     year: '2023',
-    image: '/cert-solid.png'
+    image: '/projects/cert-solid.png'
     },
   {
     id: 'cert3',
     title: 'Basic AI Course',
     issuer: 'DICODING',
     year: '2023',
-    image: '/cert-ai.png'
+    image: '/projects/cert-ai.png'
     },
 ]
 
