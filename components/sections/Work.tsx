@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 import Image from 'next/image'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { PROJECTS } from '@/lib/constants'
@@ -75,6 +76,7 @@ export const Work = () => {
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
+  const [designLightbox, setDesignLightbox] = useState(false)
   const [expandedFeature, setExpandedFeature] = useState<number>(0)
   const shouldReduceMotion = useReducedMotion()
 
@@ -97,6 +99,16 @@ export const Work = () => {
     })
   }, [activeCategory])
 
+  
+  useEffect(() => {
+    if (designLightbox) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => { document.body.style.overflow = 'unset' }
+  }, [designLightbox])
+  
   const selectedProject = filteredProjects.length > 0 ? (filteredProjects[selectedIndex] || filteredProjects[0]) : null
   const globalIndex = selectedProject ? PROJECTS.findIndex(p => p.id === selectedProject.id) : -1
 
@@ -488,14 +500,12 @@ export const Work = () => {
                     {selectedProject.title}
                   </h2>
                   {selectedProject.designImage && (
-                    <a 
-                      href={selectedProject.designImage}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      onClick={() => setDesignLightbox(true)}
                       className="hidden md:inline-flex shrink-0 items-center gap-2 px-4 py-2 border border-[var(--border-mid)] text-[11px] font-mono uppercase tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] transition-colors rounded-full"
                     >
                       View Design
-                    </a>
+                    </button>
                   )}
                 </div>
                 
@@ -720,6 +730,61 @@ export const Work = () => {
       </div>
 
       
+      <AnimatePresence>
+        {designLightbox && selectedProject?.designImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col"
+          >
+            <button 
+              onClick={() => setDesignLightbox(false)}
+              className="fixed top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[var(--surface)] text-[var(--text-primary)] hover:text-[var(--accent-warm)] transition-colors border border-[var(--border)] z-[110]"
+            >
+              ✕
+            </button>
+            
+            <TransformWrapper
+              initialScale={1}
+              minScale={0.5}
+              maxScale={8}
+              centerOnInit={true}
+              wheel={{ step: 0.04 }}
+              panning={{ velocityDisabled: true }}
+            >
+              {({ zoomIn, zoomOut, resetTransform }) => (
+                <>
+                  <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 p-2 rounded-2xl bg-[var(--surface)] border border-[var(--border)] z-[110] shadow-2xl">
+                    <button onClick={() => zoomOut()} className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+                      <span className="text-xl leading-none mb-1">-</span>
+                    </button>
+                    <button onClick={() => resetTransform()} className="px-4 h-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-[11px] font-mono tracking-widest text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors uppercase">
+                      Reset
+                    </button>
+                    <button onClick={() => zoomIn()} className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+                      <span className="text-xl leading-none mb-1">+</span>
+                    </button>
+                  </div>
+                  
+                  <div className="flex-1 w-full h-full cursor-grab active:cursor-grabbing">
+                    <TransformComponent wrapperClass="!w-full !h-full" contentClass="!w-full !h-full flex items-center justify-center">
+                      <img 
+                        src={selectedProject.designImage} 
+                        alt="Design View" 
+                        className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain select-none shadow-2xl rounded-sm"
+                        draggable={false}
+                      />
+                    </TransformComponent>
+                  </div>
+                </>
+              )}
+            </TransformWrapper>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   )
 }
+
