@@ -167,7 +167,7 @@ export const PROJECTS: Project[] = [
     goal: "Translate client requirements into a responsive digital management experience while establishing the backend and data architecture required to connect the application interface with persistent business data.",
     image: '/projects/gym-logo-new.png',
     bgColor: '#161716',
-    designImage: '/projects/gym-design.png'
+    designImage: '/projects/Gym%20Management%20System.png'
   },
   {
     id: 'beema',
@@ -237,7 +237,7 @@ export const PROJECTS: Project[] = [
     goal: "Create a consistent consultation experience while recognizing that Admin, Lecturer, and Student users have different responsibilities and therefore require different interaction flows.",
     image: '/projects/beema-logo-new.png',
     bgColor: '#0E0E0E',
-    designImage: '/projects/beema-design.png'
+    designImage: '/projects/BeeMa.png'
   },
   {
     id: 'supreme-court-judgement-classification',
@@ -441,7 +441,7 @@ export const PROJECTS: Project[] = [
     goal: "Create a clearer and more credibility-oriented information experience that helps users navigate misinformation through readable interfaces and structured content presentation.",
     image: '/projects/nofake-logo-new.png',
     bgColor: '#FDFDFF',
-    designImage: '/projects/nofake-design.png',
+    designImage: '/projects/NoFake.png',
     github: 'https://github.com/Rnvz'
   },
   {
@@ -511,7 +511,7 @@ export const PROJECTS: Project[] = [
     goal: "Build a crowdfunding experience where users can understand campaign information more clearly and interact with important actions through an accessible and trust-oriented interface.",
     image: '/projects/peluang-logo-new.png',
     bgColor: '#0D0D0D',
-    designImage: '/projects/peluang-design.png',
+    designImage: '/projects/PeluangNusantaraa.png',
     github: 'https://github.com/Rnvz'
   }
 ]
