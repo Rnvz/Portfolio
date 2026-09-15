@@ -291,7 +291,7 @@ export function Hero() {
           <div ref={titleWrapperRef} className="will-change-transform">
             <h1
               ref={titleRef}
-              className="text-hero font-display text-[var(--accent-warm)] leading-none tracking-tighter opacity-0 will-change-transform"
+              className="text-hero font-display text-[var(--accent-warm)] leading-[1.1] tracking-tight md:tracking-normal opacity-0 will-change-transform"
             >
               {scrambleText}
             </h1>
@@ -305,11 +305,11 @@ export function Hero() {
             ref={roleRef}
             className="font-mono text-[13px] md:text-[15px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.18em] md:tracking-[0.25em] opacity-0 will-change-transform flex flex-wrap justify-center items-center gap-y-1"
           >
-            <span className="opacity-90">Full Stack Developer</span>
-            <span className="mx-3 md:mx-6 text-[var(--text-secondary)] opacity-60 select-none">/</span>
-            <span className="opacity-90">UI/UX Designer</span>
-            <span className="mx-3 md:mx-6 text-[var(--text-secondary)] opacity-60 select-none">/</span>
-            <span className="opacity-90">AI Engineer</span>
+            <span className="opacity-90">Full Stack</span>
+            <span className="mx-3 md:mx-6 text-[var(--text-secondary)] opacity-60 select-none">-</span>
+            <span className="opacity-90">UI/UX</span>
+            <span className="mx-3 md:mx-6 text-[var(--text-secondary)] opacity-60 select-none">-</span>
+            <span className="opacity-90">AI</span>
           </div>
 
           {/* Spacer between role and context */}
@@ -330,10 +330,18 @@ export function Hero() {
                 {/* Mobile Navigation Button */}
         <div className="absolute bottom-[8vh] w-full flex justify-center md:hidden z-30">
           <button 
-            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => {
+              // @ts-ignore
+              if (window.lenis) {
+                // @ts-ignore
+                window.lenis.scrollTo('#about', { duration: 2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
+              } else {
+                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
             className="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity"
           >
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">Next Section</span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">Tap to explore</span>
             <svg className="w-4 h-4 animate-bounce text-[var(--accent-warm)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
@@ -343,7 +351,7 @@ export function Hero() {
         {/* Central Circular Anchor — Visual Progress Indicator */}
         <div
           ref={anchorRef}
-          className="absolute bottom-[15vh] md:bottom-[18vh] flex items-center justify-center opacity-0 will-change-transform"
+          className="absolute bottom-[15vh] md:bottom-[18vh] hidden md:flex items-center justify-center opacity-0 will-change-transform"
         >
           <div
             ref={anchorRingRef}
