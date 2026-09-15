@@ -93,6 +93,21 @@ export const Work = () => {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  // Lock body scroll when fullscreen iPod is active
+  useEffect(() => {
+    if (isMobileFullscreen) {
+      document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+    }
+  }, [isMobileFullscreen])
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
@@ -340,7 +355,7 @@ export const Work = () => {
           transition={isMobile ? { type: 'spring', damping: 25, stiffness: 200 } : { duration: 0.3 }}
           className={`
             w-full flex justify-center xl:justify-start order-2 xl:order-1
-            ${isMobile && isMobileFullscreen ? 'fixed inset-0 z-[100] bg-[var(--background)] flex items-center justify-center' : 'relative z-10'}
+            ${isMobile && isMobileFullscreen ? 'fixed inset-0 z-[100] bg-[var(--background)] flex items-center justify-center overscroll-none' : 'relative z-10'}
           `}
         >
           {/* Device Shell (Original iPod Size) */}
@@ -423,7 +438,7 @@ export const Work = () => {
 
                       {/* Navigator Content */}
                                             {mobileDetailView && selectedProject ? (
-                        <div id="mobile-detail-container" className="flex flex-col h-full w-full overflow-y-auto no-scrollbar relative z-30 bg-[#0a0a0a] px-1 pb-4">
+                        <div id="mobile-detail-container" className="flex flex-col h-full w-full overflow-y-auto overscroll-contain no-scrollbar relative z-30 bg-[#0a0a0a] px-1 pb-4">
                           <div className="sticky top-0 bg-[#0a0a0a]/90 backdrop-blur-md z-40 pb-2 mb-4 pt-1 border-b border-[var(--border-mid)]">
                             <div className="flex items-center justify-between mb-3">
                               <button 
@@ -671,7 +686,7 @@ export const Work = () => {
 
                         <div className="flex-1 grid grid-cols-2 gap-4 h-full overflow-hidden">
                         {/* List Column */}
-                        <div className="flex flex-col gap-1 overflow-y-auto no-scrollbar pr-2 relative">
+                        <div className="flex flex-col gap-1 overflow-y-auto overscroll-contain no-scrollbar pr-2 relative">
                           <div className="absolute left-[15px] top-0 bottom-0 w-px bg-[var(--border)] -z-10" />
                           {filteredProjects.map((p, idx) => {
                             const isActive = idx === selectedIndex;
