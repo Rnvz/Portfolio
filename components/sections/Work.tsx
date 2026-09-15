@@ -287,12 +287,8 @@ export const Work = () => {
       <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-0 xl:gap-16 items-center">
         
         {/* Mobile OPEN button placeholder */}
-        {isMobile && !isMobileFullscreen && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="w-full flex flex-col items-center justify-center py-20 order-2 px-6"
-          >
+        {isMobile && (
+          <div className="w-full flex flex-col items-center justify-center py-20 order-2 px-6">
              {/* Text from Desktop UI */}
              <div className="text-center mb-16">
                <h2 className="text-4xl font-display text-[var(--text-primary)] mb-6 tracking-tight">
@@ -323,15 +319,15 @@ export const Work = () => {
              {/* OPEN Button */}
              <button 
                onClick={() => setIsMobileFullscreen(true)}
-               className="group flex flex-col items-center justify-center gap-6"
+               className="px-8 py-4 mt-2 rounded-full border border-[var(--border-mid)] bg-[var(--surface)] text-[10px] font-mono tracking-widest text-[var(--text-primary)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)] active:scale-95 transition-all shadow-[0_0_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
              >
-                <div className="w-28 h-28 rounded-full border border-[var(--border-mid)] flex flex-col items-center justify-center bg-[var(--surface)] group-hover:border-[var(--accent-warm)] transition-colors shadow-2xl relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
-                  <span className="font-mono text-xs tracking-widest text-[var(--text-primary)]">OPEN</span>
-                  <span className="font-mono text-[9px] text-[var(--accent-warm)] mt-1 uppercase tracking-widest text-center px-4">iPod Gallery</span>
-                </div>
+               ENTER IPOD GALLERY
+               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                 <path d="M5 12h14"></path>
+                 <path d="m12 5 7 7-7 7"></path>
+               </svg>
              </button>
-          </motion.div>
+          </div>
         )}
 
         {/* LEFT SIDE — Project Navigator (iPod) */}
