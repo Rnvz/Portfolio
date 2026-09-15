@@ -269,7 +269,7 @@ export const Work = () => {
           className="w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1"
         >
           {/* Device Shell (Original iPod Size) */}
-          <div className="bg-[var(--surface)] md:border border-[var(--border-mid)] rounded-none md:rounded-[3rem] w-full max-w-full md:max-w-[540px] h-[100dvh] md:h-[860px] flex flex-col p-4 md:p-6 pb-8 md:pb-6 shadow-none md:shadow-2xl relative transition-all">
+          <div className="bg-[var(--surface)] md:border border-[var(--border-mid)] rounded-none md:rounded-[3rem] w-full max-w-full md:max-w-[540px] h-[100dvh] md:h-[860px] flex flex-col p-4 md:p-6 pb-8 md:pb-6 shadow-none md:shadow-2xl relative transition-all transform md:scale-[1.15] lg:scale-[1.25] xl:scale-100">
             
             {/* Screen Area */}
             <div className="w-full flex-1 md:flex-none md:h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0 p-4 pb-2">
