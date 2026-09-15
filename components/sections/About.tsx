@@ -123,17 +123,17 @@ export function About() {
         
         {/* Right Column */}
         <div className="flex flex-col pt-8 lg:pt-0 w-full">
-          <div ref={skillsRef} className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-y-10 gap-x-4 w-full justify-items-center">
+          <div ref={skillsRef} className="flex flex-wrap justify-center gap-y-6 md:gap-y-10 gap-x-4 md:gap-x-6 w-full">
             {SKILLS.map((skill) => (
-              <div key={skill.name} className="flex flex-col items-center gap-3 group w-full max-w-[72px]">
-                <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+              <div key={skill.name} className="flex flex-col items-center gap-2 md:gap-3 group w-[56px] md:w-[72px]">
+                <div className="w-10 h-10 md:w-14 md:h-14 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
                   <img 
                     src={skill.icon} 
                     alt={skill.name} 
-                    className="w-10 h-10 md:w-12 md:h-12 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
+                    className="w-8 h-8 md:w-12 md:h-12 transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
                   />
                 </div>
-                <span className="font-mono font-semibold text-[11px] text-[var(--text-secondary)] group-hover:text-[var(--accent-cool)] transition-colors text-center">
+                <span className="font-mono font-semibold text-[9px] md:text-[11px] text-[var(--text-secondary)] group-hover:text-[var(--accent-cool)] transition-colors text-center leading-tight">
                   {skill.name}
                 </span>
               </div>
