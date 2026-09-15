@@ -45,36 +45,37 @@ export function Hero() {
         if (iteration >= targetText.length) {
           clearInterval(interval)
         }
-        iteration += 1 / 3
-      }, 30)
+        iteration += 1 / 5
+      }, 45)
       return () => clearInterval(interval)
     }, 1800)
 
     // ─── Intro Animation (on load) ───
-    const introTl = gsap.timeline({ delay: 0.8 })
+    const introTl = gsap.timeline({ delay: 1.0 })
     introTl.fromTo(titleRef.current,
       { opacity: 0, y: 30, scale: 0.95, filter: 'blur(8px)' },
-      { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out' }
+      { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.5, ease: 'power3.out' }
     )
     introTl.fromTo(labelRef.current,
       { opacity: 0, x: -20 },
-      { opacity: 0.7, x: 0, duration: 1, ease: 'power3.out' },
-      "-=0.6"
-    )
-    introTl.fromTo(roleRef.current,
-      { opacity: 0, y: 15 },
-      { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
+      { opacity: 0.7, x: 0, duration: 1.5, ease: 'power3.out' },
       "-=0.5"
+    )
+    // Add a slight pause before showing role and context
+    introTl.fromTo(roleRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1.5, ease: 'power2.out' },
+      "+=0.2"
     )
     introTl.fromTo(contextRef.current,
-      { opacity: 0, y: 10 },
-      { opacity: 0.85, y: 0, duration: 1, ease: 'power3.out' },
-      "-=0.7"
+      { opacity: 0, y: 15 },
+      { opacity: 0.85, y: 0, duration: 1.5, ease: 'power2.out' },
+      "-=1.0"
     )
     introTl.fromTo(buttonRef.current,
-      { opacity: 0, y: 10 },
-      { opacity: 0.7, y: 0, duration: 1, ease: 'power3.out' },
-      "-=0.5"
+      { opacity: 0, y: 15 },
+      { opacity: 0.7, y: 0, duration: 1.5, ease: 'power2.out' },
+      "-=1.0"
     )
 
     const mm = gsap.matchMedia()
@@ -94,42 +95,26 @@ export function Hero() {
       // Hold phase
       scrollTl.to({}, { duration: 1 })
 
-      // Exit animations
-      scrollTl.to(buttonRef.current, {
-        opacity: 0,
-        y: 10,
-        duration: 0.5,
-        ease: 'power2.in',
-      }, 1)
+      // Exit animations with fromTo to fix reverse scrub state
+      scrollTl.fromTo(buttonRef.current, 
+        { opacity: 0.7, y: 0 },
+        { opacity: 0, y: 10, duration: 0.5, ease: 'power2.in', immediateRender: false }, 1)
 
-      scrollTl.to(contextRef.current, {
-        y: -15,
-        opacity: 0,
-        duration: 1.0,
-        ease: 'power2.in',
-      }, 1.2)
+      scrollTl.fromTo(contextRef.current, 
+        { opacity: 0.85, y: 0 },
+        { y: -15, opacity: 0, duration: 1.0, ease: 'power2.in', immediateRender: false }, 1.2)
 
-      scrollTl.to(roleRef.current, {
-        y: -20,
-        opacity: 0,
-        duration: 1.0,
-        ease: 'power2.in',
-      }, 1.4)
+      scrollTl.fromTo(roleRef.current, 
+        { opacity: 1, y: 0 },
+        { y: -20, opacity: 0, duration: 1.0, ease: 'power2.in', immediateRender: false }, 1.4)
 
-      scrollTl.to(titleWrapperRef.current, {
-        y: -35,
-        opacity: 0,
-        scale: 0.95,
-        duration: 1.2,
-        ease: 'power2.in',
-      }, 1.6)
+      scrollTl.fromTo(titleWrapperRef.current, 
+        { opacity: 1, y: 0, scale: 1 },
+        { y: -35, opacity: 0, scale: 0.95, duration: 1.2, ease: 'power2.in', immediateRender: false }, 1.6)
 
-      scrollTl.to(labelRef.current, {
-        opacity: 0,
-        x: -10,
-        duration: 0.8,
-        ease: 'power2.in',
-      }, 1.8)
+      scrollTl.fromTo(labelRef.current, 
+        { opacity: 0.7, x: 0 },
+        { opacity: 0, x: -10, duration: 0.8, ease: 'power2.in', immediateRender: false }, 1.8)
     })
 
     return () => {
@@ -172,7 +157,7 @@ export function Hero() {
           </div>
 
           {/* Spacer between name and role */}
-          <div className="h-6 md:h-10" />
+          <div className="h-4 md:h-6" />
 
           {/* Role — Secondary Information */}
           <div
@@ -187,7 +172,7 @@ export function Hero() {
           </div>
 
           {/* Spacer between role and context */}
-          <div className="h-6 md:h-8" />
+          <div className="h-3 md:h-4" />
 
 
 
