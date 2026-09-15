@@ -92,7 +92,7 @@ export const Work = () => {
     if (!isMobile) return
     const observer = new IntersectionObserver((entries) => {
       const entry = entries[0]
-      if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
         if (!hasExited && !isMobileFullscreen) {
           setIsMobileFullscreen(true)
         }
@@ -100,7 +100,7 @@ export const Work = () => {
       if (!entry.isIntersecting) {
         setHasExited(false)
       }
-    }, { threshold: [0, 0.4, 0.5] })
+    }, { threshold: [0, 0.1, 0.15, 0.2, 0.3] })
     
     if (sectionRef.current) {
       observer.observe(sectionRef.current)
