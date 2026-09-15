@@ -736,7 +736,7 @@ export const Work = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col"
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col touch-none overscroll-none"
           >
             <button 
               onClick={() => setDesignLightbox(false)}
