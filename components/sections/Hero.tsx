@@ -22,7 +22,7 @@ export function Hero() {
   const buttonWrapperRef = useRef<HTMLDivElement>(null)
         const reducedMotion = useReducedMotion()
 
-  const [scrambleText, setScrambleText] = useState("YOHANES WENANTA")
+  const [scrambleText, setScrambleText] = useState("\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0")
 
   useEffect(() => {
     if (reducedMotion || typeof window === 'undefined') return
@@ -35,14 +35,18 @@ export function Hero() {
     const targetText = "YOHANES WENANTA"
     const startDelay = setTimeout(() => {
       const interval = setInterval(() => {
-        setScrambleText((prev) =>
-          prev
+        setScrambleText(() => 
+          targetText
             .split("")
-            .map((letter, index) => {
-              if (index < iteration) {
-                return targetText[index]
+            .map((char, index) => {
+              if (char === " ") return " ";
+              if (index < Math.floor(iteration)) {
+                return char;
               }
-              return letters[Math.floor(Math.random() * letters.length)]
+              if (index < Math.floor(iteration) + 4) {
+                return letters[Math.floor(Math.random() * letters.length)];
+              }
+              return "\u00A0";
             })
             .join("")
         )
@@ -52,13 +56,13 @@ export function Hero() {
         iteration += 1 / 5
       }, 45)
       return () => clearInterval(interval)
-    }, 2500)
+    }, 800)
 
     // ─── Intro Animation (on load) ───
     const introTl = gsap.timeline({ delay: 1.0 })
     introTl.fromTo(titleRef.current,
-      { opacity: 0, y: 30, scale: 0.95, filter: 'blur(8px)' },
-      { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.5, ease: 'power3.out' }
+      { opacity: 0, y: 30, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: 'power3.out' }
     )
     introTl.fromTo(labelRef.current,
       { opacity: 0, x: -20 },
