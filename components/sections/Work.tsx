@@ -339,8 +339,8 @@ export const Work = () => {
           exit={isMobile ? { y: '100%', opacity: 0 } : { opacity: 0, x: -50, filter: 'blur(10px)' }}
           transition={isMobile ? { type: 'spring', damping: 25, stiffness: 200 } : { duration: 0.3 }}
           className={`
-            w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1
-            ${isMobile && isMobileFullscreen ? 'fixed inset-0 z-[100] bg-[var(--background)] flex items-center justify-center' : ''}
+            w-full flex justify-center xl:justify-start order-2 xl:order-1
+            ${isMobile && isMobileFullscreen ? 'fixed inset-0 z-[100] bg-[var(--background)] flex items-center justify-center' : 'relative z-10'}
           `}
         >
           {/* Device Shell (Original iPod Size) */}
