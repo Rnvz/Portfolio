@@ -77,6 +77,7 @@ export const Work = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [mobileDetailView, setMobileDetailView] = useState(false)
   const [mobileTab, setMobileTab] = useState<'overview' | 'goal' | 'stack'>('overview')
+  const [mobileFeatureIndex, setMobileFeatureIndex] = useState(0)
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
   const [designLightbox, setDesignLightbox] = useState(false)
   const [expandedFeature, setExpandedFeature] = useState<number>(0)
@@ -88,6 +89,7 @@ export const Work = () => {
   useEffect(() => {
     setDetailTab('OVERVIEW')
     setExpandedFeature(0)
+    setMobileFeatureIndex(0)
   }, [selectedIndex])
 
   const filteredProjects = useMemo(() => {
@@ -127,22 +129,31 @@ export const Work = () => {
   const handleUp = useCallback(() => {
     if (view === 'idle') return
     if (mobileDetailView) {
-      const el = document.getElementById('mobile-detail-container')
-      if (el) el.scrollBy({ top: -60, behavior: 'smooth' })
+      if (mobileTab === 'goal' && selectedProject?.built?.length) {
+        setMobileFeatureIndex((prev) => (prev > 0 ? prev - 1 : selectedProject.built!.length - 1))
+      } else {
+        const el = document.getElementById('mobile-detail-container')
+        if (el) el.scrollBy({ top: -60, behavior: 'smooth' })
+      }
       return
     }
     setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredProjects.length - 1))
-  }, [view, filteredProjects.length, mobileDetailView, mobileTab])
+  }, [view, filteredProjects.length, mobileDetailView, mobileTab, selectedProject])
+
 
   const handleDown = useCallback(() => {
     if (view === 'idle') return
     if (mobileDetailView) {
-      const el = document.getElementById('mobile-detail-container')
-      if (el) el.scrollBy({ top: 60, behavior: 'smooth' })
+      if (mobileTab === 'goal' && selectedProject?.built?.length) {
+        setMobileFeatureIndex((prev) => (prev < selectedProject.built!.length - 1 ? prev + 1 : 0))
+      } else {
+        const el = document.getElementById('mobile-detail-container')
+        if (el) el.scrollBy({ top: 60, behavior: 'smooth' })
+      }
       return
     }
     setSelectedIndex((prev) => (prev < filteredProjects.length - 1 ? prev + 1 : 0))
-  }, [view, filteredProjects.length, mobileDetailView])
+  }, [view, filteredProjects.length, mobileDetailView, mobileTab, selectedProject])
 
   const handleLeft = useCallback(() => {
     if (view === 'idle') return
@@ -177,8 +188,12 @@ export const Work = () => {
     } else if (view === 'nav') {
       if (window.innerWidth < 1280) {
         if (mobileDetailView) {
-          if (selectedProject?.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
-          else if (selectedProject?.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
+          if (mobileTab === 'goal' && selectedProject?.built?.length) {
+            setExpandedFeature(prev => prev === mobileFeatureIndex ? -1 : mobileFeatureIndex)
+          } else {
+            if (selectedProject?.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
+            else if (selectedProject?.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
+          }
         } else {
           setMobileDetailView(true)
         }
@@ -187,7 +202,7 @@ export const Work = () => {
         else if (selectedProject?.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
       }
     }
-  }, [view, selectedProject, mobileDetailView])
+  }, [view, selectedProject, mobileDetailView, mobileTab, mobileFeatureIndex])
 
   const handleMenu = useCallback(() => {
     if (view === 'nav') {
@@ -214,7 +229,7 @@ export const Work = () => {
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [handleUp, handleDown, handleLeft, handleRight, handleCenter, handleBack, mobileDetailView])
+  }, [handleUp, handleDown, handleLeft, handleRight, handleCenter, handleBack, mobileDetailView, mobileTab, mobileFeatureIndex])
 
   return (
     <section 
@@ -330,12 +345,40 @@ export const Work = () => {
                           
                           <div className="flex flex-col gap-4">
                             {mobileTab === 'overview' && (
-                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
-                                {selectedProject.description ? (
-                                  <p className="font-mono text-[10px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap">{selectedProject.description}</p>
-                                ) : (
-                                  <p className="font-mono text-[10px] text-[var(--text-secondary)] italic">No overview available.</p>
+                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-5">
+                                {selectedProject.description && (
+                                  <div>
+                                    <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-2">Overview</h4>
+                                    <p className="font-mono text-[9px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap">{selectedProject.description}</p>
+                                  </div>
                                 )}
+                                {selectedProject.goal && (
+                                  <div>
+                                    <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-2">The Goal</h4>
+                                    <p className="font-mono text-[9px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap border-l-2 border-[var(--accent-warm)] pl-2">{selectedProject.goal}</p>
+                                  </div>
+                                )}
+                                <div className="grid grid-cols-2 gap-y-4 gap-x-2 mt-2">
+                                  <div>
+                                    <h3 className="font-mono text-[8px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1">Role</h3>
+                                    <p className="font-mono text-[9px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.role}</p>
+                                  </div>
+                                  <div>
+                                    <h3 className="font-mono text-[8px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1">Status</h3>
+                                    <p className="font-mono text-[9px] text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-1">
+                                      <span className={`text-[8px] ${selectedProject.status?.toUpperCase() === 'PRODUCTION' ? 'text-[var(--accent-warm)]' : 'text-green-500'}`}>●</span> 
+                                      {selectedProject.status}
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <h3 className="font-mono text-[8px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1">Period</h3>
+                                    <p className="font-mono text-[9px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.period}</p>
+                                  </div>
+                                  <div>
+                                    <h3 className="font-mono text-[8px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1">Visibility</h3>
+                                    <p className="font-mono text-[9px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.visibility}</p>
+                                  </div>
+                                </div>
                                 {selectedProject.url && (
                                   <a 
                                     href={selectedProject.url}
@@ -350,28 +393,141 @@ export const Work = () => {
                             )}
 
                             {mobileTab === 'goal' && (
-                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
-                                {selectedProject.goal ? (
-                                  <p className="font-mono text-[10px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap">{selectedProject.goal}</p>
-                                ) : (
-                                  <p className="font-mono text-[10px] text-[var(--text-secondary)] italic">No deep dive details.</p>
+                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-6">
+                                {/* What was built */}
+                                {selectedProject.built && selectedProject.built.length > 0 && (
+                                  <div className="flex flex-col gap-3">
+                                    <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-1">What Was Built</h4>
+                                    <div className="flex flex-col gap-2">
+                                      {selectedProject.built.map((item, idx) => (
+                                        <div key={idx} className="flex flex-col border-b border-[var(--border-mid)] last:border-0 pb-2">
+                                          <button 
+                                            onClick={() => {
+                                              setMobileFeatureIndex(idx);
+                                              setExpandedFeature(expandedFeature === idx ? -1 : idx);
+                                            }}
+                                            className="flex items-center justify-between w-full text-left"
+                                          >
+                                            <div className="flex items-center gap-2">
+                                              <span className={`font-mono text-[9px] ${mobileFeatureIndex === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)]'}`}>
+                                                {String(idx + 1).padStart(2, '0')}
+                                              </span>
+                                              <span className={`font-mono text-[9px] font-bold uppercase tracking-wider ${mobileFeatureIndex === idx ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>
+                                                {item.title}
+                                              </span>
+                                            </div>
+                                            <span className={`text-[10px] font-light ${mobileFeatureIndex === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)]'}`}>
+                                              {expandedFeature === idx ? '−' : '+'}
+                                            </span>
+                                          </button>
+                                          
+                                          <AnimatePresence>
+                                            {expandedFeature === idx && (
+                                              <motion.div 
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                className="overflow-hidden"
+                                              >
+                                                <div className="pt-2">
+                                                  {item.description && (
+                                                    <p className="font-mono text-[9px] text-[var(--text-primary)] opacity-80 leading-relaxed pl-5 mb-2">{item.description}</p>
+                                                  )}
+                                                  {item.features && item.features.length > 0 && (
+                                                    <ul className="pl-5 space-y-1">
+                                                      {item.features.map((feat, fidx) => (
+                                                        <li key={fidx} className="font-mono text-[8px] text-[var(--text-secondary)] flex items-start gap-1">
+                                                          <span className="text-[var(--border-mid)] mt-[1px]">—</span>
+                                                          <span className="leading-relaxed">{feat}</span>
+                                                        </li>
+                                                      ))}
+                                                    </ul>
+                                                  )}
+                                                </div>
+                                              </motion.div>
+                                            )}
+                                          </AnimatePresence>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                                
+                                {/* System Architecture */}
+                                {selectedProject.systems && (
+                                  <div className="flex flex-col gap-2">
+                                    <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-1">System Architecture</h4>
+                                    <ul className="space-y-1">
+                                      {selectedProject.systems.map(sys => (
+                                        <li key={sys} className="flex items-center gap-2">
+                                          <span className="text-[var(--accent-warm)] text-[8px]">■</span>
+                                          <span className="font-mono text-[9px] text-[var(--text-primary)] uppercase tracking-wider">{sys}</span>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
                                 )}
                               </motion.div>
                             )}
 
                             {mobileTab === 'stack' && (
-                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
-                                <div className="flex flex-wrap gap-2">
-                                  {(selectedProject.technologies || []).map(tech => (
-                                    <span key={tech} className="font-mono text-[8px] bg-white/5 border border-[var(--border)] px-2 py-1 rounded text-[var(--text-secondary)]">{tech}</span>
-                                  ))}
-                                  {Object.values(selectedProject.stack || {}).flat().map(tech => (
-                                    <span key={tech} className="font-mono text-[8px] bg-white/5 border border-[var(--border)] px-2 py-1 rounded text-[var(--text-secondary)]">{tech}</span>
-                                  ))}
-                                  {!(selectedProject.technologies?.length) && !selectedProject.stack && (
-                                    <p className="font-mono text-[10px] text-[var(--text-secondary)] italic">No tech stack listed.</p>
-                                  )}
-                                </div>
+                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-6">
+                                {selectedProject.stack ? (
+                                  <>
+                                    {Object.entries(selectedProject.stack).map(([groupName, techs]) => {
+                                      if (!techs || techs.length === 0) return null;
+                                      return (
+                                        <div key={groupName} className="flex flex-col gap-3">
+                                          <h4 className="font-mono text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1">{groupName}</h4>
+                                          <div className="grid grid-cols-3 gap-y-4 gap-x-2">
+                                            {techs.map((tech) => {
+                                              const cleanTech = tech.split(' (')[0];
+                                              const iconUrl = getTechIcon(cleanTech);
+                                              return (
+                                                <div key={tech} className="flex flex-col items-center gap-2 w-full">
+                                                  <div className="w-8 h-8 flex items-center justify-center opacity-90">
+                                                    {iconUrl ? (
+                                                      <img src={iconUrl} alt={cleanTech} className="w-6 h-6 object-contain" />
+                                                    ) : (
+                                                      <div className="w-6 h-6 border border-[var(--border)] rounded flex items-center justify-center text-[8px] font-mono text-[var(--text-secondary)]">?</div>
+                                                    )}
+                                                  </div>
+                                                  <span className="font-mono font-semibold text-[8px] text-[var(--text-primary)] text-center uppercase tracking-widest">
+                                                    {tech}
+                                                  </span>
+                                                </div>
+                                              )
+                                            })}
+                                          </div>
+                                        </div>
+                                      )
+                                    })}
+                                  </>
+                                ) : (
+                                  <div className="flex flex-col gap-3">
+                                    <h4 className="font-mono text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1">Technologies</h4>
+                                    <div className="grid grid-cols-3 gap-y-4 gap-x-2">
+                                      {selectedProject.technologies?.map((tech) => {
+                                        const cleanTech = tech.split(' (')[0];
+                                        const iconUrl = getTechIcon(cleanTech);
+                                        return (
+                                          <div key={tech} className="flex flex-col items-center gap-2 w-full">
+                                            <div className="w-8 h-8 flex items-center justify-center opacity-90">
+                                              {iconUrl ? (
+                                                <img src={iconUrl} alt={cleanTech} className="w-6 h-6 object-contain" />
+                                              ) : (
+                                                <div className="w-6 h-6 border border-[var(--border)] rounded flex items-center justify-center text-[8px] font-mono text-[var(--text-secondary)]">?</div>
+                                              )}
+                                            </div>
+                                            <span className="font-mono font-semibold text-[8px] text-[var(--text-primary)] text-center uppercase tracking-widest">
+                                              {tech}
+                                            </span>
+                                          </div>
+                                        )
+                                      })}
+                                    </div>
+                                  </div>
+                                )}
                               </motion.div>
                             )}
                           </div>
