@@ -75,6 +75,7 @@ export const Work = () => {
     
   const [activeCategory, setActiveCategory] = useState('ALL')
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [mobileDetailView, setMobileDetailView] = useState(false)
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
   const [designLightbox, setDesignLightbox] = useState(false)
   const [expandedFeature, setExpandedFeature] = useState<number>(0)
@@ -184,11 +185,11 @@ export const Work = () => {
 
   return (
     <section 
-      className="relative w-full min-h-screen flex items-center justify-center py-[var(--section-py)] px-[var(--section-px)]"
+      className="relative w-full min-h-screen flex items-center justify-center xl:py-[var(--section-py)] xl:px-[var(--section-px)]"
     >
-      <SectionLabel text="03 — WORK" />
+      <div className="hidden xl:block"><SectionLabel text="03 — WORK" /></div>
 
-      <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-16 items-center">
+      <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-0 xl:gap-16 items-center">
         
         {/* LEFT SIDE — Project Navigator (iPod) */}
         <AnimatePresence>
@@ -199,10 +200,10 @@ export const Work = () => {
           className="w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1"
         >
           {/* Device Shell (Original iPod Size) */}
-          <div className="bg-[var(--surface)] border border-[var(--border-mid)] rounded-[3rem] w-full max-w-[540px] h-auto xl:h-[860px] flex flex-col p-6 pb-12 xl:pb-6 shadow-2xl relative transition-all">
+          <div className="bg-[var(--surface)] xl:border border-[var(--border-mid)] rounded-none xl:rounded-[3rem] w-full max-w-full xl:max-w-[540px] h-[100dvh] xl:h-[860px] flex flex-col p-4 xl:p-6 pb-8 xl:pb-6 shadow-none xl:shadow-2xl relative transition-all">
             
             {/* Screen Area */}
-            <div className="w-full h-[360px] xl:h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0 p-4">
+            <div className="w-full flex-1 xl:flex-none xl:h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0 p-4 xl:p-4 pb-2">
               
               {/* Screen reflection/glare */}
               <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none z-20"></div>
@@ -284,7 +285,63 @@ export const Work = () => {
                       </div>
 
                       {/* Navigator Content */}
-                      <div className="flex-1 grid grid-cols-2 gap-4 h-full overflow-hidden">
+                                            {mobileDetailView && selectedProject ? (
+                        <div className="flex flex-col h-full w-full overflow-y-auto no-scrollbar relative z-30 bg-[#0a0a0a] px-1 pb-4">
+                          <button 
+                            onClick={() => setMobileDetailView(false)}
+                            className="sticky top-0 bg-[#0a0a0a]/90 backdrop-blur-sm z-40 py-2 border-b border-[var(--border)] mb-4 flex items-center gap-2 text-[var(--accent-warm)] hover:text-white transition-colors"
+                          >
+                            <span className="font-mono text-[9px] uppercase tracking-widest">← Back</span>
+                          </button>
+                          
+                          <div className="flex flex-col gap-6">
+                            <div>
+                              <h3 className="font-display text-xl text-[var(--text-primary)] mb-1 leading-tight">{selectedProject.title}</h3>
+                              <p className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-wider">{selectedProject.category} · {selectedProject.period}</p>
+                            </div>
+
+                            {selectedProject.description && (
+                              <div>
+                                <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-2">Overview</h4>
+                                <p className="font-mono text-[10px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap">{selectedProject.description}</p>
+                              </div>
+                            )}
+
+                            {selectedProject.goal && (
+                              <div>
+                                <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-2">The Goal</h4>
+                                <p className="font-mono text-[10px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap">{selectedProject.goal}</p>
+                              </div>
+                            )}
+
+                            {selectedProject.stack || selectedProject.technologies ? (
+                              <div>
+                                <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-2">Tech Stack</h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {(selectedProject.technologies || []).map(tech => (
+                                    <span key={tech} className="font-mono text-[8px] bg-white/5 border border-[var(--border)] px-2 py-1 rounded text-[var(--text-secondary)]">{tech}</span>
+                                  ))}
+                                  {Object.values(selectedProject.stack || {}).flat().map(tech => (
+                                    <span key={tech} className="font-mono text-[8px] bg-white/5 border border-[var(--border)] px-2 py-1 rounded text-[var(--text-secondary)]">{tech}</span>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : null}
+
+                            {selectedProject.url && (
+                              <a 
+                                href={selectedProject.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-mono text-[9px] text-black bg-[var(--accent-warm)] py-2 text-center rounded uppercase tracking-widest mt-2 hover:bg-white transition-colors"
+                              >
+                                View Project
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex-1 grid grid-cols-2 gap-4 h-full overflow-hidden">
                         {/* List Column */}
                         <div className="flex flex-col gap-1 overflow-y-auto no-scrollbar pr-2 relative">
                           <div className="absolute left-[15px] top-0 bottom-0 w-px bg-[var(--border)] -z-10" />
@@ -293,7 +350,7 @@ export const Work = () => {
                             return (
                               <button
                                 key={p.id}
-                                onClick={() => setSelectedIndex(idx)}
+                                onClick={() => { setSelectedIndex(idx); if (window.innerWidth < 1280) setMobileDetailView(true); }}
                                 className={`flex items-center gap-4 py-2 group text-left ${isActive ? 'opacity-100' : 'opacity-40 hover:opacity-70'} transition-opacity`}
                               >
                                 <span className={`font-mono text-[9px] tracking-widest w-4 ${isActive ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)]'}`}>
@@ -366,6 +423,7 @@ export const Work = () => {
                           </AnimatePresence>
                         </div>
                       </div>
+                      )} // end mobileDetailView check
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -458,7 +516,7 @@ export const Work = () => {
         </AnimatePresence>
 
         {/* RIGHT SIDE — Dynamic Area (Overview vs Detail) */}
-        <div className="w-full h-auto xl:h-[860px] flex flex-col order-1 xl:order-2 justify-center transition-all duration-700">
+        <div className="w-full h-auto xl:h-[860px] hidden xl:flex flex-col order-1 xl:order-2 justify-center transition-all duration-700">
           <AnimatePresence mode="wait">
             {view === 'idle' && (
               <motion.div
