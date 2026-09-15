@@ -77,9 +77,65 @@ export function Hero() {
       "-=0.5"
     )
 
+    const mm = gsap.matchMedia()
+    
+    mm.add("(min-width: 768px)", () => {
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+        },
+      })
+
+      // Hold phase
+      scrollTl.to({}, { duration: 1 })
+
+      // Exit animations
+      scrollTl.to(buttonRef.current, {
+        opacity: 0,
+        y: 10,
+        duration: 0.5,
+        ease: 'power2.in',
+      }, 1)
+
+      scrollTl.to(contextRef.current, {
+        y: -15,
+        opacity: 0,
+        duration: 1.0,
+        ease: 'power2.in',
+      }, 1.2)
+
+      scrollTl.to(roleRef.current, {
+        y: -20,
+        opacity: 0,
+        duration: 1.0,
+        ease: 'power2.in',
+      }, 1.4)
+
+      scrollTl.to(titleWrapperRef.current, {
+        y: -35,
+        opacity: 0,
+        scale: 0.95,
+        duration: 1.2,
+        ease: 'power2.in',
+      }, 1.6)
+
+      scrollTl.to(labelRef.current, {
+        opacity: 0,
+        x: -10,
+        duration: 0.8,
+        ease: 'power2.in',
+      }, 1.8)
+    })
+
     return () => {
       clearTimeout(startDelay)
       introTl.kill()
+      mm.revert()
     }
   }, [reducedMotion])
 
