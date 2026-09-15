@@ -80,18 +80,21 @@ export function Hero() {
     //   7.0 – 8.8  → COMPOSITION HOLD   (70–88%)  everything visible, near-static
     //   8.8 – 10.0 → EXIT / TRANSITION  (88–100%) graceful departure
     //
-    const scrollTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: wrapper,
-        start: 'top top',
-        end: '+=130%',
-        pin: true,
-        scrub: 1.5,
-        anticipatePin: 1,
-      },
-    })
+    const mm = gsap.matchMedia()
+    
+    mm.add("(min-width: 768px)", () => {
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top top',
+          end: '+=130%',
+          pin: true,
+          scrub: 1.5,
+          anticipatePin: 1,
+        },
+      })
 
-    // ════════════════════════════════════════════
+// ════════════════════════════════════════════
     // PHASE 1: IDENTITY HOLD (0 – 2.0)
     // Nothing moves. The name breathes.
     // Only the anchor has a tiny pulse.
@@ -232,12 +235,33 @@ export function Hero() {
       duration: 1.2,
       ease: 'power2.in',
     }, 9.2)
+    })
+
+    mm.add("(max-width: 767px)", () => {
+      const mobileTl = gsap.timeline({ delay: 2.2 })
+      mobileTl.to(anchorInnerRef.current, { opacity: 0.8, scale: 1.5, duration: 1 })
+      mobileTl.fromTo(roleRef.current,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
+        "-=0.5"
+      )
+      mobileTl.fromTo(contextRef.current,
+        { opacity: 0, y: 10 },
+        { opacity: 0.85, y: 0, duration: 1, ease: 'power3.out' },
+        "-=0.5"
+      )
+      mobileTl.to(anchorRingRef.current, {
+        borderColor: 'rgba(212, 185, 150, 0.4)',
+        boxShadow: '0 0 10px rgba(212, 185, 150, 0.1)',
+        duration: 1
+      }, "-=1")
+    })
 
     return () => {
       clearTimeout(startDelay)
       clearInterval(interval)
       introTl.kill()
-      scrollTl.kill()
+      mm.revert()
     }
   }, [reducedMotion])
 
@@ -291,15 +315,29 @@ export function Hero() {
           {/* Spacer between role and context */}
           <div className="h-6 md:h-8" />
 
+
+
           {/* Context / Education — Tertiary Information */}
           <div
             ref={contextRef}
-            className="font-mono text-[11px] md:text-[12px] font-medium text-[var(--text-primary)] uppercase tracking-[0.08em] opacity-0 will-change-transform flex flex-row flex-wrap items-center justify-center gap-3"
+            className="font-mono text-[11px] md:text-[12px] font-medium text-[var(--text-primary)] uppercase tracking-[0.08em] opacity-0 will-change-transform flex flex-col items-center justify-center gap-1.5 mt-2"
           >
-            <span className="opacity-70">BINUS Undergraduate</span>
-            <span className="text-[var(--text-secondary)] opacity-60 select-none">|</span>
-            <span className="opacity-70">Majoring in Master of Information Technology</span>
+            <span className="opacity-70 text-center">BINUS UNDERGRADUATE MAJORING IN</span>
+            <span className="opacity-70 text-center">MASTER OF INFORMATION TECHNOLOGY</span>
           </div>
+        </div>
+
+                {/* Mobile Navigation Button */}
+        <div className="absolute bottom-[8vh] w-full flex justify-center md:hidden z-30">
+          <button 
+            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+            className="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">Next Section</span>
+            <svg className="w-4 h-4 animate-bounce text-[var(--accent-warm)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </button>
         </div>
 
         {/* Central Circular Anchor — Visual Progress Indicator */}
