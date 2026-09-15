@@ -11,11 +11,15 @@ export function Hero() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const labelRef = useRef<HTMLDivElement>(null)
+  const labelWrapperRef = useRef<HTMLDivElement>(null)
   const titleWrapperRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const roleRef = useRef<HTMLDivElement>(null)
+  const roleWrapperRef = useRef<HTMLDivElement>(null)
   const contextRef = useRef<HTMLDivElement>(null)
+  const contextWrapperRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const buttonWrapperRef = useRef<HTMLDivElement>(null)
         const reducedMotion = useReducedMotion()
 
   const [scrambleText, setScrambleText] = useState("YOHANES WENANTA")
@@ -95,26 +99,12 @@ export function Hero() {
       // Hold phase
       scrollTl.to({}, { duration: 1 })
 
-      // Exit animations with fromTo to fix reverse scrub state
-      scrollTl.fromTo(buttonRef.current, 
-        { opacity: 0.7, y: 0 },
-        { opacity: 0, y: 10, duration: 0.5, ease: 'power2.in', immediateRender: false }, 1)
-
-      scrollTl.fromTo(contextRef.current, 
-        { opacity: 0.85, y: 0 },
-        { y: -15, opacity: 0, duration: 1.0, ease: 'power2.in', immediateRender: false }, 1.2)
-
-      scrollTl.fromTo(roleRef.current, 
-        { opacity: 1, y: 0 },
-        { y: -20, opacity: 0, duration: 1.0, ease: 'power2.in', immediateRender: false }, 1.4)
-
-      scrollTl.fromTo(titleWrapperRef.current, 
-        { opacity: 1, y: 0, scale: 1 },
-        { y: -35, opacity: 0, scale: 0.95, duration: 1.2, ease: 'power2.in', immediateRender: false }, 1.6)
-
-      scrollTl.fromTo(labelRef.current, 
-        { opacity: 0.7, x: 0 },
-        { opacity: 0, x: -10, duration: 0.8, ease: 'power2.in', immediateRender: false }, 1.8)
+      // Exit animations targeting wrappers (avoids conflict with introTl)
+      scrollTl.to(buttonWrapperRef.current, { opacity: 0, y: 10, duration: 0.5, ease: 'power2.in' }, 1)
+      scrollTl.to(contextWrapperRef.current, { y: -15, opacity: 0, duration: 1.0, ease: 'power2.in' }, 1.2)
+      scrollTl.to(roleWrapperRef.current, { y: -20, opacity: 0, duration: 1.0, ease: 'power2.in' }, 1.4)
+      scrollTl.to(titleWrapperRef.current, { y: -35, opacity: 0, scale: 0.95, duration: 1.2, ease: 'power2.in' }, 1.6)
+      scrollTl.to(labelWrapperRef.current, { opacity: 0, x: -10, duration: 0.8, ease: 'power2.in' }, 1.8)
     })
 
     return () => {
@@ -134,13 +124,12 @@ export function Hero() {
         <NoiseBackground />
 
         {/* Section Label — 00 — INTRO */}
-        <div
-          ref={labelRef}
-          className="absolute top-[var(--section-py)] left-[var(--section-px)] z-20 opacity-0"
-        >
-          <span className="font-mono text-xs tracking-widest uppercase text-[var(--accent-cool)]">
-            00 — INTRO
-          </span>
+        <div ref={labelWrapperRef} className="absolute top-[var(--section-py)] left-[var(--section-px)] z-20 will-change-transform">
+          <div ref={labelRef} className="opacity-0">
+            <span className="font-mono text-xs tracking-widest uppercase text-[var(--accent-cool)]">
+              00 — INTRO
+            </span>
+          </div>
         </div>
 
         {/* Main Content Container */}
@@ -160,9 +149,10 @@ export function Hero() {
           <div className="h-4 md:h-6" />
 
           {/* Role — Secondary Information */}
+          <div ref={roleWrapperRef} className="will-change-transform">
           <div
             ref={roleRef}
-            className="font-mono text-[13px] md:text-[15px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.18em] md:tracking-[0.25em] opacity-0 will-change-transform flex flex-wrap justify-center items-center gap-y-1"
+            className="font-mono text-[13px] md:text-[15px] font-semibold text-[var(--text-primary)] uppercase tracking-[0.18em] md:tracking-[0.25em] opacity-0 flex flex-wrap justify-center items-center gap-y-1"
           >
             <span className="opacity-90">Full Stack</span>
             <span className="mx-3 md:mx-6 text-[var(--text-secondary)] opacity-60 select-none">-</span>
@@ -170,6 +160,7 @@ export function Hero() {
             <span className="mx-3 md:mx-6 text-[var(--text-secondary)] opacity-60 select-none">-</span>
             <span className="opacity-90">AI</span>
           </div>
+        </div>
 
           {/* Spacer between role and context */}
           <div className="h-3 md:h-4" />
@@ -177,17 +168,19 @@ export function Hero() {
 
 
           {/* Context / Education — Tertiary Information */}
+          <div ref={contextWrapperRef} className="will-change-transform mt-2">
           <div
             ref={contextRef}
-            className="font-mono text-[11px] md:text-[12px] font-medium text-[var(--text-primary)] uppercase tracking-[0.08em] opacity-0 will-change-transform flex flex-col items-center justify-center gap-1.5 mt-2"
+            className="font-mono text-[11px] md:text-[12px] font-medium text-[var(--text-primary)] uppercase tracking-[0.08em] opacity-0 flex flex-col items-center justify-center gap-1.5"
           >
             <span className="opacity-70 text-center">BINUS UNDERGRADUATE MAJORING IN</span>
             <span className="opacity-70 text-center">MASTER OF INFORMATION TECHNOLOGY</span>
           </div>
         </div>
+        </div>
 
                 {/* Navigation Button */}
-        <div className="absolute bottom-[8vh] w-full flex justify-center z-30">
+        <div ref={buttonWrapperRef} className="absolute bottom-[8vh] w-full flex justify-center z-30 will-change-transform">
           <button 
             ref={buttonRef}
             onClick={() => {
