@@ -158,20 +158,9 @@ export function Hero() {
       4.8
     )
 
-    // Anchor ring: warm border, subtle glow
-    scrollTl.to(anchorRingRef.current, {
-      borderColor: 'rgba(212, 185, 150, 0.4)',
-      boxShadow: '0 0 10px rgba(212, 185, 150, 0.1)',
-      duration: 2.5,
-      ease: 'power2.inOut',
-    }, 4.5)
+    
 
-    // Anchor: small shift
-    scrollTl.to(anchorRef.current, {
-      y: 12,
-      duration: 2.5,
-      ease: 'power2.inOut',
-    }, 4.5)
+    
 
     // ════════════════════════════════════════════
     // PHASE 4: COMPOSITION HOLD (7.0 – 8.8)
@@ -180,13 +169,7 @@ export function Hero() {
     // The user appreciates the full identity.
     // ════════════════════════════════════════════
 
-    // Anchor inner: settle
-    scrollTl.to(anchorInnerRef.current, {
-      scale: 2,
-      opacity: 0.85,
-      duration: 1.8,
-      ease: 'power1.inOut',
-    }, 7)
+    
 
     // ════════════════════════════════════════════
     // PHASE 5: EXIT / TRANSITION (8.8 – 10.0)
@@ -227,19 +210,12 @@ export function Hero() {
       ease: 'power2.in',
     }, 9.0)
 
-    // Anchor: last to go
-    scrollTl.to(anchorRef.current, {
-      y: 20,
-      opacity: 0,
-      scale: 0.7,
-      duration: 1.2,
-      ease: 'power2.in',
-    }, 9.2)
+    
     })
 
     mm.add("(max-width: 767px)", () => {
       const mobileTl = gsap.timeline({ delay: 2.2 })
-      mobileTl.to(anchorInnerRef.current, { opacity: 0.8, scale: 1.5, duration: 1 })
+      
       mobileTl.fromTo(roleRef.current,
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
@@ -250,11 +226,7 @@ export function Hero() {
         { opacity: 0.85, y: 0, duration: 1, ease: 'power3.out' },
         "-=0.5"
       )
-      mobileTl.to(anchorRingRef.current, {
-        borderColor: 'rgba(212, 185, 150, 0.4)',
-        boxShadow: '0 0 10px rgba(212, 185, 150, 0.1)',
-        duration: 1
-      }, "-=1")
+      
     })
 
     return () => {
@@ -291,7 +263,7 @@ export function Hero() {
           <div ref={titleWrapperRef} className="will-change-transform">
             <h1
               ref={titleRef}
-              className="text-hero font-display text-[var(--accent-warm)] leading-[1.1] tracking-tight md:tracking-normal opacity-0 will-change-transform"
+              className="text-hero font-display text-[var(--accent-warm)] leading-[1.1] tracking-wider md:tracking-[0.1em] lg:tracking-[0.15em] opacity-0 will-change-transform"
             >
               {scrambleText}
             </h1>
@@ -327,42 +299,52 @@ export function Hero() {
           </div>
         </div>
 
-                {/* Mobile Navigation Button */}
-        <div className="absolute bottom-[8vh] w-full flex justify-center md:hidden z-30">
+                {/* Navigation Button */}
+        <div className="absolute bottom-[8vh] w-full flex justify-center z-30 opacity-0 animate-[fadeIn_1s_ease-in-out_3s_forwards]">
           <button 
             onClick={() => {
               // @ts-ignore
               if (window.lenis) {
                 // @ts-ignore
-                window.lenis.scrollTo('#about', { duration: 2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
+                window.lenis.scrollTo('#about', { duration: 3.5, easing: (t) => 1 - Math.pow(1 - t, 4) })
               } else {
-                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+                const target = document.getElementById('about');
+                if (target) {
+                  const targetPosition = target.getBoundingClientRect().top + window.scrollY;
+                  const startPosition = window.scrollY;
+                  const distance = targetPosition - startPosition;
+                  let startTime: number | null = null;
+                  const duration = 2000;
+                  
+                  function animation(currentTime: number) {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    const run = ease(timeElapsed, startPosition, distance, duration);
+                    window.scrollTo(0, run);
+                    if (timeElapsed < duration) requestAnimationFrame(animation);
+                  }
+                  
+                  function ease(t: number, b: number, c: number, d: number) {
+                    t /= d / 2;
+                    if (t < 1) return c / 2 * t * t * t * t + b;
+                    t -= 2;
+                    return -c / 2 * (t * t * t * t - 2) + b;
+                  }
+                  
+                  requestAnimationFrame(animation);
+                }
               }
             }}
-            className="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity"
+            className="flex flex-col items-center gap-3 opacity-70 hover:opacity-100 transition-opacity"
           >
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">Tap to explore</span>
-            <svg className="w-4 h-4 animate-bounce text-[var(--accent-warm)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] md:tracking-[0.3em] text-[var(--text-secondary)]">Tap to explore</span>
+            <svg className="w-4 h-4 md:w-5 md:h-5 animate-bounce text-[var(--accent-warm)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </button>
         </div>
 
-        {/* Central Circular Anchor — Visual Progress Indicator */}
-        <div
-          ref={anchorRef}
-          className="absolute bottom-[15vh] md:bottom-[18vh] hidden md:flex items-center justify-center opacity-0 will-change-transform"
-        >
-          <div
-            ref={anchorRingRef}
-            className="w-8 h-8 rounded-full border border-[var(--border-mid)] flex items-center justify-center transition-colors duration-700"
-          >
-            <div
-              ref={anchorInnerRef}
-              className="w-1.5 h-1.5 rounded-full bg-[var(--accent-warm)] opacity-40 will-change-transform"
-            />
-          </div>
-        </div>
+        
       </div>
     </div>
   )
