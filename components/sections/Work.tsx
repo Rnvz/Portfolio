@@ -192,11 +192,13 @@ export const Work = () => {
                   <span className="font-mono text-[10px] text-[var(--text-secondary)] tracking-widest">
                     {String(globalIndex + 1).padStart(2, '0')} / {String(PROJECTS.length).padStart(2, '0')}
                   </span>
-                  <div className="flex gap-1">
+                  <div className="flex items-center gap-1.5">
                     <div className="w-3 h-3 rounded-full border border-[var(--text-secondary)] flex items-center justify-center">
                       <div className="w-1 h-1 bg-[var(--text-secondary)] rounded-full" />
                     </div>
-                    <div className="w-4 h-2 border border-[var(--text-secondary)] rounded-[2px] relative before:absolute before:right-[-2px] before:top-1/2 before:-translate-y-1/2 before:w-[1px] before:h-1 before:bg-[var(--text-secondary)]"></div>
+                    <div className="w-4 h-2.5 border border-[var(--text-secondary)] rounded-[2px] relative flex items-center p-[1px] before:absolute before:right-[-2px] before:top-1/2 before:-translate-y-1/2 before:w-[1.5px] before:h-1 before:bg-[var(--text-secondary)]">
+                      <div className="w-full h-full bg-[var(--text-secondary)] rounded-sm" />
+                    </div>
                   </div>
                 </div>
               </div>
