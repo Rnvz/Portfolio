@@ -254,7 +254,7 @@ export const Work = () => {
 
   return (
     <section 
-      className="relative w-full min-h-screen flex items-center justify-center xl:py-[var(--section-py)] xl:px-[var(--section-px)]"
+      className="relative w-full min-h-screen flex items-center justify-center md:py-[var(--section-py)] md:px-[var(--section-px)]"
     >
       <div className="hidden xl:block"><SectionLabel text="03 — WORK" /></div>
 
@@ -269,10 +269,10 @@ export const Work = () => {
           className="w-full flex justify-center xl:justify-start relative z-10 order-2 xl:order-1"
         >
           {/* Device Shell (Original iPod Size) */}
-          <div className="bg-[var(--surface)] xl:border border-[var(--border-mid)] rounded-none xl:rounded-[3rem] w-full max-w-full xl:max-w-[540px] h-[100dvh] xl:h-[860px] flex flex-col p-4 xl:p-6 pb-8 xl:pb-6 shadow-none xl:shadow-2xl relative transition-all">
+          <div className="bg-[var(--surface)] md:border border-[var(--border-mid)] rounded-none md:rounded-[3rem] w-full max-w-full md:max-w-[540px] h-[100dvh] md:h-[860px] flex flex-col p-4 md:p-6 pb-8 md:pb-6 shadow-none md:shadow-2xl relative transition-all">
             
             {/* Screen Area */}
-            <div className="w-full flex-1 xl:flex-none xl:h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0 p-4 xl:p-4 pb-2">
+            <div className="w-full flex-1 md:flex-none md:h-[440px] bg-[#0a0a0a] rounded-2xl border border-[var(--border)] relative overflow-hidden flex flex-col shadow-inner shrink-0 p-4 pb-2">
               
               {/* Screen reflection/glare */}
               <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none z-20"></div>
@@ -685,7 +685,7 @@ export const Work = () => {
             </div>
 
             {/* Controls Area */}
-            <div className="w-full flex flex-col items-center justify-center pt-6 pb-8 xl:pt-2 xl:pb-24 gap-6 xl:gap-10 shrink-0 xl:flex-1">
+            <div className="w-full flex flex-col items-center justify-center pt-6 pb-8 md:pt-2 md:pb-24 gap-6 md:gap-10 shrink-0 md:flex-1">
               
               {/* MENU & BACK Buttons */}
               <div className="w-full flex justify-center gap-12 md:gap-20">
