@@ -77,7 +77,7 @@ export const Work = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [mobileDetailView, setMobileDetailView] = useState(false)
   const [mobileTab, setMobileTab] = useState<'overview' | 'goal' | 'stack'>('overview')
-  const [mobileFeatureIndex, setMobileFeatureIndex] = useState(0)
+  const [mobileFocusIndex, setMobileFocusIndex] = useState(-1)
   const [detailTab, setDetailTab] = useState<'OVERVIEW' | 'DEEP DIVE' | 'TECH STACK'>('OVERVIEW')
   const [designLightbox, setDesignLightbox] = useState(false)
   const [expandedFeature, setExpandedFeature] = useState<number>(0)
@@ -89,7 +89,7 @@ export const Work = () => {
   useEffect(() => {
     setDetailTab('OVERVIEW')
     setExpandedFeature(0)
-    setMobileFeatureIndex(0)
+    setMobileFocusIndex(-1)
   }, [selectedIndex])
 
   const filteredProjects = useMemo(() => {
@@ -130,11 +130,16 @@ export const Work = () => {
     if (view === 'idle') return
     if (mobileDetailView) {
       if (mobileTab === 'goal' && selectedProject?.built?.length) {
-        setMobileFeatureIndex((prev) => (prev > 0 ? prev - 1 : selectedProject.built!.length - 1))
-      } else {
-        const el = document.getElementById('mobile-detail-container')
-        if (el) el.scrollBy({ top: -60, behavior: 'smooth' })
+        setMobileFocusIndex((prev) => {
+          const next = prev > 0 ? prev - 1 : 0;
+          setTimeout(() => document.getElementById(`feature-${next}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+          return next;
+        })
+      } else if (mobileTab === 'overview') {
+        setMobileFocusIndex(prev => prev > -1 ? prev - 1 : -1)
       }
+      const el = document.getElementById('mobile-detail-container')
+      if (el) el.scrollBy({ top: -60, behavior: 'smooth' })
       return
     }
     setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredProjects.length - 1))
@@ -145,11 +150,19 @@ export const Work = () => {
     if (view === 'idle') return
     if (mobileDetailView) {
       if (mobileTab === 'goal' && selectedProject?.built?.length) {
-        setMobileFeatureIndex((prev) => (prev < selectedProject.built!.length - 1 ? prev + 1 : 0))
-      } else {
-        const el = document.getElementById('mobile-detail-container')
-        if (el) el.scrollBy({ top: 60, behavior: 'smooth' })
+        setMobileFocusIndex((prev) => {
+          const next = prev < selectedProject.built!.length - 1 ? prev + 1 : prev;
+          setTimeout(() => document.getElementById(`feature-${next}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+          return next;
+        })
+      } else if (mobileTab === 'overview') {
+        const maxIndex = (selectedProject?.url ? 1 : 0) + (selectedProject?.designImage ? 1 : 0) - 1;
+        if (maxIndex >= 0) {
+          setMobileFocusIndex(prev => prev < maxIndex ? prev + 1 : prev)
+        }
       }
+      const el = document.getElementById('mobile-detail-container')
+      if (el) el.scrollBy({ top: 60, behavior: 'smooth' })
       return
     }
     setSelectedIndex((prev) => (prev < filteredProjects.length - 1 ? prev + 1 : 0))
@@ -158,7 +171,7 @@ export const Work = () => {
   const handleLeft = useCallback(() => {
     if (view === 'idle') return
     if (mobileDetailView) {
-      setMobileTab(prev => prev === 'stack' ? 'goal' : prev === 'goal' ? 'overview' : 'overview')
+      setMobileTab(prev => { const next = prev === 'stack' ? 'goal' : prev === 'goal' ? 'overview' : 'overview'; setMobileFocusIndex(next === 'goal' ? 0 : -1); return next; })
       return
     }
     setActiveCategory((prev) => {
@@ -171,7 +184,7 @@ export const Work = () => {
   const handleRight = useCallback(() => {
     if (view === 'idle') return
     if (mobileDetailView) {
-      setMobileTab(prev => prev === 'overview' ? 'goal' : prev === 'goal' ? 'stack' : 'stack')
+      setMobileTab(prev => { const next = prev === 'overview' ? 'goal' : prev === 'goal' ? 'stack' : 'stack'; setMobileFocusIndex(next === 'goal' ? 0 : -1); return next; })
       return
     }
     setActiveCategory((prev) => {
@@ -189,20 +202,28 @@ export const Work = () => {
       if (window.innerWidth < 1280) {
         if (mobileDetailView) {
           if (mobileTab === 'goal' && selectedProject?.built?.length) {
-            setExpandedFeature(prev => prev === mobileFeatureIndex ? -1 : mobileFeatureIndex)
-          } else {
-            if (selectedProject?.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
-            else if (selectedProject?.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
+            setExpandedFeature(prev => prev === mobileFocusIndex ? -1 : mobileFocusIndex)
+          } else if (mobileTab === 'overview') {
+            const actions = [];
+            if (selectedProject?.url) actions.push(() => window.open(selectedProject.url, '_blank', 'noopener,noreferrer'));
+            if (selectedProject?.designImage) actions.push(() => setDesignLightbox(true));
+            if (mobileFocusIndex >= 0 && mobileFocusIndex < actions.length) {
+              actions[mobileFocusIndex]();
+            } else if (actions.length > 0) {
+              // Default to first action if center pressed while not focused
+              actions[0]();
+            }
           }
         } else {
           setMobileDetailView(true)
+          setMobileFocusIndex(-1)
         }
       } else {
         if (selectedProject?.url) window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
         else if (selectedProject?.github) window.open(selectedProject.github, '_blank', 'noopener,noreferrer')
       }
     }
-  }, [view, selectedProject, mobileDetailView, mobileTab, mobileFeatureIndex])
+  }, [view, selectedProject, mobileDetailView, mobileTab, mobileFocusIndex])
 
   const handleMenu = useCallback(() => {
     if (view === 'nav') {
@@ -229,7 +250,7 @@ export const Work = () => {
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [handleUp, handleDown, handleLeft, handleRight, handleCenter, handleBack, mobileDetailView, mobileTab, mobileFeatureIndex])
+  }, [handleUp, handleDown, handleLeft, handleRight, handleCenter, handleBack, mobileDetailView, mobileTab, mobileFocusIndex])
 
   return (
     <section 
@@ -337,9 +358,9 @@ export const Work = () => {
                             
                             {/* TABS */}
                             <div className="flex items-center gap-4">
-                              <button onClick={() => setMobileTab('overview')} className={`font-mono text-[9px] uppercase tracking-widest pb-1 border-b ${mobileTab === 'overview' ? 'text-[var(--accent-warm)] border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] border-transparent'}`}>Overview</button>
-                              <button onClick={() => setMobileTab('goal')} className={`font-mono text-[9px] uppercase tracking-widest pb-1 border-b ${mobileTab === 'goal' ? 'text-[var(--accent-warm)] border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] border-transparent'}`}>Deep Dive</button>
-                              <button onClick={() => setMobileTab('stack')} className={`font-mono text-[9px] uppercase tracking-widest pb-1 border-b ${mobileTab === 'stack' ? 'text-[var(--accent-warm)] border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] border-transparent'}`}>Tech Stack</button>
+                              <button onClick={() => { setMobileTab('overview'); setMobileFocusIndex(-1); }} className={`font-mono text-[9px] uppercase tracking-widest pb-1 border-b ${mobileTab === 'overview' ? 'text-[var(--accent-warm)] border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] border-transparent'}`}>Overview</button>
+                              <button onClick={() => { setMobileTab('goal'); setMobileFocusIndex(0); }} className={`font-mono text-[9px] uppercase tracking-widest pb-1 border-b ${mobileTab === 'goal' ? 'text-[var(--accent-warm)] border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] border-transparent'}`}>Deep Dive</button>
+                              <button onClick={() => { setMobileTab('stack'); setMobileFocusIndex(-1); }} className={`font-mono text-[9px] uppercase tracking-widest pb-1 border-b ${mobileTab === 'stack' ? 'text-[var(--accent-warm)] border-[var(--accent-warm)]' : 'text-[var(--text-secondary)] border-transparent'}`}>Tech Stack</button>
                             </div>
                           </div>
                           
@@ -358,7 +379,7 @@ export const Work = () => {
                                     <p className="font-mono text-[9px] text-[var(--text-primary)] leading-relaxed opacity-80 whitespace-pre-wrap border-l-2 border-[var(--accent-warm)] pl-2">{selectedProject.goal}</p>
                                   </div>
                                 )}
-                                <div className="grid grid-cols-2 gap-y-4 gap-x-2 mt-2">
+                                <div className="grid grid-cols-2 gap-y-4 gap-x-8 mt-2 pl-1">
                                   <div>
                                     <h3 className="font-mono text-[8px] font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1">Role</h3>
                                     <p className="font-mono text-[9px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.role}</p>
@@ -379,16 +400,34 @@ export const Work = () => {
                                     <p className="font-mono text-[9px] text-[var(--text-primary)] uppercase tracking-wider">{selectedProject.visibility}</p>
                                   </div>
                                 </div>
-                                {selectedProject.url && (
-                                  <a 
-                                    href={selectedProject.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="font-mono text-[9px] text-black bg-[var(--accent-warm)] py-2 text-center rounded uppercase tracking-widest mt-2 hover:bg-white transition-colors block w-full"
-                                  >
-                                    View Project
-                                  </a>
-                                )}
+                                {(() => {
+                                  const hasUrl = !!selectedProject.url;
+                                  const hasDesign = !!selectedProject.designImage;
+                                  if (!hasUrl && !hasDesign) return null;
+                                  
+                                  return (
+                                    <div className="flex flex-col gap-2 mt-2">
+                                      {hasUrl && (
+                                        <a 
+                                          href={selectedProject.url}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className={`font-mono text-[9px] py-2 text-center rounded uppercase tracking-widest transition-all duration-300 ${mobileFocusIndex === 0 ? 'bg-white text-black scale-[1.02] shadow-[0_0_15px_rgba(255,255,255,0.3)] animate-pulse' : 'bg-[var(--accent-warm)] text-black hover:bg-white'}`}
+                                        >
+                                          View Project
+                                        </a>
+                                      )}
+                                      {hasDesign && (
+                                        <button 
+                                          onClick={() => setDesignLightbox(true)}
+                                          className={`font-mono text-[9px] py-2 text-center rounded uppercase tracking-widest transition-all duration-300 border ${mobileFocusIndex === (hasUrl ? 1 : 0) ? 'border-white text-white bg-white/10 scale-[1.02] shadow-[0_0_15px_rgba(255,255,255,0.2)] animate-pulse' : 'border-[var(--border-mid)] text-[var(--text-primary)] hover:bg-white/5'}`}
+                                        >
+                                          View Design
+                                        </button>
+                                      )}
+                                    </div>
+                                  );
+                                })()}
                               </motion.div>
                             )}
 
@@ -400,23 +439,23 @@ export const Work = () => {
                                     <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-1">What Was Built</h4>
                                     <div className="flex flex-col gap-2">
                                       {selectedProject.built.map((item, idx) => (
-                                        <div key={idx} className="flex flex-col border-b border-[var(--border-mid)] last:border-0 pb-2">
+                                        <div id={`feature-${idx}`} key={idx} className="flex flex-col border-b border-[var(--border-mid)] last:border-0 pb-2">
                                           <button 
                                             onClick={() => {
-                                              setMobileFeatureIndex(idx);
+                                              setMobileFocusIndex(idx);
                                               setExpandedFeature(expandedFeature === idx ? -1 : idx);
                                             }}
                                             className="flex items-center justify-between w-full text-left"
                                           >
                                             <div className="flex items-center gap-2">
-                                              <span className={`font-mono text-[9px] ${mobileFeatureIndex === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)]'}`}>
+                                              <span className={`font-mono text-[9px] ${mobileFocusIndex === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)]'}`}>
                                                 {String(idx + 1).padStart(2, '0')}
                                               </span>
-                                              <span className={`font-mono text-[9px] font-bold uppercase tracking-wider ${mobileFeatureIndex === idx ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>
+                                              <span className={`font-mono text-[9px] font-bold uppercase tracking-wider ${mobileFocusIndex === idx ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}>
                                                 {item.title}
                                               </span>
                                             </div>
-                                            <span className={`text-[10px] font-light ${mobileFeatureIndex === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)]'}`}>
+                                            <span className={`text-[10px] font-light ${mobileFocusIndex === idx ? 'text-[var(--accent-warm)]' : 'text-[var(--text-secondary)]'}`}>
                                               {expandedFeature === idx ? '−' : '+'}
                                             </span>
                                           </button>
