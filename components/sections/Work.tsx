@@ -173,7 +173,7 @@ export const Work = () => {
       if (mobileTab === 'goal' && selectedProject?.built?.length) {
         setMobileFocusIndex((prev) => {
           const next = prev > 0 ? prev - 1 : 0;
-          setTimeout(() => document.getElementById(`feature-${next}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+          setTimeout(() => document.getElementById(`feature-${next}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 50);
           return next;
         })
       } else if (mobileTab === 'overview') {
@@ -193,7 +193,7 @@ export const Work = () => {
       if (mobileTab === 'goal' && selectedProject?.built?.length) {
         setMobileFocusIndex((prev) => {
           const next = prev < selectedProject.built!.length - 1 ? prev + 1 : prev;
-          setTimeout(() => document.getElementById(`feature-${next}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+          setTimeout(() => document.getElementById(`feature-${next}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 50);
           return next;
         })
       } else if (mobileTab === 'overview') {
@@ -243,7 +243,13 @@ export const Work = () => {
       if (window.innerWidth < 1280) {
         if (mobileDetailView) {
           if (mobileTab === 'goal' && selectedProject?.built?.length) {
-            setExpandedFeature(prev => prev === mobileFocusIndex ? -1 : mobileFocusIndex)
+            setExpandedFeature(prev => {
+              const next = prev === mobileFocusIndex ? -1 : mobileFocusIndex;
+              if (next !== -1) {
+                setTimeout(() => document.getElementById(`feature-${next}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+              }
+              return next;
+            })
           } else if (mobileTab === 'overview') {
             const actions = [];
             if (selectedProject?.url) actions.push(() => window.open(selectedProject.url, '_blank', 'noopener,noreferrer'));
@@ -535,7 +541,7 @@ export const Work = () => {
                                     <h4 className="font-mono text-[9px] text-[var(--text-secondary)] uppercase tracking-widest border-b border-[var(--border-mid)] pb-1 mb-1">What Was Built</h4>
                                     <div className="flex flex-col gap-2">
                                       {selectedProject.built.map((item, idx) => (
-                                        <div id={`feature-${idx}`} key={idx} className="flex flex-col border-b border-[var(--border-mid)] last:border-0 pb-2">
+                                        <div id={`feature-${idx}`} key={idx} className="scroll-mt-12 flex flex-col border-b border-[var(--border-mid)] last:border-0 pb-2">
                                           <button 
                                             onClick={() => {
                                               setMobileFocusIndex(idx);
