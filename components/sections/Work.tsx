@@ -93,6 +93,17 @@ export const Work = () => {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  useEffect(() => {
+    if (!mobileDetailView && activeCategory) {
+      const container = document.getElementById('mobile-categories-container')
+      const el = document.getElementById(`cat-mobile-${activeCategory.replace(/\s+/g, '-')}`)
+      if (container && el) {
+        const scrollLeft = el.offsetLeft - container.offsetWidth / 2 + el.offsetWidth / 2
+        container.scrollTo({ left: scrollLeft, behavior: 'smooth' })
+      }
+    }
+  }, [activeCategory, mobileDetailView])
+
   // Lock body scroll when fullscreen iPod is active
   useEffect(() => {
     if (isMobileFullscreen) {
@@ -676,9 +687,10 @@ export const Work = () => {
                       ) : (
                         <>
                         {/* Categories */}
-                      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar mb-6 pb-2 border-b border-[var(--border)] shrink-0">
+                      <div id="mobile-categories-container" className="flex items-center gap-2 overflow-x-auto overscroll-contain no-scrollbar mb-6 pb-2 border-b border-[var(--border)] shrink-0">
                         {CATEGORIES.map(cat => (
                           <button
+                            id={`cat-mobile-${cat.replace(/\s+/g, '-')}`}
                             key={cat}
                             onClick={() => { setActiveCategory(cat); setSelectedIndex(0); }}
                             className={`whitespace-nowrap font-mono text-[9px] uppercase tracking-widest px-3 py-1.5 rounded-full transition-colors ${
